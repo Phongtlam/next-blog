@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import ExternalLinks from '../components/ExternalLinks';
 
 import '../styles/SideBar.scss';
-import ExternalLinks from '../components/ExternalLinks';
 
 const ROUTES = [
   {
