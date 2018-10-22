@@ -26,7 +26,7 @@ const ROUTES = [
 
 const SideBar = props => (
   <div className={`${props.className} App-SideBar`}>
-    <Link to="/">
+    <Link href="/">
       <h1>Phong Lam</h1>
     </Link>
     <p>
@@ -37,9 +37,11 @@ const SideBar = props => (
     </p>
     <div className="App-SideBar-router-group">
       {ROUTES.map(route => (
-        <div className="route">
+        <div className="route" key={route.linkTo}>
           <Link href={route.linkTo}>
-            <a className="route-link">{route.routeName}</a>
+            <button className="route-button" type="button">
+              {route.routeName}
+            </button>
           </Link>
         </div>
       ))}

@@ -1,6 +1,4 @@
 import GetInTouch from '../src/containers/GetInTouch';
-import navBarHoc from '../src/hocs/navBarHoc';
+import AppHOC from '../src/hocs/AppHOC';
 
-const GetInTouchWithNav = navBarHoc(GetInTouch);
-
-export default GetInTouchWithNav;
+export default AppHOC(GetInTouch);

@@ -25,11 +25,13 @@
         margin: 0 5px 0 -15px;
       }
 
-      .route-link {
+      .route-button {
         color: $black;
+        background: none !important;
+        border: none;
       }
 
-      &:hover, .route-link:hover {
+      &:hover, .route-button:hover {
         color: $lightblue;
       }
     }

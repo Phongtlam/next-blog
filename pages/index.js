@@ -1,4 +1,4 @@
-import App from '../src/containers/App';
-import '../src/styles/index.scss';
+import Home from '../src/containers/Home';
+import AppHOC from '../src/hocs/AppHOC';
 
-export default () => <App />;
+export default AppHOC(Home, 'home');

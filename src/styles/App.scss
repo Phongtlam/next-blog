@@ -1,3 +1,5 @@
+@import "./index.scss";
+
 .App {
   display: flex;
 
@@ -7,6 +9,7 @@
     display: flex;
     overflow: hidden;
     flex-direction: column;
+    min-width: 320px;
   }
 
   &-content-container {
