@@ -1,0 +1,398 @@
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-SideBar {
+  padding: 20px;
+  background-color: #000000;
+  height: 100vh; }
+  .App-SideBar h1 {
+    color: #1d39c4; }
+  .App-SideBar-router-group {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px; }
+    .App-SideBar-router-group .route {
+      color: #555555;
+      margin-bottom: 10px; }
+      .App-SideBar-router-group .route::before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 600;
+        content: '\F054';
+        margin: 0 5px 0 -15px; }
+      .App-SideBar-router-group .route .route-link {
+        color: #555555; }
+      .App-SideBar-router-group .route:hover, .App-SideBar-router-group .route .route-link:hover {
+        color: #597ef7; }
+    .App-SideBar-router-group .active, .App-SideBar-router-group .active:hover {
+      font-weight: bold;
+      color: #1d39c4; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-ExternalLinks {
+  display: flex;
+  margin-top: 20px; }
+  .App-ExternalLinks .external-link {
+    border: solid 1px #555555;
+    text-align: center;
+    color: #999999;
+    margin-right: 20px; }
+    .App-ExternalLinks .external-link.sidebar {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      line-height: 40px; }
+    .App-ExternalLinks .external-link.getintouch {
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      line-height: 85px; }
+    .App-ExternalLinks .external-link:hover {
+      color: #1d39c4;
+      border-color: #1d39c4; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-MarkDownForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff; }
+  .App-MarkDownForm.small-size .text-area {
+    height: 300px; }
+  .App-MarkDownForm .header .markdownform-btn {
+    margin-right: 20px; }
+  .App-MarkDownForm .header .text-display {
+    color: #cf1322;
+    margin-left: 20px; }
+  .App-MarkDownForm .header .header-input {
+    width: 400px;
+    margin-right: 10px; }
+  .App-MarkDownForm .text-area {
+    resize: none;
+    max-width: 100%;
+    height: 600px;
+    margin: 20px 0px; }
+  .App-MarkDownForm .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    .App-MarkDownForm .button-group .staging-btn {
+      margin-right: 10px; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-ButtonIcon, .App-ButtonIcon.primary, .App-ButtonIcon.danger {
+  border-radius: 5px;
+  border: 1px solid #597ef7;
+  transition: 0.5s ease;
+  line-height: 1.55;
+  padding: 6px 12px; }
+  .App-ButtonIcon:hover, .App-ButtonIcon.primary:hover, .App-ButtonIcon.danger:hover {
+    background-color: #1d39c4;
+    border-color: #1d39c4; }
+    .App-ButtonIcon:hover .icon, .App-ButtonIcon.primary:hover .icon, .App-ButtonIcon.danger:hover .icon {
+      color: #fff; }
+    .App-ButtonIcon:hover .text, .App-ButtonIcon.primary:hover .text, .App-ButtonIcon.danger:hover .text {
+      color: #fff; }
+  .App-ButtonIcon .icon, .App-ButtonIcon.primary .icon, .App-ButtonIcon.danger .icon {
+    color: #1d39c4;
+    vertical-align: middle; }
+  .App-ButtonIcon .text, .App-ButtonIcon.primary .text, .App-ButtonIcon.danger .text {
+    margin-left: 5px;
+    font-weight: bold;
+    color: #1d39c4; }
+
+.App-ButtonIcon.borderless {
+  border: none;
+  background: transparent; }
+  .App-ButtonIcon.borderless-danger {
+    border: none;
+    background: transparent; }
+    .App-ButtonIcon.borderless-danger .icon {
+      color: #ff4d4f; }
+      .App-ButtonIcon.borderless-danger .icon:hover {
+        color: #cf1322; }
+  .App-ButtonIcon.borderless .icon {
+    color: #597ef7; }
+    .App-ButtonIcon.borderless .icon:hover {
+      color: #1d39c4; }
+
+.App-ButtonIcon.primary, .App-ButtonIcon.danger {
+  border: 1px solid #597ef7;
+  background-color: #597ef7; }
+  .App-ButtonIcon.primary .icon, .App-ButtonIcon.danger .icon {
+    color: #fff; }
+  .App-ButtonIcon.primary .text, .App-ButtonIcon.danger .text {
+    color: #fff; }
+
+.App-ButtonIcon.danger {
+  border: 1px solid #ff4d4f;
+  background-color: #ff4d4f; }
+  .App-ButtonIcon.danger:hover {
+    background-color: #cf1322;
+    border-color: #cf1322; }
+
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-blog-body {
+  display: flex;
+  overflow: auto;
+  max-height: 100vh;
+  flex-direction: column;
+  padding: 20px; }
+  .App-blog-body .single-blog {
+    border-top: solid 1px #555555; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-Home-particles {
+  position: absolute;
+  width: 100%;
+  z-index: -1; }
+
+.App-Home .header-btn {
+  margin-right: 10px; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-PortfolioCard {
+  max-width: 400px;
+  background-color: #fff;
+  display: inline-block;
+  margin: 20px;
+  box-shadow: 0 0 5px #ccc; }
+  .App-PortfolioCard:hover {
+    box-shadow: 0 0 5px #999; }
+    .App-PortfolioCard:hover .action-button {
+      opacity: 1; }
+  .App-PortfolioCard-image-container {
+    position: relative; }
+    .App-PortfolioCard-image-container:hover .button-overlay {
+      opacity: 1; }
+    .App-PortfolioCard-image-container:hover .image {
+      opacity: 0.33; }
+    .App-PortfolioCard-image-container .image {
+      cursor: pointer;
+      width: 400px;
+      transition: 0.5s ease; }
+    .App-PortfolioCard-image-container .button-overlay {
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+  .App-PortfolioCard .content {
+    padding: 20px; }
+  .App-PortfolioCard .action-button {
+    margin-right: 20px;
+    opacity: 0;
+    transition: 0.5s ease; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-Admin {
+  width: 500px;
+  flex-direction: column;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .App-Admin button {
+    display: block;
+    float: right; }
+  .App-Admin-label {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%; }
+    .App-Admin-label input {
+      width: 300px; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-GetInTouch {
+  padding: 20px; }
+  .App-GetInTouch-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px; }
+  .App-GetInTouch-form {
+    display: flex; }
+    .App-GetInTouch-form-controls {
+      width: 100%; }
+    .App-GetInTouch-form .App-ButtonIcon {
+      display: block;
+      float: right; }
+    .App-GetInTouch-form .form-group {
+      margin-bottom: 20px; }
+      .App-GetInTouch-form .form-group .label {
+        display: flex;
+        justify-content: space-between; }
+      .App-GetInTouch-form .form-group .form-control-input {
+        resize: none;
+        width: 600px;
+        margin-left: 20px; }
+        .App-GetInTouch-form .form-group .form-control-input.textarea {
+          height: 200px; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.App-Modal-wrapper {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 100%; }
+
+.App-Modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: solid 1px #555555;
+  background: #fff; }
+  .App-Modal-content .header {
+    height: 50px;
+    line-height: 10px;
+    margin-bottom: 20px;
+    padding: 20px; }
+    .App-Modal-content .header.primary {
+      background-color: #597ef7; }
+    .App-Modal-content .header.danger {
+      background-color: #ff4d4f; }
+    .App-Modal-content .header-message {
+      color: #fff; }
+  .App-Modal-content .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px; }
+
+.App {
+  display: flex; }
+  .App-sidebar-container {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column; }
+  .App-content-container {
+    flex: 5; }
+
+.hidden {
+  display: none !important; }
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  background-color: #f4f4f4; }
+
+textarea:focus, input:focus {
+  outline: none; }
+
+a {
+  text-decoration: none; }
+
+p {
+  color: #999999; }
+
+input, textarea {
+  height: 40px;
+  border: solid 1px #555555;
+  border-radius: 5px;
+  padding: 0px 10px; }
+
+textarea {
+  padding: 10px; }
+
+button, a {
+  cursor: pointer;
+  outline: 0; }
+
+
+/*# sourceMappingURL=styles.chunk.css.map*/

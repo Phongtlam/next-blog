@@ -1,0 +1,26 @@
+@import "./util_variable.scss";
+
+.App-Admin {
+  width: 500px;
+  flex-direction: column;
+
+  padding: $m-spacing;
+
+  @include centering-item();
+
+  button {
+    display: block;
+    float: right;
+  }
+
+  &-label {
+    margin-bottom: $m-spacing;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    input {
+      width: 300px;
+    }
+  }
+}

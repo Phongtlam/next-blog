@@ -1,0 +1,15 @@
+.App {
+  display: flex;
+
+  &-sidebar-container {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  &-content-container {
+    flex: 5;
+  }
+}

@@ -1,0 +1,48 @@
+@import "./util_variable.scss";
+
+.App-MarkDownForm {
+  display: flex;
+  flex-direction: column;
+  padding: $m-spacing;
+  background-color: $white;
+
+  &.small-size {
+    .text-area {
+      height: 300px;
+    }
+  }
+
+  .header {
+    .markdownform-btn {
+      margin-right: $m-spacing;
+    }
+  
+    .text-display {
+      color: $red;
+      margin-left: $m-spacing;
+    }
+
+    .header-input {
+      width: 400px;
+      margin-right: $s-spacing;
+    }
+
+  }
+
+  .text-area {
+    resize: none;
+    max-width: 100%;
+    height: 600px;
+    margin: $m-spacing 0px;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .staging-btn {
+      margin-right: $s-spacing;
+    }
+  }
+}
