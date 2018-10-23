@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { stageFile, publishFile, editFile } from '../utils/fetch';
+import { publishFile, editFile } from '../utils/fetch';
 import '../styles/MarkdownForm.scss';
 import ButtonIcon from './ButtonIcon';
 
 class MarkdownForm extends React.Component {
   static propTypes = {
-    setHtml: PropTypes.func,
+    setAppData: PropTypes.func,
     markdownFormData: PropTypes.shape({
       isOpen: PropTypes.bool,
       type: PropTypes.oneOf(['portfolio', 'post']),
@@ -24,7 +24,7 @@ class MarkdownForm extends React.Component {
   };
 
   static defaultProps = {
-    setHtml: PropTypes.func,
+    setAppData: PropTypes.func,
     className: null,
     markdownFormData: {
       isOpen: false,
@@ -34,8 +34,8 @@ class MarkdownForm extends React.Component {
       order: 0,
       date: '',
       coverImgUrl: '',
-      action: null,
-      _id: null
+      action: '',
+      _id: ''
     },
     loadMarkdownFormData: () => {}
   };
@@ -54,9 +54,7 @@ class MarkdownForm extends React.Component {
     };
 
     this._onChangeInput = this._onChangeInput.bind(this);
-    this._onStagingFile = this._onStagingFile.bind(this);
     this._onPublish = this._onPublish.bind(this);
-    this._onCancelStaging = this._onCancelStaging.bind(this);
     this._onToggleFormSize = this._onToggleFormSize.bind(this);
     this._onResetMarkdownForm = this._onResetMarkdownForm.bind(this);
     this._closeMarkdownForm = this._closeMarkdownForm.bind(this);
@@ -71,10 +69,9 @@ class MarkdownForm extends React.Component {
       date,
       coverImgUrl,
       markdownTexts,
-      _id,
-      action
+      _id
     } = props.markdownFormData;
-    if (_id !== state.internaId && isOpen && action === 'edit') {
+    if (_id !== state.internaId && isOpen) {
       return {
         internaId: _id,
         markDownTitle: title,
@@ -102,7 +99,7 @@ class MarkdownForm extends React.Component {
     }
   }
 
-  _onStagingFile() {
+  _onPublish() {
     const { markDownInput, markDownTitle, coverImgUrl, order } = this.state;
     if (
       markDownInput.length === 0 ||
@@ -117,33 +114,16 @@ class MarkdownForm extends React.Component {
       });
       return;
     }
-    stageFile(
-      {
-        date: new Date(),
-        markdownTexts: markDownInput,
-        title: markDownTitle,
-        coverImgUrl,
-        order
-      },
-      this.props.markdownFormData.type
-    )
-      .then(res => {
-        this.setState({
-          markDownDisplay: res.message
-        });
-        this._onResetMarkdownForm();
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
-  }
-
-  _onPublish() {
-    publishFile({}, this.props.markdownFormData.type)
+    publishFile({
+      date: new Date(),
+      markdownTexts: markDownInput,
+      title: markDownTitle,
+      coverImgUrl,
+      order
+    }, this.props.markdownFormData.type)
       .then(res => {
         if (res.portfolio) {
-          this.props.setHtml(this.props.markdownFormData.type, res.portfolio);
+          this.props.setAppData(this.props.markdownFormData.type, res.portfolio);
         }
         this._closeMarkdownForm();
         this._onResetMarkdownForm();
@@ -168,14 +148,13 @@ class MarkdownForm extends React.Component {
     )
       .then(res => {
         if (res.portfolio) {
-          this.props.setHtml(
+          this.props.setAppData(
             this.props.markdownFormData.type,
             res.portfolio,
             true
           );
         }
         this._closeMarkdownForm();
-        this._onResetMarkdownForm();
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -185,17 +164,6 @@ class MarkdownForm extends React.Component {
 
   _closeMarkdownForm() {
     this.props.loadMarkdownFormData({ isOpen: false });
-    this._onResetMarkdownForm();
-  }
-
-  _onCancelStaging() {
-    stageFile({
-      cancel: 'cancel staging'
-    }).then(res => {
-      this.setState({
-        markDownDisplay: res.message
-      });
-    });
   }
 
   _onResetMarkdownForm() {
@@ -266,15 +234,6 @@ class MarkdownForm extends React.Component {
         <div className="button-group">
           <div className="left">
             <ButtonIcon
-              className={classnames('staging-btn', {
-                hidden: this.props.markdownFormData.action === 'edit'
-              })}
-              callback={this._onStagingFile}
-              iconName="fas fa-file-upload"
-            >
-              Stage Post
-            </ButtonIcon>
-            <ButtonIcon
               callback={
                 this.props.markdownFormData.action === 'edit'
                   ? this._onEditConfirm
@@ -291,13 +250,6 @@ class MarkdownForm extends React.Component {
                 : 'Publish Post'}
             </ButtonIcon>
           </div>
-          <ButtonIcon
-            callback={this._onCancelStaging}
-            iconName="fas fa-ban"
-            buttonType="danger"
-          >
-            Cancel Staging
-          </ButtonIcon>
         </div>
       </div>
     );

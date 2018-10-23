@@ -13,12 +13,6 @@ const _onImageClick = (projectTitle, projectData) => {
   history.push(`/Home/${projectTitle}`, { ...projectData });
 };
 
-const _onEdit = (projectTitle, projectData) => {
-  history.push(`/Home/${projectTitle}/edit`, {
-    ...projectData
-  });
-};
-
 const _onDelete = project => deleteFile(project, 'portfolio');
 
 const PortfolioCard = ({

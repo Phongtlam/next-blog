@@ -23,8 +23,6 @@ const putApi = (body, route) => api(body, 'PUT', route);
 
 const deleteApi = (body, route) => api(body, 'DELETE', route);
 
-export const stageFile = (body, type) => postApi(body, `/${type}/stage`);
-
 export const publishFile = (body, type) => postApi(body, `/${type}/publish`);
 
 export const editFile = (body, type) => putApi(body, `/${type}/edit`);

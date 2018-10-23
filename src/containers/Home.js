@@ -20,7 +20,12 @@ const Home = props => {
           buttonType="primary"
           iconName="fas fa-plus"
           callback={() => {
-            loadMarkdownFormData({ isOpen: true, type: 'portfolio' });
+            loadMarkdownFormData({
+              isOpen: true,
+              type: 'portfolio',
+              order: appData.length + 1,
+              _id: '-1'
+            });
           }}
         >
           Create
@@ -42,7 +47,7 @@ const Home = props => {
 
 Home.propTypes = {
   appData: PropTypes.arrayOf(PropTypes.shape(fileDataShape)),
-  setHtml: PropTypes.func,
+  setAppData: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
   className: PropTypes.string,
   loadModalData: PropTypes.func
@@ -50,7 +55,7 @@ Home.propTypes = {
 
 Home.defaultProps = {
   appData: [],
-  setHtml: PropTypes.func,
+  setAppData: PropTypes.func,
   className: null,
   loadModalData: () => {},
   loadMarkdownFormData: () => {}

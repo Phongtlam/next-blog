@@ -58,11 +58,15 @@ const SideBar = props => (
 );
 
 SideBar.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  router: PropTypes.shape({
+    route: PropTypes.string
+  })
 };
 
 SideBar.defaultProps = {
-  className: ''
+  className: '',
+  router: {}
 };
 
 export default withRouter(SideBar);

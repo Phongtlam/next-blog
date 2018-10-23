@@ -14,7 +14,9 @@ const INITIAL_MODAL_DATA = {
   message: '',
   confirmText: 'Confirm',
   rejectText: 'Cancel',
-  callback: null,
+  callback: () => {},
+  resolver: Promise,
+  rejecter: () => {},
   type: 'primary'
 };
 
@@ -28,7 +30,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         modalData: INITIAL_MODAL_DATA,
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA
       };
-      this._setHtml = this._setHtml.bind(this);
+      this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
     }
@@ -83,7 +85,7 @@ const AppHOC = (WrappedComponent, componentType) =>
       });
     }
 
-    _setHtml(type, htmlsData, editMode = false) {
+    _setAppData(type, htmlsData, editMode = false) {
       const htmlType = type === 'portfolio' ? 'portfolioData' : 'blogData';
       if (editMode) {
         const indexToReplace = this.state[htmlType].findIndex(
@@ -107,7 +109,7 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     _injectComponentProps(type) {
       let dataProps = {
-        setHtml: this._setHtml,
+        setAppData: this._setAppData,
         loadModalData: this._loadModalData,
         loadMarkdownFormData: this._loadMarkdownFormData,
         appData: {}
@@ -144,7 +146,7 @@ const AppHOC = (WrappedComponent, componentType) =>
             <div className="App-main-content-container">
               <MarkdownForm
                 loadMarkdownFormData={this._loadMarkdownFormData}
-                setHtml={this._setHtml}
+                setAppData={this._setAppData}
                 markdownFormData={this.state.markdownFormData}
               />
               {this._injectComponentProps(componentType)}

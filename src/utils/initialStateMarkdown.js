@@ -1,6 +1,6 @@
 export default {
   isOpen: false,
-  type: '',
+  type: 'portfolio',
   markdownTexts: '',
   title: '',
   order: 0,

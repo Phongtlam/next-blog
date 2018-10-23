@@ -11,12 +11,12 @@ import HtmlParser from '../components/HtmlParser';
 class Blog extends React.Component {
   static propTypes = {
     blogData: PropTypes.arrayOf(PropTypes.object),
-    setHtml: PropTypes.func
+    setAppData: PropTypes.func
   };
 
   static defaultProps = {
     blogData: [],
-    setHtml: PropTypes.func
+    setAppData: PropTypes.func
   };
 
   constructor(props) {
@@ -51,7 +51,7 @@ class Blog extends React.Component {
         >
           <MarkDownForm
             onToggleMarkDownForm={this._onToggleMarkDownForm}
-            setHtmlBody={this.props.setHtml}
+            setAppDataBody={this.props.setAppData}
             type="post"
           />
         </div>
