@@ -34,11 +34,14 @@
       &:hover, .route-button:hover {
         color: $lightblue;
       }
-    }
 
-    .active, .active:hover {
-      font-weight: bold;
-      color: $blue;
+      &.active, &.active .route-button, &.active .route-button:hover {
+        color: $blue;
+
+        &.route-button {
+          font-weight: bold;
+        }
+      }
     }
   }
 }

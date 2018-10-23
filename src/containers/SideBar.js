@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import classnames from 'classnames';
+import { withRouter } from 'next/router';
 import ExternalLinks from '../components/ExternalLinks';
 
 import '../styles/SideBar.scss';
@@ -37,7 +39,12 @@ const SideBar = props => (
     </p>
     <div className="App-SideBar-router-group">
       {ROUTES.map(route => (
-        <div className="route" key={route.linkTo}>
+        <div
+          className={classnames('route', {
+            active: props.router.route === route.linkTo
+          })}
+          key={route.linkTo}
+        >
           <Link href={route.linkTo}>
             <button className="route-button" type="button">
               {route.routeName}
@@ -58,4 +65,4 @@ SideBar.defaultProps = {
   className: ''
 };
 
-export default SideBar;
+export default withRouter(SideBar);

@@ -2,29 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { stageFile, publishFile, editFile } from '../utils/fetch';
-import '../styles/MarkDownForm.scss';
+import '../styles/MarkdownForm.scss';
 import ButtonIcon from './ButtonIcon';
-import { fileDataShape } from '../utils/propTypesShapes';
 
-class MarkDownForm extends React.Component {
+class MarkdownForm extends React.Component {
   static propTypes = {
-    setHtmlBody: PropTypes.func,
-    action: PropTypes.string,
-    onMarkDownFormClose: PropTypes.func.isRequired,
-    className: PropTypes.string,
-    type: PropTypes.oneOf(['portfolio', 'post']),
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string.isRequired,
-      state: PropTypes.shape(fileDataShape)
-    }).isRequired
+    setHtml: PropTypes.func,
+    markdownFormData: PropTypes.shape({
+      isOpen: PropTypes.bool,
+      type: PropTypes.oneOf(['portfolio', 'post']),
+      action: PropTypes.string,
+      markdownTexts: PropTypes.string,
+      order: PropTypes.number,
+      date: PropTypes.string,
+      coverImgUrl: PropTypes.string,
+      title: PropTypes.string,
+      _id: PropTypes.string
+    }),
+    loadMarkdownFormData: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
-    setHtmlBody: PropTypes.func,
+    setHtml: PropTypes.func,
     className: null,
-    type: 'portfolio',
-    action: null
+    markdownFormData: {
+      isOpen: false,
+      type: 'portfolio',
+      markdownTexts: '',
+      title: '',
+      order: 0,
+      date: '',
+      coverImgUrl: '',
+      action: null,
+      _id: null
+    },
+    loadMarkdownFormData: () => {}
   };
 
   constructor(props) {
@@ -37,7 +50,7 @@ class MarkDownForm extends React.Component {
       order: 0,
       isLargeSize: false,
       // eslint-disable-next-line react/no-unused-state
-      internalKey: ''
+      internaId: ''
     };
 
     this._onChangeInput = this._onChangeInput.bind(this);
@@ -45,22 +58,31 @@ class MarkDownForm extends React.Component {
     this._onPublish = this._onPublish.bind(this);
     this._onCancelStaging = this._onCancelStaging.bind(this);
     this._onToggleFormSize = this._onToggleFormSize.bind(this);
-    this._onResetMarkDownForm = this._onResetMarkDownForm.bind(this);
+    this._onResetMarkdownForm = this._onResetMarkdownForm.bind(this);
+    this._closeMarkdownForm = this._closeMarkdownForm.bind(this);
+    this._onEditConfirm = this._onEditConfirm.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (
-      props.key !== state.internalKey &&
-      props.location &&
-      props.location.state
-    ) {
-      const { markdownTexts, title, coverImgUrl, order } = props.location.state;
+    const {
+      isOpen,
+      title,
+      order,
+      date,
+      coverImgUrl,
+      markdownTexts,
+      _id,
+      action
+    } = props.markdownFormData;
+    if (_id !== state.internaId && isOpen && action === 'edit') {
       return {
-        internalKey: props.key,
-        markDownInput: markdownTexts,
+        internaId: _id,
         markDownTitle: title,
+        markDownInput: markdownTexts,
+        order,
+        date,
         coverImgUrl,
-        order
+        _id
       };
     }
     return null;
@@ -103,13 +125,13 @@ class MarkDownForm extends React.Component {
         coverImgUrl,
         order
       },
-      this.props.type
+      this.props.markdownFormData.type
     )
       .then(res => {
         this.setState({
           markDownDisplay: res.message
         });
-        this._onResetMarkDownForm();
+        this._onResetMarkdownForm();
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -118,38 +140,52 @@ class MarkDownForm extends React.Component {
   }
 
   _onPublish() {
-    const { markDownInput, markDownTitle, coverImgUrl, order } = this.state;
-    let postAction = publishFile;
-    let postBody = {};
-    if (this.props.action === 'edit') {
-      postAction = editFile;
-      postBody = {
-        _id: this.props.location.state._id,
-        markdownTexts: markDownInput,
-        title: markDownTitle,
-        coverImgUrl,
-        order
-      };
-    }
-    postAction(postBody, this.props.type)
+    publishFile({}, this.props.markdownFormData.type)
       .then(res => {
         if (res.portfolio) {
-          this.props.setHtmlBody(
-            this.props.type,
-            res.portfolio,
-            this.props.action === 'edit'
-          );
+          this.props.setHtml(this.props.markdownFormData.type, res.portfolio);
         }
-        this.setState({
-          markDownDisplay: res.message
-        });
-        this._onResetMarkDownForm();
-        history.goBack();
+        this._closeMarkdownForm();
+        this._onResetMarkdownForm();
       })
       .catch(err => {
         // eslint-disable-next-line no-console
         console.error(err);
       });
+  }
+
+  _onEditConfirm() {
+    const { markDownInput, markDownTitle, coverImgUrl, order } = this.state;
+    editFile(
+      {
+        _id: this.props.markdownFormData._id,
+        markdownTexts: markDownInput,
+        title: markDownTitle,
+        coverImgUrl,
+        order
+      },
+      this.props.markdownFormData.type
+    )
+      .then(res => {
+        if (res.portfolio) {
+          this.props.setHtml(
+            this.props.markdownFormData.type,
+            res.portfolio,
+            true
+          );
+        }
+        this._closeMarkdownForm();
+        this._onResetMarkdownForm();
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
+  }
+
+  _closeMarkdownForm() {
+    this.props.loadMarkdownFormData({ isOpen: false });
+    this._onResetMarkdownForm();
   }
 
   _onCancelStaging() {
@@ -162,7 +198,7 @@ class MarkDownForm extends React.Component {
     });
   }
 
-  _onResetMarkDownForm() {
+  _onResetMarkdownForm() {
     this.setState({
       markDownInput: '',
       markDownTitle: '',
@@ -178,16 +214,15 @@ class MarkDownForm extends React.Component {
   render() {
     return (
       <div
-        className={classnames('App-MarkDownForm', this.props.className, {
-          'small-size': this.state.isLargeSize
+        className={classnames('App-MarkdownForm', this.props.className, {
+          'small-size': this.state.isLargeSize,
+          hidden: !this.props.markdownFormData.isOpen
         })}
       >
         <div className="header">
           <ButtonIcon
             className="markdownform-btn"
-            callback={() => {
-              this.props.onMarkDownFormClose();
-            }}
+            callback={this._closeMarkdownForm}
             iconName="fas fa-times"
             iconSize="2x"
           />
@@ -232,7 +267,7 @@ class MarkDownForm extends React.Component {
           <div className="left">
             <ButtonIcon
               className={classnames('staging-btn', {
-                hidden: this.props.action === 'edit'
+                hidden: this.props.markdownFormData.action === 'edit'
               })}
               callback={this._onStagingFile}
               iconName="fas fa-file-upload"
@@ -240,14 +275,20 @@ class MarkDownForm extends React.Component {
               Stage Post
             </ButtonIcon>
             <ButtonIcon
-              callback={this._onPublish}
+              callback={
+                this.props.markdownFormData.action === 'edit'
+                  ? this._onEditConfirm
+                  : this._onPublish
+              }
               iconName={
-                this.props.action === 'edit'
+                this.props.markdownFormData.action === 'edit'
                   ? 'fas fa-save'
                   : 'fas fa-file-import'
               }
             >
-              {this.props.action === 'edit' ? 'Save Edit' : 'Publish Post'}
+              {this.props.markdownFormData.action === 'edit'
+                ? 'Save Edit'
+                : 'Publish Post'}
             </ButtonIcon>
           </div>
           <ButtonIcon
@@ -263,4 +304,4 @@ class MarkDownForm extends React.Component {
   }
 }
 
-export default MarkDownForm;
+export default MarkdownForm;

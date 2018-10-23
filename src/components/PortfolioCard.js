@@ -22,9 +22,9 @@ const _onEdit = (projectTitle, projectData) => {
 const _onDelete = project => deleteFile(project, 'portfolio');
 
 const PortfolioCard = ({
-  onOpenMarkDownEdit,
   cardData,
   loadModalData,
+  loadMarkdownFormData,
   cardData: { coverImgUrl, title, markdownTexts }
 }) => (
   <div className="App-PortfolioCard">
@@ -52,8 +52,12 @@ const PortfolioCard = ({
       <ButtonIcon
         className="action-button"
         callback={() => {
-          onOpenMarkDownEdit(true);
-          _onEdit(title, cardData);
+          loadMarkdownFormData({
+            isOpen: true,
+            action: 'edit',
+            type: 'portfolio',
+            ...cardData
+          });
         }}
         iconName="fas fa-edit"
         buttonType="borderless"
@@ -83,14 +87,14 @@ const PortfolioCard = ({
 
 PortfolioCard.propTypes = {
   cardData: PropTypes.shape(fileDataShape),
-  onOpenMarkDownEdit: PropTypes.func,
-  loadModalData: PropTypes.func
+  loadModalData: PropTypes.func,
+  loadMarkdownFormData: PropTypes.func
 };
 
 PortfolioCard.defaultProps = {
   cardData: {},
-  onOpenMarkDownEdit: PropTypes.func,
-  loadModalData: PropTypes.func
+  loadModalData: () => {},
+  loadMarkdownFormData: () => {}
 };
 
 export default PortfolioCard;

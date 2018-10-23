@@ -6,6 +6,8 @@ import { fetchAll } from '../utils/fetch';
 import '../styles/App.scss';
 
 import Modal from '../components/Modal';
+import MarkdownForm from '../components/MarkdownForm';
+import INITIAL_MARKDOWN_FORM_DATA from '../utils/initialStateMarkdown';
 
 const INITIAL_MODAL_DATA = {
   isOpen: false,
@@ -23,10 +25,12 @@ const AppHOC = (WrappedComponent, componentType) =>
       this.state = {
         portfolioData: [],
         blogData: [],
-        modalData: INITIAL_MODAL_DATA
+        modalData: INITIAL_MODAL_DATA,
+        markdownFormData: INITIAL_MARKDOWN_FORM_DATA
       };
       this._setHtml = this._setHtml.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
+      this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
     }
 
     componentDidMount() {
@@ -70,6 +74,15 @@ const AppHOC = (WrappedComponent, componentType) =>
       });
     }
 
+    _loadMarkdownFormData(markdownData) {
+      this.setState({
+        markdownFormData: {
+          ...INITIAL_MARKDOWN_FORM_DATA,
+          ...markdownData
+        }
+      });
+    }
+
     _setHtml(type, htmlsData, editMode = false) {
       const htmlType = type === 'portfolio' ? 'portfolioData' : 'blogData';
       if (editMode) {
@@ -96,6 +109,7 @@ const AppHOC = (WrappedComponent, componentType) =>
       let dataProps = {
         setHtml: this._setHtml,
         loadModalData: this._loadModalData,
+        loadMarkdownFormData: this._loadMarkdownFormData,
         appData: {}
       };
       switch (type) {
@@ -127,7 +141,14 @@ const AppHOC = (WrappedComponent, componentType) =>
           <div className="App">
             <Modal modalData={this.state.modalData} />
             <SideBar className="App-sidebar-container" />
-            {this._injectComponentProps(componentType)}
+            <div className="App-main-content-container">
+              <MarkdownForm
+                loadMarkdownFormData={this._loadMarkdownFormData}
+                setHtml={this._setHtml}
+                markdownFormData={this.state.markdownFormData}
+              />
+              {this._injectComponentProps(componentType)}
+            </div>
           </div>
         </React.Fragment>
       );
