@@ -114,16 +114,22 @@ class MarkdownForm extends React.Component {
       });
       return;
     }
-    publishFile({
-      date: new Date(),
-      markdownTexts: markDownInput,
-      title: markDownTitle,
-      coverImgUrl,
-      order
-    }, this.props.markdownFormData.type)
+    publishFile(
+      {
+        date: new Date(),
+        markdownTexts: markDownInput,
+        title: markDownTitle,
+        coverImgUrl,
+        order
+      },
+      this.props.markdownFormData.type
+    )
       .then(res => {
         if (res.portfolio) {
-          this.props.setAppData(this.props.markdownFormData.type, res.portfolio);
+          this.props.setAppData(
+            this.props.markdownFormData.type,
+            res.portfolio
+          );
         }
         this._closeMarkdownForm();
         this._onResetMarkdownForm();

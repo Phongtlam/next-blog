@@ -4,10 +4,10 @@ $sidebar-width-container: 17%;
 
 .App {
   display: flex;
+  height: 100vh;
 
   &-sidebar-container {
     flex: 1;
-    height: 100vh;
     display: flex;
     overflow: hidden;
     flex-direction: column;
@@ -15,7 +15,8 @@ $sidebar-width-container: 17%;
     max-width: $sidebar-width-container;
   }
 
-  &-content-container {
+  &-main-content-container {
     flex: 5;
+    overflow: scroll;
   }
 }

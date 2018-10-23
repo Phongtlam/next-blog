@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import showdown from 'showdown';
 
 import '../styles/PortfolioCard.scss';
 import ButtonIcon from './ButtonIcon';
+import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { deleteFile } from '../utils/fetch';
-
-const converter = new showdown.Converter();
-
-const _onImageClick = (projectTitle, projectData) => {
-  history.push(`/Home/${projectTitle}`, { ...projectData });
-};
 
 const _onDelete = project => deleteFile(project, 'portfolio');
 
@@ -19,6 +13,7 @@ const PortfolioCard = ({
   cardData,
   loadModalData,
   loadMarkdownFormData,
+  loadHtmlParser,
   cardData: { coverImgUrl, title, markdownTexts }
 }) => (
   <div className="App-PortfolioCard">
@@ -26,10 +21,10 @@ const PortfolioCard = ({
       className="App-PortfolioCard-image-container"
       role="button"
       onClick={() => {
-        _onImageClick(title, cardData);
+        loadHtmlParser(markdownTexts);
       }}
       onKeyDown={() => {
-        _onImageClick(title, cardData);
+        loadHtmlParser(markdownTexts);
       }}
       tabIndex={0}
     >
@@ -69,12 +64,7 @@ const PortfolioCard = ({
         buttonType="borderless-danger"
       />
       <h3>{title}</h3>
-      <div
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: converter.makeHtml(markdownTexts.split('<!--more-->')[0])
-        }}
-      />
+      <HtmlParser htmlParserData={markdownTexts.split('<!--more-->')[0]} />
     </div>
   </div>
 );
@@ -82,13 +72,15 @@ const PortfolioCard = ({
 PortfolioCard.propTypes = {
   cardData: PropTypes.shape(fileDataShape),
   loadModalData: PropTypes.func,
-  loadMarkdownFormData: PropTypes.func
+  loadMarkdownFormData: PropTypes.func,
+  loadHtmlParser: PropTypes.func
 };
 
 PortfolioCard.defaultProps = {
   cardData: {},
   loadModalData: () => {},
-  loadMarkdownFormData: () => {}
+  loadMarkdownFormData: () => {},
+  loadHtmlParser: () => {}
 };
 
 export default PortfolioCard;

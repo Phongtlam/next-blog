@@ -7,6 +7,7 @@ import '../styles/App.scss';
 
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
+import HtmlParser from '../components/HtmlParser';
 import INITIAL_MARKDOWN_FORM_DATA from '../utils/initialStateMarkdown';
 
 const INITIAL_MODAL_DATA = {
@@ -28,11 +29,13 @@ const AppHOC = (WrappedComponent, componentType) =>
         portfolioData: [],
         blogData: [],
         modalData: INITIAL_MODAL_DATA,
-        markdownFormData: INITIAL_MARKDOWN_FORM_DATA
+        markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
+        htmlParserData: ''
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
+      this._loadHtmlParser = this._loadHtmlParser.bind(this);
     }
 
     componentDidMount() {
@@ -112,6 +115,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         setAppData: this._setAppData,
         loadModalData: this._loadModalData,
         loadMarkdownFormData: this._loadMarkdownFormData,
+        loadHtmlParser: this._loadHtmlParser,
         appData: {}
       };
       switch (type) {
@@ -125,8 +129,27 @@ const AppHOC = (WrappedComponent, componentType) =>
           dataProps = {};
       }
       return (
-        <WrappedComponent {...dataProps} className="App-content-container" />
+        <React.Fragment>
+          {componentType && (
+            <React.Fragment>
+              <Modal modalData={this.state.modalData} />
+              <MarkdownForm
+                loadMarkdownFormData={this._loadMarkdownFormData}
+                setAppData={this._setAppData}
+                markdownFormData={this.state.markdownFormData}
+              />
+              <HtmlParser htmlParserData={this.state.htmlParserData} />
+            </React.Fragment>
+          )}
+          <WrappedComponent {...dataProps} className="App-content-container" />
+        </React.Fragment>
       );
+    }
+
+    _loadHtmlParser(markdownText) {
+      this.setState({
+        htmlParserData: markdownText
+      });
     }
 
     render() {
@@ -141,14 +164,8 @@ const AppHOC = (WrappedComponent, componentType) =>
             />
           </Head>
           <div className="App">
-            <Modal modalData={this.state.modalData} />
             <SideBar className="App-sidebar-container" />
             <div className="App-main-content-container">
-              <MarkdownForm
-                loadMarkdownFormData={this._loadMarkdownFormData}
-                setAppData={this._setAppData}
-                markdownFormData={this.state.markdownFormData}
-              />
               {this._injectComponentProps(componentType)}
             </div>
           </div>
