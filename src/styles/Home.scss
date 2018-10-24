@@ -2,6 +2,8 @@
 
 .App-Home {
   &-header {
-    
+    position: absolute;
+    top: 0;
+    @include appzindex("small");
   }
 }

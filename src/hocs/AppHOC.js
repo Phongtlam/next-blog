@@ -111,6 +111,14 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _injectComponentProps(type) {
+      const {
+        portfolioData,
+        markdownFormData,
+        blogData,
+        modalData,
+        htmlParserData
+      } = this.state;
+
       let dataProps = {
         setAppData: this._setAppData,
         loadModalData: this._loadModalData,
@@ -120,10 +128,12 @@ const AppHOC = (WrappedComponent, componentType) =>
       };
       switch (type) {
         case 'home':
-          dataProps.appData = this.state.portfolioData;
+          dataProps.appData = portfolioData;
+          dataProps.isCreateBtnHidden = markdownFormData.isOpen || htmlParserData !== '';
+          dataProps.isBackBtnHidden = htmlParserData === '';
           break;
         case 'blog':
-          dataProps.appData = this.state.blogData;
+          dataProps.appData = blogData;
           break;
         default:
           dataProps = {};
@@ -132,13 +142,13 @@ const AppHOC = (WrappedComponent, componentType) =>
         <React.Fragment>
           {componentType && (
             <React.Fragment>
-              <Modal modalData={this.state.modalData} />
+              <Modal modalData={modalData} />
               <MarkdownForm
                 loadMarkdownFormData={this._loadMarkdownFormData}
                 setAppData={this._setAppData}
-                markdownFormData={this.state.markdownFormData}
+                markdownFormData={markdownFormData}
               />
-              <HtmlParser htmlParserData={this.state.htmlParserData} />
+              <HtmlParser htmlParserData={htmlParserData} />
             </React.Fragment>
           )}
           <WrappedComponent {...dataProps} className="App-content-container" />

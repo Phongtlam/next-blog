@@ -14,14 +14,18 @@ const Home = props => {
     className,
     loadMarkdownFormData,
     loadModalData,
-    loadHtmlParser
+    loadHtmlParser,
+    isCreateBtnHidden,
+    isBackBtnHidden
   } = props;
   return (
     <div className={classnames('App-Home', className)}>
       <ParticlesWrapper />
       <div className="App-Home-header">
         <ButtonIcon
-          className={classnames('header-btn')}
+          className={classnames({
+            hidden: isCreateBtnHidden
+          })}
           buttonType="primary"
           iconName="fas fa-plus"
           callback={() => {
@@ -35,8 +39,22 @@ const Home = props => {
         >
           Create
         </ButtonIcon>
+        <ButtonIcon
+          className={classnames({
+            hidden: isBackBtnHidden
+          })}
+          buttonType="primary"
+          callback={() => {
+            loadHtmlParser('');
+          }}
+          iconName="fas fa-chevron-left"
+        >
+          Back
+        </ButtonIcon>
       </div>
-      <div className="App-Home-content">
+      <div className={classnames('App-Home-content', {
+        hidden: !isBackBtnHidden
+      })}>
         {appData.map(datum => (
           <PortfolioCard
             key={datum._id}
@@ -57,7 +75,9 @@ Home.propTypes = {
   loadHtmlParser: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
   className: PropTypes.string,
-  loadModalData: PropTypes.func
+  loadModalData: PropTypes.func,
+  isCreateBtnHidden: PropTypes.bool,
+  isBackBtnHidden: PropTypes.bool
 };
 
 Home.defaultProps = {
@@ -66,7 +86,9 @@ Home.defaultProps = {
   loadHtmlParser: () => {},
   className: null,
   loadModalData: () => {},
-  loadMarkdownFormData: () => {}
+  loadMarkdownFormData: () => {},
+  isCreateBtnHidden: false,
+  isBackBtnHidden: false
 };
 
 export default Home;
