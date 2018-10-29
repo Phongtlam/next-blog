@@ -173,6 +173,7 @@ const AppHOC = (WrappedComponent, componentType) =>
               integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
               crossOrigin="anonymous"
             />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           </Head>
           <div className="App">
             <SideBar className="App-sidebar-container" />
