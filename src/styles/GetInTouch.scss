@@ -1,7 +1,7 @@
 @import "./util_variable.scss";
 
 .App-GetInTouch {
-  padding: $m-spacing;
+  @include static-container();
 
   &-header {
     display: flex;

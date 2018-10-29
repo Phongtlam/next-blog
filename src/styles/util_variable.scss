@@ -33,6 +33,11 @@ $transition: .5s ease;
   height: $diameter;
 }
 
+@mixin static-container {
+  padding: $m-spacing;
+  width: 66.66666%;  
+}
+
 .hidden {
   display: none !important;
 }

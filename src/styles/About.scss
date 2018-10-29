@@ -1,0 +1,10 @@
+@import "./util_variable.scss";
+
+.App-About {
+  @include static-container();
+
+  .avatar {
+    width: 300px;
+    border-radius: 50%;
+  }
+}

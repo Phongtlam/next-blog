@@ -42,7 +42,7 @@ const AppHOC = (WrappedComponent, componentType) =>
       Promise.all([fetchAll('portfolio'), fetchAll('post')]).then(
         responseArray => {
           this.setState({
-            portfolioData: responseArray[0].sort((a, b) => a.order < b.order),
+            portfolioData: responseArray[0].sort((a, b) => b.order - a.order),
             blogData: responseArray[1]
           });
         }
@@ -129,7 +129,8 @@ const AppHOC = (WrappedComponent, componentType) =>
       switch (type) {
         case 'home':
           dataProps.appData = portfolioData;
-          dataProps.isCreateBtnHidden = markdownFormData.isOpen || htmlParserData !== '';
+          dataProps.isCreateBtnHidden =
+            markdownFormData.isOpen || htmlParserData !== '';
           dataProps.isBackBtnHidden = htmlParserData === '';
           break;
         case 'blog':

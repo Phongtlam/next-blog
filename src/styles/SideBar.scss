@@ -9,6 +9,10 @@
     color: $blue;
   }
 
+  .external-links {
+    margin-bottom: $m-spacing;
+  }
+
   &-router-group {
     display: flex;
     flex-direction: column;

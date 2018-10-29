@@ -52,9 +52,11 @@ const Home = props => {
           Back
         </ButtonIcon>
       </div>
-      <div className={classnames('App-Home-content', {
-        hidden: !isBackBtnHidden
-      })}>
+      <div
+        className={classnames('App-Home-content', {
+          hidden: !isBackBtnHidden
+        })}
+      >
         {appData.map(datum => (
           <PortfolioCard
             key={datum._id}
