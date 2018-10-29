@@ -1,10 +1,12 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
-  padding: $m-spacing;
-
   img {
     width: 50%;
     height: 50%;
+  }
+
+  &.App-home {
+    padding: $l-spacing $m-spacing;
   }
 }

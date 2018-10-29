@@ -45,7 +45,8 @@
   }
 
   .action-button {
-    margin-right: $m-spacing;
+    padding: 0;
+    margin-right: $xl-spacing;
     opacity: 0;
     transition: $transition;
   }

@@ -99,13 +99,13 @@ const AppHOC = (WrappedComponent, componentType) =>
             ...prevState[htmlType].slice(0, indexToReplace),
             htmlsData,
             ...prevState[htmlType].slice(indexToReplace + 1)
-          ].sort((a, b) => a.order < b.order)
+          ].sort((a, b) => b.order - a.order)
         }));
       } else {
         this.setState(prevState => ({
           [htmlType]: prevState[htmlType]
             .concat(htmlsData)
-            .sort((a, b) => a.order < b.order)
+            .sort((a, b) => b.order - a.order)
         }));
       }
     }
@@ -149,7 +149,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                 setAppData={this._setAppData}
                 markdownFormData={markdownFormData}
               />
-              <HtmlParser htmlParserData={htmlParserData} />
+              <HtmlParser className={`App-${type}`} htmlParserData={htmlParserData} />
             </React.Fragment>
           )}
           <WrappedComponent {...dataProps} className="App-content-container" />

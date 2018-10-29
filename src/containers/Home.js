@@ -73,7 +73,6 @@ const Home = props => {
 
 Home.propTypes = {
   appData: PropTypes.arrayOf(PropTypes.shape(fileDataShape)),
-  setAppData: PropTypes.func,
   loadHtmlParser: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
   className: PropTypes.string,
@@ -84,7 +83,6 @@ Home.propTypes = {
 
 Home.defaultProps = {
   appData: [],
-  setAppData: PropTypes.func,
   loadHtmlParser: () => {},
   className: null,
   loadModalData: () => {},
