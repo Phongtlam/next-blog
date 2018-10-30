@@ -1,5 +1,5 @@
 @import "./index.scss";
-@import "./util_variable.scss";
+// @import "./util_variable.scss";
 
 $sidebar-width-container: 20%;
 
@@ -20,8 +20,8 @@ $sidebar-width-container: 20%;
       @include appzindex("large");
       left: -100%;
       position: absolute;
-      min-width: $sidebar-width-container * 2;
-      max-width: $sidebar-width-container * 2;
+      min-width: 50%;
+      max-width: 50%;
     }
 
     &.active {

@@ -2,13 +2,14 @@
 
 .App-ExternalLinks {
   display: flex;
+  flex-wrap: wrap;
   margin-top: $m-spacing;
 
   .external-link {
     border: $border;
     text-align: center;
     color: $grey;
-    margin-right: $m-spacing;
+    margin: 0 $m-spacing $m-spacing 0;
 
     &.sidebar {
       @include circle(40px);

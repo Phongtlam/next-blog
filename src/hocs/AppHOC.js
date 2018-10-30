@@ -195,7 +195,7 @@ const AppHOC = (WrappedComponent, componentType) =>
               <ButtonIcon
                 className="menu-button hide-content-s"
                 iconName="fas fa-bars"
-                buttonType="primary"
+                buttonType={this.state.isMenuOpen ? 'normal' : 'primary'}
                 callback={() => {
                   this.setState(prevState => ({
                     isMenuOpen: !prevState.isMenuOpen
