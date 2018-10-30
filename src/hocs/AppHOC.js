@@ -1,5 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
+import classnames from 'classnames';
+
 import SideBar from '../containers/SideBar';
 import { fetchAll } from '../utils/fetch';
 
@@ -8,6 +10,7 @@ import '../styles/App.scss';
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
 import HtmlParser from '../components/HtmlParser';
+import ButtonIcon from '../components/ButtonIcon';
 import INITIAL_MARKDOWN_FORM_DATA from '../utils/initialStateMarkdown';
 
 const INITIAL_MODAL_DATA = {
@@ -30,7 +33,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         blogData: [],
         modalData: INITIAL_MODAL_DATA,
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
-        htmlParserData: ''
+        htmlParserData: '',
+        isMenuOpen: false
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
@@ -149,7 +153,10 @@ const AppHOC = (WrappedComponent, componentType) =>
                 setAppData={this._setAppData}
                 markdownFormData={markdownFormData}
               />
-              <HtmlParser className={`App-${type}`} htmlParserData={htmlParserData} />
+              <HtmlParser
+                className={`App-${type}`}
+                htmlParserData={htmlParserData}
+              />
             </React.Fragment>
           )}
           <WrappedComponent {...dataProps} className="App-content-container" />
@@ -173,11 +180,30 @@ const AppHOC = (WrappedComponent, componentType) =>
               integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
               crossOrigin="anonymous"
             />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
           </Head>
           <div className="App">
-            <SideBar className="App-sidebar-container" />
+            <SideBar
+              className={classnames('App-sidebar-container', {
+                active: this.state.isMenuOpen
+              })}
+            />
             <div className="App-main-content-container">
+              <ButtonIcon
+                className="menu-button hide-content-s"
+                iconName="fas fa-bars"
+                buttonType="primary"
+                callback={() => {
+                  this.setState(prevState => ({
+                    isMenuOpen: !prevState.isMenuOpen
+                  }));
+                }}
+              >
+                Menu
+              </ButtonIcon>
               {this._injectComponentProps(componentType)}
             </div>
           </div>

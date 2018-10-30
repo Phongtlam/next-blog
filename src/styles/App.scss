@@ -14,10 +14,28 @@ $sidebar-width-container: 20%;
     flex-direction: column;
     min-width: $sidebar-width-container;
     max-width: $sidebar-width-container;
+    transition: $transition;
+
+    @include breakpoint($breakpoint-s, "max") {
+      @include appzindex("large");
+      left: -100%;
+      position: absolute;
+      min-width: $sidebar-width-container * 2;
+      max-width: $sidebar-width-container * 2;
+    }
+
+    &.active {
+      left: 0;
+    }
   }
 
   &-main-content-container {
     flex: 5;
     overflow: scroll;
+  }
+
+  .menu-button {
+    right: 0;
+    position: absolute;
   }
 }
