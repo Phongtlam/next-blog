@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import '../styles/ButtonIcon.scss';
-
 const ButtonIcon = ({
   className,
   callback,

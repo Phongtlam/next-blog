@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import SideBar from '../containers/SideBar';
 import { fetchAll } from '../utils/fetch';
 
-import '../styles/App.scss';
+import '../styles/index.scss';
 
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';

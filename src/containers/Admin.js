@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import ButtonIcon from '../components/ButtonIcon';
 import { logIn } from '../utils/fetch';
 
-import '../styles/Admin.scss';
-
 class Admin extends React.Component {
   static propTypes = {
     location: PropTypes.shape({

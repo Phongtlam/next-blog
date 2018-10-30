@@ -3,8 +3,6 @@ import Particles from 'react-particles-js';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import '../styles/Particles.scss';
-
 const ParticlesWrapper = ({ className }) => (
   <div className={classnames('App-Particles', className)}>
     <Particles

@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import '../styles/GetInTouch.scss';
 import ButtonIcon from '../components/ButtonIcon';
 import ExternalLinks from '../components/ExternalLinks';
 

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ButtonIcon from './ButtonIcon';
 
-import '../styles/Modal.scss';
-
 const Modal = ({
   className,
   modalData: {

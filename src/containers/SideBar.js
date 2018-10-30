@@ -5,8 +5,6 @@ import classnames from 'classnames';
 import { withRouter } from 'next/router';
 import ExternalLinks from '../components/ExternalLinks';
 
-import '../styles/SideBar.scss';
-
 const ROUTES = [
   {
     linkTo: '/',

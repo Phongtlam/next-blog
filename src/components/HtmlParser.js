@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import showdown from 'showdown';
 import classnames from 'classnames';
 
-import '../styles/HtmlParser.scss';
-
 const converter = new showdown.Converter();
 
 const HtmlParser = ({ className, htmlParserData }) => (

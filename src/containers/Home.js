@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import '../styles/Home.scss';
 import ButtonIcon from '../components/ButtonIcon';
 import PortfolioCard from '../components/PortfolioCard';
 import { fileDataShape } from '../utils/propTypesShapes';
@@ -20,7 +19,7 @@ const Home = props => {
   } = props;
   return (
     <div className={classnames('App-Home', className)}>
-      <ParticlesWrapper />
+      {/* <ParticlesWrapper /> */}
       <div className="App-Home-header">
         <ButtonIcon
           className={classnames({

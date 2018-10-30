@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { publishFile, editFile } from '../utils/fetch';
-import '../styles/MarkdownForm.scss';
 import ButtonIcon from './ButtonIcon';
 
 class MarkdownForm extends React.Component {

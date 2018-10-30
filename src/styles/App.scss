@@ -1,5 +1,5 @@
-@import "./index.scss";
-// @import "./util_variable.scss";
+// @import "./index.scss";
+@import "./util_variable.scss";
 
 $sidebar-width-container: 20%;
 
@@ -37,5 +37,6 @@ $sidebar-width-container: 20%;
   .menu-button {
     right: 0;
     position: absolute;
+    @include appzindex("large");
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/PortfolioCard.scss';
 import ButtonIcon from './ButtonIcon';
 import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';

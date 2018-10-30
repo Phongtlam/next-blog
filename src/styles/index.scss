@@ -1,5 +1,19 @@
 @import "./util_variable.scss";
 @import "./normalize.scss";
+@import "./About.scss";
+@import "./Admin.scss";
+@import "./App.scss";
+@import "./Blog.scss";
+@import "./ButtonIcon.scss";
+@import "./ExternalLinks.scss";
+@import "./GetInTouch.scss";
+@import "./Home.scss";
+@import "./HtmlParser.scss";
+@import "./MarkdownForm.scss";
+@import "./Modal.scss";
+@import "./Particles.scss";
+@import "./PortfolioCard.scss";
+@import "./SideBar.scss";
 
 body {
 	@include breakpoint($breakpoint-m) {

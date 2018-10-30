@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import '../styles/ExternalLinks.scss';
-
 const EXTERNAL_ROUTES = [
   {
     url: 'mailto:phongtlam@gmail.com',
