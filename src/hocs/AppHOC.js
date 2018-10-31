@@ -44,7 +44,7 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _loadInitialData() {
-      if (componentType === 'home' || componentType === 'blog') {
+      if (componentType === 'portfolio' || componentType === 'blog') {
         Promise.all([fetchAll('portfolio'), fetchAll('post')]).then(
           responseArray => {
             this.setState({
@@ -134,7 +134,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         appData: {}
       };
       switch (type) {
-        case 'home':
+        case 'portfolio':
           dataProps.appData = portfolioData;
           dataProps.isCreateBtnHidden =
             markdownFormData.isOpen || htmlParserData !== '';

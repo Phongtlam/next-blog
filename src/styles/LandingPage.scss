@@ -23,14 +23,13 @@
     display: inline-block;
     transform: skewY(-12deg);
 
-    color: white;
-    background-color: teal;
+    background-color: $lightblue;
     text-align: center;
     text-transform: uppercase;
     padding: 5px 10px;
     margin: 10px;
 
-    &.Home {
+    &.Portfolio {
       top: 30%;
       left: 30%;
     }

@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 import ButtonIcon from '../components/ButtonIcon';
 import PortfolioCard from '../components/PortfolioCard';
 import { fileDataShape } from '../utils/propTypesShapes';
-import ParticlesWrapper from '../components/Particles';
 
-const Home = props => {
+const Portfolio = props => {
   const {
     appData,
     className,
@@ -18,9 +17,8 @@ const Home = props => {
     isBackBtnHidden = false
   } = props;
   return (
-    <div className={classnames('App-Home', className)}>
-      <ParticlesWrapper />
-      <div className="App-Home-header">
+    <div className={classnames('App-Portfolio', className)}>
+      <div className="App-Portfolio-header">
         <ButtonIcon
           className={classnames({
             hidden: isCreateBtnHidden
@@ -52,7 +50,7 @@ const Home = props => {
         </ButtonIcon>
       </div>
       <div
-        className={classnames('App-Home-content', {
+        className={classnames('App-Portfolio-content', {
           hidden: !isBackBtnHidden
         })}
       >
@@ -70,7 +68,7 @@ const Home = props => {
   );
 };
 
-Home.propTypes = {
+Portfolio.propTypes = {
   appData: PropTypes.arrayOf(PropTypes.shape(fileDataShape)),
   loadHtmlParser: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
@@ -80,7 +78,7 @@ Home.propTypes = {
   isBackBtnHidden: PropTypes.bool
 };
 
-Home.defaultProps = {
+Portfolio.defaultProps = {
   appData: [],
   loadHtmlParser: () => {},
   className: null,
@@ -90,4 +88,4 @@ Home.defaultProps = {
   isBackBtnHidden: false
 };
 
-export default Home;
+export default Portfolio;

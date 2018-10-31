@@ -4,25 +4,7 @@ import Link from 'next/link';
 import classnames from 'classnames';
 import { withRouter } from 'next/router';
 import ExternalLinks from '../components/ExternalLinks';
-
-const ROUTES = [
-  {
-    linkTo: '/',
-    routeName: 'Home'
-  },
-  {
-    linkTo: '/Blog',
-    routeName: 'Blog'
-  },
-  {
-    linkTo: '/About',
-    routeName: 'About'
-  },
-  {
-    linkTo: '/Getintouch',
-    routeName: 'Get In Touch'
-  }
-];
+import ROUTES from '../utils/routes';
 
 const SideBar = props => (
   <div className={`${props.className} App-SideBar`}>
@@ -36,7 +18,7 @@ const SideBar = props => (
       journey as a developer or just send me a message to connect.
     </p>
     <div className="App-SideBar-router-group">
-      {ROUTES.map(route => (
+      {ROUTES.map(route => route.linkTo !== '/' && (
         <div
           className={classnames('route', {
             active: props.router.route === route.linkTo
