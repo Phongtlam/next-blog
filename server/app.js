@@ -1,20 +1,25 @@
 const express = require('express');
+const next = require('next');
 const bodyParser = require('body-parser');
 const path = require('path');
 const routes = require('./routes');
 
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').load();
 
-const app = express();
+const server = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.text({ type: 'text/html' }));
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(bodyParser.text({ type: 'text/html' }));
 
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
+server.use(express.static(path.resolve(__dirname, '..', 'build')));
 
-app.use((req, res, next) => {
+server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
     'Access-Control-Allow-Headers',
@@ -24,10 +29,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/post', routes.post);
+server.use('/post', routes.post);
 
-app.use('/portfolio', routes.portfolio);
+server.use('/portfolio', routes.portfolio);
 
-app.use('/login', routes.login);
+server.use('/login', routes.login);
 
-module.exports = app;
+module.exports = server;

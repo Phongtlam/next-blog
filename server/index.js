@@ -1,11 +1,11 @@
 const http = require('http');
-const app = require('./app');
+const server = require('./app');
 
-const server = http.createServer(app);
+const nodeServer = http.createServer(server);
 
 const PORT = process.env.PORT || 3001;
 
-server.listen(PORT, () => {
+nodeServer.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`my-blog listening on port ${PORT}!`);
+  console.log(`next-blog listening on port ${PORT}!`);
 });
