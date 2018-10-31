@@ -40,17 +40,20 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
       this._loadHtmlParser = this._loadHtmlParser.bind(this);
+      this._loadInitialData();
     }
 
-    componentDidMount() {
-      Promise.all([fetchAll('portfolio'), fetchAll('post')]).then(
-        responseArray => {
-          this.setState({
-            portfolioData: responseArray[0].sort((a, b) => b.order - a.order),
-            blogData: responseArray[1]
-          });
-        }
-      );
+    _loadInitialData() {
+      if (componentType === 'home' || componentType === 'blog') {
+        Promise.all([fetchAll('portfolio'), fetchAll('post')]).then(
+          responseArray => {
+            this.setState({
+              portfolioData: responseArray[0].sort((a, b) => b.order - a.order),
+              blogData: responseArray[1]
+            });
+          }
+        );
+      }
     }
 
     _loadModalData({ callback, cancelCallback, ...otherProps }) {

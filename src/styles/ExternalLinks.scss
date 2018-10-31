@@ -9,7 +9,7 @@
     border: $border;
     text-align: center;
     color: $grey;
-    margin: 0 $m-spacing $m-spacing 0;
+    margin: 0 $s-spacing $m-spacing 0;
 
     &.sidebar {
       @include circle(40px);

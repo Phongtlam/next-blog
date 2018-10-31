@@ -35,6 +35,8 @@ $breakpoint-xl: 1441px;
     z-index: 3;
   } @else if $type == "max" {
     z-index: 9999;
+  } @else if $type == "negative" {
+    z-index: -1;
   }
 }
 

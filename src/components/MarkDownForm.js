@@ -225,8 +225,8 @@ class MarkdownForm extends React.Component {
             onChange={e => this._onChangeInput(e, 'order')}
             value={this.state.order}
             type="number"
-            className="header-input"
-            placeholder="Order"
+            className="order-input"
+            placeholder="Order (larger number items are first in line)"
           />
           <span className="text-display">{this.state.markDownDisplay}</span>
         </div>

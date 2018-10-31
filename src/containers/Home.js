@@ -14,12 +14,12 @@ const Home = props => {
     loadMarkdownFormData,
     loadModalData,
     loadHtmlParser,
-    isCreateBtnHidden,
-    isBackBtnHidden
+    isCreateBtnHidden = false,
+    isBackBtnHidden = false
   } = props;
   return (
     <div className={classnames('App-Home', className)}>
-      {/* <ParticlesWrapper /> */}
+      <ParticlesWrapper />
       <div className="App-Home-header">
         <ButtonIcon
           className={classnames({
