@@ -1,12 +1,12 @@
 const express = require('express');
-const next = require('next');
+// const next = require('next');
 const bodyParser = require('body-parser');
 const path = require('path');
 const routes = require('./routes');
 
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handle = app.getRequestHandler();
+// const dev = process.env.NODE_ENV !== 'production';
+// const app = next({ dev });
+// const handle = app.getRequestHandler();
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').load();
