@@ -18,20 +18,23 @@ const SideBar = props => (
       journey as a developer or just send me a message to connect.
     </p>
     <div className="App-SideBar-router-group">
-      {ROUTES.map(route => route.linkTo !== '/' && (
-        <div
-          className={classnames('route', {
-            active: props.router.route === route.linkTo
-          })}
-          key={route.linkTo}
-        >
-          <Link href={route.linkTo}>
-            <button className="route-button" type="button">
-              {route.routeName}
-            </button>
-          </Link>
-        </div>
-      ))}
+      {ROUTES.map(
+        route =>
+          route.linkTo !== '/' && (
+            <div
+              className={classnames('route', {
+                active: props.router.route === route.linkTo
+              })}
+              key={route.linkTo}
+            >
+              <Link href={route.linkTo}>
+                <button className="route-button" type="button">
+                  {route.routeName}
+                </button>
+              </Link>
+            </div>
+          )
+      )}
     </div>
     <div className="external-links">
       <ExternalLinks location="sidebar" />

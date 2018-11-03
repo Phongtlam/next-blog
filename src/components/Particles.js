@@ -6,6 +6,8 @@ import classnames from 'classnames';
 const ParticlesWrapper = ({ className }) => (
   <div className={classnames('App-Particles', className)}>
     <Particles
+      width="100vw"
+      height="100vh"
       params={{
         particles: {
           number: {
@@ -26,12 +28,6 @@ const ParticlesWrapper = ({ className }) => (
             },
             polygon: {
               nb_sides: 5
-            },
-            image: {
-              src:
-                'https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half/public/field_blog_entry_images/2018-02/cloned_dogs_mdorottya_123rf.png?itok=yiaSkqQA',
-              width: 100,
-              height: 100
             }
           },
           opacity: {
