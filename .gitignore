@@ -21,6 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 #ignore urls
-/src/urls.js
+src/urls.js
 
 .next
