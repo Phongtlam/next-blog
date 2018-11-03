@@ -15,6 +15,10 @@
     overflow: hidden;
     transition: $transition;
 
+    &.last-item {
+      height: 100%;
+    }
+
     &-img {
       left: -200%;
       position: absolute;

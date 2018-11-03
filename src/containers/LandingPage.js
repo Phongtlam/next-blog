@@ -48,11 +48,7 @@ const LandingPage = () => (
         />
       </div>
     ))}
-    <div className="tilt" />
-    <div className="tilt" />
-    <div className="tilt" />
-    <div className="tilt" />
-    <div className="tilt" />
+    <div className="tilt last-item" />
     <ParticlesWrapper />
   </div>
 );
