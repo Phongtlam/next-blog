@@ -3,7 +3,7 @@ const server = require('./app');
 
 const nodeServer = http.createServer(server);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 nodeServer.listen(PORT, () => {
   // eslint-disable-next-line no-console

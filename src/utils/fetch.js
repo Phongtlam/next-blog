@@ -1,6 +1,8 @@
 /* global fetch */
-
 import apiUrl from '../urls';
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 export const api = (body, method, route) =>
   new Promise((resolve, reject) => {
