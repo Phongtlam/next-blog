@@ -1,52 +1,87 @@
 @import "./util_variable.scss";
 
 .App-LandingPage {
-  // background-color: $black;
-  // background: linear-gradient(135deg, rgb(96, 108, 136) 0%, rgb(63, 76, 107) 100%);
   height: 100vh;
 
   .tilt {
-    @include appzindex("negative");
     display: inline-block;
     width: 100%;
-    height: 20vh;
-    background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
+    height: 15vh;
+    background-image: linear-gradient(to right, rgba(168, 202, 186, 0), rgb(93,65,87));
 
     transform: skewY(-12deg);
     transform-origin: 0;
     margin-top: -4px;
-  }
+    overflow: hidden;
+    transition: $transition;
 
-  .button-slanted {
-    @include appzindex("medium");
-    position: absolute;
-    display: inline-block;
-    transform: skewY(-12deg);
+    &-img {
+      left: -200%;
+      position: absolute;
+      transition: $transition;
+      opacity: 0.5;
+      width: 100%;
 
-    background-color: $grey;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    margin: 10px;
-
-    &.Portfolio {
-      top: 30%;
-      left: 30%;
+      &.Contact {
+        width: initial;
+      }
     }
 
-    &.Blog {
+    &-title {
+      @include appzindex("medium");
+      position: absolute;
       top: 50%;
-      left: 50%;
+      transform: translateY(-50%);
+      color: $white;
+      
+      font-size: 23vh;
+      text-transform: uppercase;
+      background: none !important;
+      border: none;
     }
 
-    &.About {
-      bottom: 20%;
-      left: 60%;
+    &:hover {
+      .tilt-img {
+        left: 0;
+      }
     }
 
-    &.Get-in-touch {
-      top: 40%;
-      left: 70%;
+    &.content:hover {
+      height: 50vh;
     }
+
   }
+
+  // .button-slanted {
+  //   @include appzindex("medium");
+  //   position: absolute;
+  //   display: inline-block;
+  //   transform: skewY(-12deg);
+
+  //   background-color: $grey;
+  //   text-align: center;
+  //   text-transform: uppercase;
+  //   padding: 5px 10px;
+  //   margin: 10px;
+
+  //   &.Portfolio {
+  //     top: 30%;
+  //     left: 30%;
+  //   }
+
+  //   &.Blog {
+  //     top: 50%;
+  //     left: 50%;
+  //   }
+
+  //   &.About {
+  //     bottom: 20%;
+  //     left: 60%;
+  //   }
+
+  //   &.Get-in-touch {
+  //     top: 40%;
+  //     left: 70%;
+  //   }
+  // }
 }

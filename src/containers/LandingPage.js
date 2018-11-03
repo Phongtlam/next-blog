@@ -1,41 +1,60 @@
 import React from 'react';
 import Link from 'next/link';
 import ParticlesWrapper from '../components/Particles';
-import ROUTES from '../utils/routes';
 
 import '../styles/LandingPage.scss';
 
-class LandingPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
+const LANDING_PAGE_ROW = [
+  {
+    href: '/About',
+    linkDisplay: 'About',
+    imageSrc: '../../static/about-img.jpeg',
+    imageAlt: 'About'
+  },
+  {
+    href: '/Portfolio',
+    linkDisplay: 'Portfolio',
+    imageSrc: '../../static/portfolio-img.jpeg',
+    imageAlt: 'Portfolio'
+  },
+  {
+    href: '/Blog',
+    linkDisplay: 'Blog',
+    imageSrc: '../../static/blog-img.jpeg',
+    imageAlt: 'Blog'
+  },
+  {
+    href: '/Getintouch',
+    linkDisplay: 'Contact',
+    imageSrc: '../../static/contact-img.jpeg',
+    imageAlt: 'Contact'
   }
+];
 
-  render() {
-    return (
-      <div className="App-LandingPage">
-        {[0, 1, 2, 3, 4, 5, 6, 7].map(el => (
-          <div key={el} className="tilt" />
-        ))}
-        {ROUTES.map(
-          route =>
-            route.linkTo !== '/' && (
-              <Link href={route.linkTo} key={route.routeName}>
-                <button
-                  type="button"
-                  className={`button-slanted ${route.class}`}
-                >
-                  {route.routeName}
-                </button>
-              </Link>
-            )
-        )}
-        <ParticlesWrapper />
+const LandingPage = () => (
+  <div className="App-LandingPage">
+    <div className="tilt" />
+    {LANDING_PAGE_ROW.map(row => (
+      <div className="tilt content">
+        <Link href={row.href}>
+          <button type="button" className={`tilt-title ${row.linkDisplay}`}>
+            {row.linkDisplay}
+          </button>
+        </Link>
+        <img
+          className={`tilt-img ${row.linkDisplay}`}
+          src={row.imageSrc}
+          alt={row.imageAlt}
+        />
       </div>
-    );
-  }
-}
+    ))}
+    <div className="tilt" />
+    <div className="tilt" />
+    <div className="tilt" />
+    <div className="tilt" />
+    <div className="tilt" />
+    <ParticlesWrapper />
+  </div>
+);
 
 export default LandingPage;

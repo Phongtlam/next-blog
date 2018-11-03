@@ -24,7 +24,7 @@ const ParticlesWrapper = ({ className }) => (
             type: 'circle',
             stroke: {
               width: 10,
-              color: '#ffffff'
+              color: '#1d39c4'
             },
             polygon: {
               nb_sides: 5
@@ -51,10 +51,10 @@ const ParticlesWrapper = ({ className }) => (
             }
           },
           line_linked: {
-            enable: false,
+            enable: true,
             distance: 150,
-            color: '#ffffff',
-            opacity: 0.4,
+            color: '#1d39c4',
+            opacity: 3,
             width: 1
           },
           move: {
