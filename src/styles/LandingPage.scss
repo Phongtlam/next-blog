@@ -33,7 +33,7 @@
 
     &-title {
       @include appzindex("medium");
-      position: absolute;
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
       color: $black;
@@ -55,42 +55,27 @@
       }
     }
 
-    &.content:hover {
-      height: 50vh;
+    &.content {
+      &:hover {
+        height: 50vh;
+      }
+
+      &.transition {
+        height: 200vh;
+
+        .tilt-title {
+          top: 10%;
+          transition: all 2s ease-out;
+          color: $white;
+          cursor: none;
+        }
+
+        .tilt-img {
+          left: 0;
+          opacity: 1;
+          transition: opacity 2s ease;
+        }
+      }
     }
-
   }
-
-  // .button-slanted {
-  //   @include appzindex("medium");
-  //   position: absolute;
-  //   display: inline-block;
-  //   transform: skewY(-12deg);
-
-  //   background-color: $grey;
-  //   text-align: center;
-  //   text-transform: uppercase;
-  //   padding: 5px 10px;
-  //   margin: 10px;
-
-  //   &.Portfolio {
-  //     top: 30%;
-  //     left: 30%;
-  //   }
-
-  //   &.Blog {
-  //     top: 50%;
-  //     left: 50%;
-  //   }
-
-  //   &.About {
-  //     bottom: 20%;
-  //     left: 60%;
-  //   }
-
-  //   &.Get-in-touch {
-  //     top: 40%;
-  //     left: 70%;
-  //   }
-  // }
 }
