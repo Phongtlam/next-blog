@@ -99,13 +99,15 @@ class LandingPage extends React.Component {
             'side-nav': this.props.className
           })}
         >
-          <button
-            className="root-nav"
-            type="button"
-            onClick={() => Router.push('/')}
-          >
-            <h1>Phong Lam</h1>
-          </button>
+          <h1>
+            <button
+              className="root-nav"
+              type="button"
+              onClick={() => Router.push('/')}
+            >
+              Phong Lam
+            </button>
+          </h1>
           <NavigationHeader />
         </div>
         {LANDING_PAGE_ROW.map(row => (

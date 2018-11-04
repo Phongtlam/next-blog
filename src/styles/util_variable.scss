@@ -54,7 +54,7 @@ $breakpoint-xl: 1441px;
 }
 
 @mixin static-container {
-  padding: $m-spacing;
+  padding: 0 $m-spacing;
   width: 66.66666%;  
 }
 

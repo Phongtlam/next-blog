@@ -47,14 +47,6 @@
   .external-links {
     background-color: transparent;
     padding-left: $s-spacing;
-
-    .external-link {
-      color: $black;
-
-      &:hover {
-        color: $blue;
-      }
-    }
   }
 
   .tilt {
@@ -75,6 +67,7 @@
 
     .root-nav {
       display: none;
+      font-weight: bold;
     }
 
     &.first-item {
@@ -147,9 +140,9 @@
 
         .tilt-title {
           top: 10%;
-          transition: all 2s ease-out;
+          transition: all 2s ease;
           color: $white;
-          cursor: none;
+          cursor: default;
         }
 
         .tilt-img {
