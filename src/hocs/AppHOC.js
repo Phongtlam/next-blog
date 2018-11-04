@@ -46,7 +46,7 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     _loadInitialData() {
       if (componentType === 'portfolio' || componentType === 'blog') {
-        Promise.all([fetchAll('portfolio'), fetchAll('post')]).then(
+        Promise.all([fetchAll('portfolio'), fetchAll('blog')]).then(
           responseArray => {
             this.setState({
               portfolioData: responseArray[0].sort((a, b) => b.order - a.order),
