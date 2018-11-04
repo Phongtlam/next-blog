@@ -25,8 +25,8 @@ const EXTERNAL_ROUTES = [
   }
 ];
 
-const ExternalLinks = ({ location }) => (
-  <div className="App-ExternalLinks">
+const ExternalLinks = ({ location, className }) => (
+  <div className={`App-ExternalLinks ${className}`}>
     {EXTERNAL_ROUTES.map(route => (
       <a
         key={route.url}
@@ -46,11 +46,13 @@ const ExternalLinks = ({ location }) => (
 );
 
 ExternalLinks.propTypes = {
-  location: PropTypes.oneOf(['sidebar', 'getintouch'])
+  location: PropTypes.oneOf(['sidebar', 'getintouch']),
+  className: PropTypes.string
 };
 
 ExternalLinks.defaultProps = {
-  location: 'sidebar'
+  location: 'sidebar',
+  className: null
 };
 
 export default ExternalLinks;

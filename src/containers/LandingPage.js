@@ -2,10 +2,11 @@ import React from 'react';
 import classnames from 'classnames';
 import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import ParticlesWrapper from '../components/Particles';
+// import ParticlesWrapper from '../components/Particles';
 
 import '../styles/LandingPage.scss';
 import NavigationHeader from '../components/NavigationHeader';
+import ExternalLinks from '../components/ExternalLinks';
 
 const LANDING_PAGE_ROW = [
   {
@@ -42,7 +43,7 @@ class LandingPage extends React.Component {
   };
 
   static defaultProps = {
-    className: '',
+    className: null,
     router: {}
   };
 
@@ -60,43 +61,49 @@ class LandingPage extends React.Component {
   }
 
   componentDidMount() {
-    // || this.props.router.pathname === `/${row.href}`
     const route = this.props.router.pathname.split('/')[1];
     this.setState({ [route]: true });
   }
 
   _onNavigation(href) {
-    this.setState(prevState => {
-      const state = Object.keys(prevState).reduce((newState, key) => {
-        if (key === 'disabled') {
-          // eslint-disable-next-line no-param-reassign
-          newState[key] = prevState.disabled;
-        } else if (key === href) {
-          // eslint-disable-next-line no-param-reassign
-          newState[key] = true;
-        } else {
-          // eslint-disable-next-line no-param-reassign
-          newState[key] = false;
-        }
-        return newState;
-      }, {});
-      return state;
-    }, () => {
-      setTimeout(() => {
-        Router.push(`/${href}`);
-      }, this.props.className !== '' ? 500 : 2000);
-    });
+    this.setState(
+      prevState => {
+        const state = Object.keys(prevState).reduce((newState, key) => {
+          if (key === 'disabled') {
+            // eslint-disable-next-line no-param-reassign
+            newState[key] = prevState.disabled;
+          } else if (key === href) {
+            // eslint-disable-next-line no-param-reassign
+            newState[key] = true;
+          } else {
+            // eslint-disable-next-line no-param-reassign
+            newState[key] = false;
+          }
+          return newState;
+        }, {});
+        return state;
+      },
+      () => {
+        setTimeout(() => {
+          Router.push(`/${href}`);
+        }, this.props.className ? 500 : 2000);
+      }
+    );
   }
 
   render() {
     return (
       <div className={classnames('App-LandingPage', this.props.className)}>
         <div
-          className={classnames('tilt', {
-            'side-nav': this.props.className !== ''
+          className={classnames('tilt first-item', {
+            'side-nav': this.props.className
           })}
         >
-          <button className="root-nav" type="button" onClick={() => Router.push('/')}>
+          <button
+            className="root-nav"
+            type="button"
+            onClick={() => Router.push('/')}
+          >
             <h1>Phong Lam</h1>
           </button>
           <NavigationHeader />
@@ -126,7 +133,13 @@ class LandingPage extends React.Component {
             />
           </div>
         ))}
-        <div className="tilt last-item" />
+        <div className="tilt last-item">
+          <ExternalLinks
+            className={classnames('external-links', {
+              hidden: !this.props.className
+            })}
+          />
+        </div>
         {/* <ParticlesWrapper /> */}
       </div>
     );

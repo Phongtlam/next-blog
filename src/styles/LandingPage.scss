@@ -44,6 +44,19 @@
     }
   }
 
+  .external-links {
+    background-color: transparent;
+    padding-left: $s-spacing;
+
+    .external-link {
+      color: $black;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+
   .tilt {
     display: inline-block;
     width: 100%;
@@ -64,6 +77,14 @@
       display: none;
     }
 
+    &.first-item {
+      height: 20vh;
+    }
+
+    &.last-item {
+      height: 100%;
+    }
+
     &.side-nav {
       .App-NavigationHeader {
         display: block;
@@ -78,10 +99,6 @@
       }
 
       height: initial;
-    }
-
-    &.last-item {
-      height: 100%;
     }
 
     &-img {
