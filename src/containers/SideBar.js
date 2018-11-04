@@ -5,18 +5,14 @@ import classnames from 'classnames';
 import { withRouter } from 'next/router';
 import ExternalLinks from '../components/ExternalLinks';
 import ROUTES from '../utils/routes';
+import NavigationHeader from '../components/NavigationHeader';
 
 const SideBar = props => (
   <div className={`${props.className} App-SideBar`}>
     <Link href="/">
       <h1>Phong Lam</h1>
     </Link>
-    <p>
-      I specialize in making beautiful software and user interfaces. I have a
-      passion for all things science and chess AI. When not coding, I love
-      reading, writing, listening to music or working out at the gym. Follow my
-      journey as a developer or just send me a message to connect.
-    </p>
+    <NavigationHeader />
     <div className="App-SideBar-router-group">
       {ROUTES.map(
         route =>

@@ -3,6 +3,47 @@
 .App-LandingPage {
   height: 100vh;
 
+  &.App-landing-page-navigation {
+    @include breakpoint($breakpoint-s, "max") {
+      display: none;
+    }
+
+    flex: 1;
+  
+    .tilt {
+      height: 5vh;
+      transform: skewY(0deg);
+
+      &-title {
+        font-size: 6vh;
+      }
+
+      &-img {
+        height: 100%;
+      }
+
+      &.Contact {
+        width: 100%;
+      }
+
+      &.content {
+        &:hover, &.transition {
+          height: 20vh;
+        }
+
+        &.transition {
+          .tilt-title {
+            transition: all 0.5s ease-out;
+          }
+  
+          .tilt-img {
+            transition: opacity 0.5s ease;
+          }
+        }
+      }    
+    }
+  }
+
   .tilt {
     display: inline-block;
     width: 100%;
@@ -14,6 +55,30 @@
     margin-top: -4px;
     overflow: hidden;
     transition: $transition;
+    
+    .App-NavigationHeader {
+      display: none;
+    }
+
+    .root-nav {
+      display: none;
+    }
+
+    &.side-nav {
+      .App-NavigationHeader {
+        display: block;
+        color: $jetblack;
+        padding: 0 $s-spacing;
+      }
+
+      .root-nav {
+        display: initial;
+        background: transparent;
+        border: none;
+      }
+
+      height: initial;
+    }
 
     &.last-item {
       height: 100%;

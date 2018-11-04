@@ -12,6 +12,7 @@ import MarkdownForm from '../components/MarkdownForm';
 import HtmlParser from '../components/HtmlParser';
 import ButtonIcon from '../components/ButtonIcon';
 import INITIAL_MARKDOWN_FORM_DATA from '../utils/initialStateMarkdown';
+import LandingPage from '../../pages';
 
 const INITIAL_MODAL_DATA = {
   isOpen: false,
@@ -194,6 +195,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                 active: this.state.isMenuOpen
               })}
             />
+            <LandingPage className="App-landing-page-navigation" />
             <div className="App-main-content-container">
               <ButtonIcon
                 className="menu-button hide-content-s"

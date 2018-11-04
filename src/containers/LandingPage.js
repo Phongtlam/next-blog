@@ -1,9 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import ParticlesWrapper from '../components/Particles';
 
 import '../styles/LandingPage.scss';
+import NavigationHeader from '../components/NavigationHeader';
 
 const LANDING_PAGE_ROW = [
   {
@@ -33,8 +35,19 @@ const LANDING_PAGE_ROW = [
 ];
 
 class LandingPage extends React.Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    className: PropTypes.string,
+    // eslint-disable-next-line react/forbid-prop-types
+    router: PropTypes.object
+  };
+
+  static defaultProps = {
+    className: '',
+    router: {}
+  };
+
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       About: false,
       Portfolio: false,
@@ -46,33 +59,61 @@ class LandingPage extends React.Component {
     this._onNavigation = this._onNavigation.bind(this);
   }
 
+  componentDidMount() {
+    // || this.props.router.pathname === `/${row.href}`
+    const route = this.props.router.pathname.split('/')[1];
+    this.setState({ [route]: true });
+  }
+
   _onNavigation(href) {
-    this.setState(
-      {
-        [href]: true,
-        disabled: true
-      },
-      () => {
-        setTimeout(() => {
-          Router.push(`/${href}`);
-        }, 2000);
-      }
-    );
+    this.setState(prevState => {
+      const state = Object.keys(prevState).reduce((newState, key) => {
+        if (key === 'disabled') {
+          // eslint-disable-next-line no-param-reassign
+          newState[key] = prevState.disabled;
+        } else if (key === href) {
+          // eslint-disable-next-line no-param-reassign
+          newState[key] = true;
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          newState[key] = false;
+        }
+        return newState;
+      }, {});
+      return state;
+    }, () => {
+      setTimeout(() => {
+        Router.push(`/${href}`);
+      }, this.props.className !== '' ? 500 : 2000);
+    });
   }
 
   render() {
     return (
-      <div className="App-LandingPage">
-        <div className="tilt" />
+      <div className={classnames('App-LandingPage', this.props.className)}>
+        <div
+          className={classnames('tilt', {
+            'side-nav': this.props.className !== ''
+          })}
+        >
+          <button className="root-nav" type="button" onClick={() => Router.push('/')}>
+            <h1>Phong Lam</h1>
+          </button>
+          <NavigationHeader />
+        </div>
         {LANDING_PAGE_ROW.map(row => (
           <div
+            key={row.href}
             className={classnames('tilt content', {
-              transition: this.state[row.href],
+              transition: this.state[row.href]
             })}
           >
             <button
               type="button"
-              disabled={this.state.disabled}
+              disabled={
+                this.state.disabled ||
+                this.props.router.pathname === `/${row.href}`
+              }
               className={`tilt-title ${row.linkDisplay}`}
               onClick={() => this._onNavigation(row.href)}
             >
@@ -92,4 +133,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

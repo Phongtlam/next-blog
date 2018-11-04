@@ -9,7 +9,7 @@ $sidebar-width-container: 20%;
 
   &-sidebar-container {
     flex: 1;
-    display: flex;
+    display: none;
     overflow: hidden;
     flex-direction: column;
     min-width: $sidebar-width-container;
@@ -19,6 +19,7 @@ $sidebar-width-container: 20%;
     @include breakpoint($breakpoint-s, "max") {
       @include appzindex("large");
       left: -100%;
+      display: flex;
       position: absolute;
       min-width: 50%;
       max-width: 50%;
