@@ -36,7 +36,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      color: $white;
+      color: $black;
       
       font-size: 23vh;
       text-transform: uppercase;
@@ -47,6 +47,11 @@
     &:hover {
       .tilt-img {
         left: 0;
+      }
+
+      .tilt-title {
+        transition: color 1s ease;
+        color: $white;
       }
     }
 

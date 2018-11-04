@@ -49,7 +49,7 @@ const LandingPage = () => (
       </div>
     ))}
     <div className="tilt last-item" />
-    <ParticlesWrapper />
+    {/* <ParticlesWrapper /> */}
   </div>
 );
 
