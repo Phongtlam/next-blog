@@ -4,7 +4,7 @@
   height: 100vh;
 
   &.App-landing-page-navigation {
-    @include breakpoint($breakpoint-s, "max") {
+    @include breakpoint($breakpoint-l, "max") {
       display: none;
     }
 
@@ -15,7 +15,7 @@
       transform: skewY(0deg);
 
       &-title {
-        font-size: 6vh;
+        font-size: 4vh;
       }
 
       &-img {

@@ -198,7 +198,7 @@ const AppHOC = (WrappedComponent, componentType) =>
             <LandingPage className="App-landing-page-navigation" />
             <div className="App-main-content-container">
               <ButtonIcon
-                className="menu-button hide-content-s"
+                className="menu-button hide-content-l"
                 iconName="fas fa-bars"
                 buttonType={this.state.isMenuOpen ? 'normal' : 'primary'}
                 callback={() => {

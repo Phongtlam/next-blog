@@ -12,11 +12,13 @@ $sidebar-width-container: 20%;
     display: none;
     overflow: hidden;
     flex-direction: column;
+
+    height: 100vh;
     min-width: $sidebar-width-container;
     max-width: $sidebar-width-container;
     transition: $transition;
 
-    @include breakpoint($breakpoint-s, "max") {
+    @include breakpoint($breakpoint-l, "max") {
       @include appzindex("large");
       left: -100%;
       display: flex;
