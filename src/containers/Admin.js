@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router, { withRouter } from 'next/router';
 import ButtonIcon from '../components/ButtonIcon';
 import { logIn } from '../utils/fetch';
+import {
+  adminQueryKey,
+  adminQueryValue,
+  adminQueryKeyCreate,
+  adminQueryValueCreate
+} from '../../app-secrets/admin-helpers';
 
 import '../styles/Admin.scss';
 
 class Admin extends React.Component {
   static propTypes = {
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string.isRequired
-    }).isRequired
+    // eslint-disable-next-line react/forbid-prop-types
+    router: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -18,11 +23,24 @@ class Admin extends React.Component {
     this.state = {
       adminUsername: '',
       adminPassword: '',
-      displayMessage: ''
+      isCreateAccount: false
     };
 
     this._onChange = this._onChange.bind(this);
-    this._onSubmit = this._onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkAuthorization();
+  }
+
+  checkAuthorization() {
+    const { query } = this.props.router;
+    if (query[adminQueryKey] !== adminQueryValue) {
+      Router.push('/');
+    }
+    if (query[adminQueryKeyCreate] === adminQueryValueCreate) {
+      this.setState({ isCreateAccount: true });
+    }
   }
 
   _onChange(e) {
@@ -31,22 +49,6 @@ class Admin extends React.Component {
     } else {
       this.setState({ adminPassword: e.target.value });
     }
-  }
-
-  _onSubmit() {
-    const { adminUsername, adminPassword } = this.state;
-    const queryS = this.props.location.search;
-    logIn({ username: adminUsername, password: adminPassword }, queryS).then(
-      response => {
-        if (!response.authorized) {
-          this.setState({
-            displayMessage: response.message
-          });
-        } else {
-          history.push('/Home');
-        }
-      }
-    );
   }
 
   render() {
@@ -75,12 +77,11 @@ class Admin extends React.Component {
           callback={this._onSubmit}
           iconName="fas fa-sign-in-alt"
         >
-          Sign in
+          {this.state.isCreateAccount ? 'Create New Admin' : 'Login'}
         </ButtonIcon>
-        {this.state.displayMessage}
       </form>
     );
   }
 }
 
-export default Admin;
+export default withRouter(Admin);

@@ -1,5 +1,5 @@
 /* global fetch */
-import apiUrl from '../urls';
+import apiUrl from '../../app-secrets/urls';
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const urls = require('../src/urls');
+const urls = require('../app-secrets/urls');
 
 const db = mongoose.connection;
 
