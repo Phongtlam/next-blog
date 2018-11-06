@@ -1,5 +1,6 @@
 const express = require('express');
-const passport = require('../config/passport');
+const passport = require('passport');
+
 const { Admin } = require('../../database');
 const auth = require('../config/auth');
 
@@ -26,7 +27,10 @@ router.post('/create', auth.optional, (req, res) => {
     });
   }
 
-  const finalUser = new Admin(admin);
+  const finalUser = new Admin({
+    email: admin.email.toLowerCase(),
+    password: admin.password
+  });
 
   finalUser.setPassword(admin.password);
 
@@ -35,7 +39,7 @@ router.post('/create', auth.optional, (req, res) => {
     .then(() => res.json({ admin: finalUser.toAuthJSON() }));
 });
 
-router.post('/login', auth.required, (req, res, next) => {
+router.post('/login', auth.optional, (req, res, next) => {
   const {
     body: { admin }
   } = req;
@@ -59,7 +63,7 @@ router.post('/login', auth.required, (req, res, next) => {
   return passport.authenticate(
     'local',
     { session: false },
-    (err, passportUser) => {
+    (err, passportUser, info) => {
       if (err) {
         return next(err);
       }
@@ -68,10 +72,13 @@ router.post('/login', auth.required, (req, res, next) => {
         const adminUser = passportUser;
         adminUser.token = passportUser.generateJWT();
 
-        return res.json({ user: adminUser.toAuthJSON() });
+        return res.json({ admin: adminUser.toAuthJSON() });
       }
 
-      return res.status(400).info;
+      return res.status(400).json({
+        ...info,
+        passportUser
+      });
     }
   )(req, res, next);
 });

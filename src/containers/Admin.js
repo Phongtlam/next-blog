@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router, { withRouter } from 'next/router';
 import ButtonIcon from '../components/ButtonIcon';
-import { createNewAdmin } from '../utils/fetch';
+import { createNewAdmin, loginAsAdmin } from '../utils/fetch';
 import {
   adminQueryKey,
   adminQueryValue,
@@ -29,6 +29,7 @@ class Admin extends React.Component {
 
     this._onChange = this._onChange.bind(this);
     this._onCreateNewAdminUser = this._onCreateNewAdminUser.bind(this);
+    this._onAdminLogin = this._onAdminLogin.bind(this);
   }
 
   componentDidMount() {
@@ -59,10 +60,30 @@ class Admin extends React.Component {
         email: this.state.adminEmail,
         password: this.state.adminPassword
       }
-    }).then(res => {
+    }).then(({ admin }) => {
       this.setState({
-        displayMessage: JSON.stringify(res)
+        displayMessage: `${admin.email} has been created`
       });
+    }).catch(err => {
+      this.setState({
+        displayMessage: JSON.stringify(err)
+      });
+    });
+  }
+
+  _onAdminLogin() {
+    loginAsAdmin({
+      admin: {
+        email: this.state.adminEmail,
+        password: this.state.adminPassword
+      }
+    }).then(response => {
+      if (response && response.admin && response.admin.token) {
+        Router.push({
+          pathname: '/',
+          query: { Token: response.admin.token }
+        });
+      }
     }).catch(err => {
       this.setState({
         displayMessage: JSON.stringify(err)
@@ -94,7 +115,7 @@ class Admin extends React.Component {
         </label>
         <ButtonIcon
           buttonType="primary"
-          callback={this._onCreateNewAdminUser}
+          callback={this.state.isCreateAccount ? this._onCreateNewAdminUser : this._onAdminLogin}
           iconName="fas fa-sign-in-alt"
         >
           {this.state.isCreateAccount ? 'Create New Admin' : 'Login'}

@@ -1,6 +1,6 @@
 const express = require('express');
 const next = require('next');
-const { bodyParser } = require('./middleware');
+const { bodyParser, passport } = require('./middleware');
 const routes = require('./routes');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -16,6 +16,8 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.use(bodyParser.text({ type: 'text/html' }));
+  server.use(passport.initialize());
+  // server.use(passport.session());
 
   server.use((req, res, nextMid) => {
     res.header('Access-Control-Allow-Origin', '*');

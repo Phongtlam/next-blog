@@ -36,3 +36,5 @@ export const fetchAll = type => getApi(`/${type}/all`);
 export const deleteFile = (body, type) => deleteApi(body, `/${type}/delete`);
 
 export const createNewAdmin = body => postApi(body, '/auth/create');
+
+export const loginAsAdmin = body => postApi(body, '/auth/login');

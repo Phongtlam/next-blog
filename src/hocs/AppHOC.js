@@ -46,7 +46,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         modalData: INITIAL_MODAL_DATA,
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
-        isMenuOpen: false
+        isMenuOpen: false,
+        Token: ''
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
@@ -67,6 +68,10 @@ const AppHOC = (WrappedComponent, componentType) =>
         );
       }
     }
+
+    // componentDidMount() {
+
+    // }
 
     _loadModalData({ callback, cancelCallback, ...otherProps }) {
       this.setState({
