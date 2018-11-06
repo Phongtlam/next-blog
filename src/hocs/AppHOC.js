@@ -11,7 +11,6 @@ import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
 import HtmlParser from '../components/HtmlParser';
 import ButtonIcon from '../components/ButtonIcon';
-import INITIAL_MARKDOWN_FORM_DATA from '../utils/initialStateMarkdown';
 import LandingPage from '../../pages';
 
 const INITIAL_MODAL_DATA = {
@@ -23,6 +22,18 @@ const INITIAL_MODAL_DATA = {
   resolver: Promise,
   rejecter: () => {},
   type: 'primary'
+};
+
+const INITIAL_MARKDOWN_FORM_DATA = {
+  isOpen: false,
+  type: 'portfolio',
+  markdownTexts: '',
+  title: '',
+  order: 0,
+  date: '',
+  coverImgUrl: '',
+  action: null,
+  _id: null
 };
 
 const AppHOC = (WrappedComponent, componentType) =>

@@ -1,37 +1,12 @@
 const express = require('express');
-const jwt = require('express-jwt');
 const passport = require('passport');
 const { Admin } = require('../../database');
+const auth = require('../config/auth');
+require('../config/passport');
 
 const router = express.Router();
 
-const getTokenFromHeaders = req => {
-  const {
-    headers: { authorization }
-  } = req;
-
-  if (authorization && authorization.split(' ')[0] === 'Token') {
-    return authorization.split(' ')[1];
-  }
-  return null;
-};
-
-const auth = {
-  required: jwt({
-    secret: 'super super secret',
-    userProperty: 'payload',
-    getToken: getTokenFromHeaders
-  }),
-  optional: jwt({
-    secret: 'kind of super secret',
-    userProperty: 'payload',
-    getToken: getTokenFromHeaders,
-    credentialsRequired: false
-  })
-};
-
-router.post('/', auth.optional, (req, res) => {
-  console.log('posting shit', req.body)
+router.post('/create', auth.required, (req, res) => {
   const {
     body: { user }
   } = req;
