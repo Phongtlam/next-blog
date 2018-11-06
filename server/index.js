@@ -1,7 +1,6 @@
 const express = require('express');
 const next = require('next');
 const { bodyParser } = require('./middleware');
-// const path = require('path');
 const routes = require('./routes');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -17,8 +16,6 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.use(bodyParser.text({ type: 'text/html' }));
-
-  // server.use(express.static(path.resolve(__dirname, '..', 'build')));
 
   server.use((req, res, nextMid) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -42,7 +39,7 @@ app.prepare().then(() => {
 
   server.use('/portfolio', routes.portfolio);
 
-  server.use('/login', routes.login);
+  server.use('/auth', routes.auth);
 
   server.get('*', (req, res) => handle(req, res));
 
@@ -52,9 +49,11 @@ app.prepare().then(() => {
     if (err) throw err;
     // eslint-disable-next-line no-console
     console.log(
-      `>Environment: ${
-        process.env.NODE_ENV
-      }\n>Server ready on http://localhost:${PORT}`
+      `>Environment: ${process.env.NODE_ENV}\n>Server ready on ${
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost'
+          : 'live server'
+      }:${PORT}`
     );
   });
 });
