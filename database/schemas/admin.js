@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const mongoose = require('../mongoose');
+const secrets = require('../../app-secrets/passport-helpers');
 
 const adminSchema = new mongoose.Schema({
   email: String,
@@ -27,7 +28,7 @@ adminSchema.methods.generateJWT = function generateJWT() {
     email: this.email,
     id: this._id,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
-  }, 'secret');
+  }, secrets.authRequiredSecret);
 };
 
 adminSchema.methods.toAuthJSON = function toAuthJSON() {

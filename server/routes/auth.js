@@ -1,8 +1,7 @@
 const express = require('express');
-const passport = require('passport');
+const passport = require('../config/passport');
 const { Admin } = require('../../database');
 const auth = require('../config/auth');
-require('../config/passport');
 
 const router = express.Router();
 
@@ -36,7 +35,7 @@ router.post('/create', auth.optional, (req, res) => {
     .then(() => res.json({ user: finalUser.toAuthJSON() }));
 });
 
-router.post('/login', auth.optional, (req, res, next) => {
+router.post('/login', auth.required, (req, res, next) => {
   const {
     body: { user }
   } = req;
@@ -75,6 +74,20 @@ router.post('/login', auth.optional, (req, res, next) => {
       return res.status(400).info;
     }
   )(req, res, next);
+});
+
+router.get('/current', auth.required, (req, res) => {
+  console.log('in current')
+  const { payload: { id } } = req;
+
+  return Admin.findById(id)
+    .then((user) => {
+      if (!user) {
+        return res.sendStatus(400);
+      }
+
+      return res.json({ user: user.toAuthJSON() });
+    });
 });
 
 module.exports = router;
