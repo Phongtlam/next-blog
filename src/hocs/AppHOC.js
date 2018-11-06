@@ -56,6 +56,17 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._loadInitialData();
     }
 
+    componentDidMount() {
+      // eslint-disable-next-line no-undef
+      const currentLoc = window.location.href;
+      if (currentLoc.split('?').length > 1) {
+        const queryString = currentLoc.split('?')[1].split('&')[0].split('=');
+        this.setState({
+          Token: queryString[1]
+        });
+      }
+    }
+
     _loadInitialData() {
       if (componentType === 'portfolio' || componentType === 'blog') {
         Promise.all([fetchAll('portfolio'), fetchAll('blog')]).then(
@@ -68,10 +79,6 @@ const AppHOC = (WrappedComponent, componentType) =>
         );
       }
     }
-
-    // componentDidMount() {
-
-    // }
 
     _loadModalData({ callback, cancelCallback, ...otherProps }) {
       this.setState({

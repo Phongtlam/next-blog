@@ -85,7 +85,11 @@ class LandingPage extends React.Component {
       },
       () => {
         setTimeout(() => {
-          Router.push(`/${href}`);
+          // Router.push(`/${href}`);
+          Router.push({
+            pathname: `/${href}`,
+            query: this.props.router.query
+          });
         }, this.props.className ? 500 : 2000);
       }
     );
@@ -103,7 +107,10 @@ class LandingPage extends React.Component {
             <button
               className="root-nav"
               type="button"
-              onClick={() => Router.push('/')}
+              onClick={() => Router.push({
+                pathname: '/',
+                query: this.props.router.query
+              })}
             >
               Phong Lam
             </button>
