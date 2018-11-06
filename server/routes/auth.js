@@ -6,7 +6,7 @@ require('../config/passport');
 
 const router = express.Router();
 
-router.post('/create', auth.required, (req, res) => {
+router.post('/create', auth.optional, (req, res) => {
   const {
     body: { user }
   } = req;

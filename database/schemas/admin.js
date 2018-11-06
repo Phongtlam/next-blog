@@ -1,38 +1,6 @@
-const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const urls = require('../app-secrets/urls');
-
-const db = mongoose.connection;
-
-// eslint-disable-next-line no-console
-db.on('error', console.error.bind(console, 'Connection error: '));
-db.once('open', () => {
-  // eslint-disable-next-line no-console
-  console.log('Successfully connected to MongoDB.');
-});
-
-mongoose.Promise = global.Promise;
-mongoose.connect(
-  urls.database,
-  { useNewUrlParser: true }
-);
-mongoose.set('debug', true);
-
-const BlogSchema = new mongoose.Schema({
-  date: String,
-  title: String,
-  coverImgUrl: String,
-  markdownTexts: String
-});
-
-const PortfolioSchema = new mongoose.Schema({
-  date: String,
-  order: Number,
-  title: String,
-  coverImgUrl: String,
-  markdownTexts: String
-});
+const mongoose = require('../mongoose');
 
 const adminSchema = new mongoose.Schema({
   email: String,
@@ -70,6 +38,4 @@ adminSchema.methods.toAuthJSON = function toAuthJSON() {
   };
 };
 
-module.exports.Blog = mongoose.model('Blog', BlogSchema);
-module.exports.Portfolio = mongoose.model('Portfolio', PortfolioSchema);
-module.exports.Admin = mongoose.model('Admin', adminSchema);
+module.exports = mongoose.model('Admin', adminSchema);
