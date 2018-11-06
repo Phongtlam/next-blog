@@ -17,6 +17,7 @@ export const api = (body, method, route) =>
       .catch(error => reject(error));
   });
 
+// basic APIs
 const postApi = (body, route) => api(body, 'POST', route);
 
 const getApi = route => api(null, 'GET', route);
@@ -25,6 +26,7 @@ const putApi = (body, route) => api(body, 'PUT', route);
 
 const deleteApi = (body, route) => api(body, 'DELETE', route);
 
+// implementations for use cases
 export const publishFile = (body, type) => postApi(body, `/${type}/publish`);
 
 export const editFile = (body, type) => putApi(body, `/${type}/edit`);
@@ -33,5 +35,4 @@ export const fetchAll = type => getApi(`/${type}/all`);
 
 export const deleteFile = (body, type) => deleteApi(body, `/${type}/delete`);
 
-export const logIn = (body, queryString) =>
-  postApi(body, `/login${queryString}`);
+export const createNewAdmin = body => postApi(body, '/auth/create');

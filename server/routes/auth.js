@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.post('/create', auth.optional, (req, res) => {
   const {
-    body: { user }
+    body: { admin }
   } = req;
 
-  if (!user.email) {
+  if (!admin.email) {
     return res.status(422).json({
       errors: {
         email: 'is required'
@@ -18,7 +18,7 @@ router.post('/create', auth.optional, (req, res) => {
     });
   }
 
-  if (!user.password) {
+  if (!admin.password) {
     return res.status(422).json({
       errors: {
         password: 'is required'
@@ -26,21 +26,21 @@ router.post('/create', auth.optional, (req, res) => {
     });
   }
 
-  const finalUser = new Admin(user);
+  const finalUser = new Admin(admin);
 
-  finalUser.setPassword(user.password);
+  finalUser.setPassword(admin.password);
 
   return finalUser
     .save()
-    .then(() => res.json({ user: finalUser.toAuthJSON() }));
+    .then(() => res.json({ admin: finalUser.toAuthJSON() }));
 });
 
 router.post('/login', auth.required, (req, res, next) => {
   const {
-    body: { user }
+    body: { admin }
   } = req;
 
-  if (!user.email) {
+  if (!admin.email) {
     return res.status(422).json({
       errors: {
         email: 'is required'
@@ -48,7 +48,7 @@ router.post('/login', auth.required, (req, res, next) => {
     });
   }
 
-  if (!user.password) {
+  if (!admin.password) {
     return res.status(422).json({
       errors: {
         password: 'is required'
@@ -77,7 +77,6 @@ router.post('/login', auth.required, (req, res, next) => {
 });
 
 router.get('/current', auth.required, (req, res) => {
-  console.log('in current')
   const { payload: { id } } = req;
 
   return Admin.findById(id)
@@ -86,7 +85,7 @@ router.get('/current', auth.required, (req, res) => {
         return res.sendStatus(400);
       }
 
-      return res.json({ user: user.toAuthJSON() });
+      return res.json({ admin: user.toAuthJSON() });
     });
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router, { withRouter } from 'next/router';
 import ButtonIcon from '../components/ButtonIcon';
-import { logIn } from '../utils/fetch';
+import { createNewAdmin } from '../utils/fetch';
 import {
   adminQueryKey,
   adminQueryValue,
@@ -21,12 +21,14 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adminUsername: '',
+      adminEmail: '',
       adminPassword: '',
+      displayMessage: '',
       isCreateAccount: false
     };
 
     this._onChange = this._onChange.bind(this);
+    this._onCreateNewAdminUser = this._onCreateNewAdminUser.bind(this);
   }
 
   componentDidMount() {
@@ -45,21 +47,39 @@ class Admin extends React.Component {
 
   _onChange(e) {
     if (e.target.id === 'admin-username') {
-      this.setState({ adminUsername: e.target.value });
+      this.setState({ adminEmail: e.target.value });
     } else {
       this.setState({ adminPassword: e.target.value });
     }
   }
 
+  _onCreateNewAdminUser() {
+    createNewAdmin({
+      admin: {
+        email: this.state.adminEmail,
+        password: this.state.adminPassword
+      }
+    }).then(res => {
+      this.setState({
+        displayMessage: JSON.stringify(res)
+      });
+    }).catch(err => {
+      this.setState({
+        displayMessage: JSON.stringify(err)
+      });
+    });
+  }
+
   render() {
     return (
       <form className="App-Admin">
+        {this.state.displayMessage}
         <label className="App-Admin-label" htmlFor="admin-username">
           Name:
           <input
             id="admin-username"
             type="text"
-            value={this.state.adminUsername}
+            value={this.state.adminEmail}
             onChange={this._onChange}
           />
         </label>
@@ -74,7 +94,7 @@ class Admin extends React.Component {
         </label>
         <ButtonIcon
           buttonType="primary"
-          callback={this._onSubmit}
+          callback={this._onCreateNewAdminUser}
           iconName="fas fa-sign-in-alt"
         >
           {this.state.isCreateAccount ? 'Create New Admin' : 'Login'}
