@@ -107,10 +107,12 @@ class LandingPage extends React.Component {
             <button
               className="root-nav"
               type="button"
-              onClick={() => Router.push({
-                pathname: '/',
-                query: this.props.router.query
-              })}
+              onClick={() =>
+                Router.push({
+                  pathname: '/',
+                  query: this.props.router.query
+                })
+              }
             >
               Phong Lam
             </button>

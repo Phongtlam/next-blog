@@ -60,7 +60,10 @@ const AppHOC = (WrappedComponent, componentType) =>
       // eslint-disable-next-line no-undef
       const currentLoc = window.location.href;
       if (currentLoc.split('?').length > 1) {
-        const queryString = currentLoc.split('?')[1].split('&')[0].split('=');
+        const queryString = currentLoc
+          .split('?')[1]
+          .split('&')[0]
+          .split('=');
         this.setState({
           Token: queryString[1]
         });
@@ -181,6 +184,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                 loadMarkdownFormData={this._loadMarkdownFormData}
                 setAppData={this._setAppData}
                 markdownFormData={markdownFormData}
+                Token={Token}
               />
               <HtmlParser
                 className={`App-${type}`}

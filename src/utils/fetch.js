@@ -4,12 +4,19 @@ import apiUrl from '../../app-secrets/urls';
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-export const api = (body, method, route) =>
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json'
+};
+
+const createHeaderToken = token => ({
+  ...DEFAULT_HEADERS,
+  Authorization: `Token ${token}`
+});
+
+export const api = (body, method, route, headers = DEFAULT_HEADERS) =>
   new Promise((resolve, reject) => {
     fetch(`${apiUrl.nodeServer}${route}`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: new global.Headers(headers),
       method,
       body: body ? JSON.stringify(body) : null
     })
@@ -18,22 +25,25 @@ export const api = (body, method, route) =>
   });
 
 // basic APIs
-const postApi = (body, route) => api(body, 'POST', route);
+const postApi = (body, route, headers) => api(body, 'POST', route, headers);
 
-const getApi = route => api(null, 'GET', route);
+const getApi = (route, headers) => api(null, 'GET', route, headers);
 
-const putApi = (body, route) => api(body, 'PUT', route);
+const putApi = (body, route, headers) => api(body, 'PUT', route, headers);
 
-const deleteApi = (body, route) => api(body, 'DELETE', route);
+const deleteApi = (body, route, headers) => api(body, 'DELETE', route, headers);
 
 // implementations for use cases
-export const publishFile = (body, type) => postApi(body, `/${type}/publish`);
+export const publishFile = (body, type, token) =>
+  postApi(body, `/${type}/publish`, createHeaderToken(token));
 
-export const editFile = (body, type) => putApi(body, `/${type}/edit`);
+export const editFile = (body, type, token) =>
+  putApi(body, `/${type}/edit`, createHeaderToken(token));
 
 export const fetchAll = type => getApi(`/${type}/all`);
 
-export const deleteFile = (body, type) => deleteApi(body, `/${type}/delete`);
+export const deleteFile = (body, type, token) =>
+  deleteApi(body, `/${type}/delete`, createHeaderToken(token));
 
 export const createNewAdmin = body => postApi(body, '/auth/create');
 

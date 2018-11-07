@@ -60,15 +60,17 @@ class Admin extends React.Component {
         email: this.state.adminEmail,
         password: this.state.adminPassword
       }
-    }).then(({ admin }) => {
-      this.setState({
-        displayMessage: `${admin.email} has been created`
+    })
+      .then(({ admin }) => {
+        this.setState({
+          displayMessage: `${admin.email} has been created`
+        });
+      })
+      .catch(err => {
+        this.setState({
+          displayMessage: JSON.stringify(err)
+        });
       });
-    }).catch(err => {
-      this.setState({
-        displayMessage: JSON.stringify(err)
-      });
-    });
   }
 
   _onAdminLogin() {
@@ -77,18 +79,20 @@ class Admin extends React.Component {
         email: this.state.adminEmail,
         password: this.state.adminPassword
       }
-    }).then(response => {
-      if (response && response.admin && response.admin.token) {
-        Router.push({
-          pathname: '/',
-          query: { Token: response.admin.token }
+    })
+      .then(response => {
+        if (response && response.admin && response.admin.token) {
+          Router.push({
+            pathname: '/',
+            query: { Token: response.admin.token }
+          });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          displayMessage: JSON.stringify(err)
         });
-      }
-    }).catch(err => {
-      this.setState({
-        displayMessage: JSON.stringify(err)
       });
-    });
   }
 
   render() {
@@ -115,7 +119,11 @@ class Admin extends React.Component {
         </label>
         <ButtonIcon
           buttonType="primary"
-          callback={this.state.isCreateAccount ? this._onCreateNewAdminUser : this._onAdminLogin}
+          callback={
+            this.state.isCreateAccount
+              ? this._onCreateNewAdminUser
+              : this._onAdminLogin
+          }
           iconName="fas fa-sign-in-alt"
         >
           {this.state.isCreateAccount ? 'Create New Admin' : 'Login'}

@@ -84,16 +84,17 @@ router.post('/login', auth.optional, (req, res, next) => {
 });
 
 router.get('/current', auth.required, (req, res) => {
-  const { payload: { id } } = req;
+  const {
+    payload: { id }
+  } = req;
 
-  return Admin.findById(id)
-    .then((user) => {
-      if (!user) {
-        return res.sendStatus(400);
-      }
+  return Admin.findById(id).then(user => {
+    if (!user) {
+      return res.sendStatus(400);
+    }
 
-      return res.json({ admin: user.toAuthJSON() });
-    });
+    return res.json({ admin: user.toAuthJSON() });
+  });
 });
 
 module.exports = router;

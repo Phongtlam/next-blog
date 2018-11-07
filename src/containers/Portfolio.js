@@ -14,28 +14,31 @@ const Portfolio = props => {
     loadModalData,
     loadHtmlParser,
     isCreateBtnHidden = false,
-    isBackBtnHidden = false
+    isBackBtnHidden = false,
+    Token
   } = props;
   return (
     <div className={classnames('App-Portfolio', className)}>
       <div className="App-Portfolio-header">
-        <ButtonIcon
-          className={classnames({
-            hidden: isCreateBtnHidden
-          })}
-          buttonType="primary"
-          iconName="fas fa-plus"
-          callback={() => {
-            loadMarkdownFormData({
-              isOpen: true,
-              type: 'portfolio',
-              order: appData.length + 1,
-              _id: '-1'
-            });
-          }}
-        >
-          Create
-        </ButtonIcon>
+        {Token && (
+          <ButtonIcon
+            className={classnames({
+              hidden: isCreateBtnHidden
+            })}
+            buttonType="primary"
+            iconName="fas fa-plus"
+            callback={() => {
+              loadMarkdownFormData({
+                isOpen: true,
+                type: 'portfolio',
+                order: appData.length + 1,
+                _id: '-1'
+              });
+            }}
+          >
+            Create
+          </ButtonIcon>
+        )}
         <ButtonIcon
           className={classnames({
             hidden: isBackBtnHidden
@@ -61,6 +64,7 @@ const Portfolio = props => {
             loadMarkdownFormData={loadMarkdownFormData}
             loadModalData={loadModalData}
             loadHtmlParser={loadHtmlParser}
+            Token={Token}
           />
         ))}
       </div>
@@ -75,7 +79,8 @@ Portfolio.propTypes = {
   className: PropTypes.string,
   loadModalData: PropTypes.func,
   isCreateBtnHidden: PropTypes.bool,
-  isBackBtnHidden: PropTypes.bool
+  isBackBtnHidden: PropTypes.bool,
+  Token: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 Portfolio.defaultProps = {
@@ -85,7 +90,8 @@ Portfolio.defaultProps = {
   loadModalData: () => {},
   loadMarkdownFormData: () => {},
   isCreateBtnHidden: false,
-  isBackBtnHidden: false
+  isBackBtnHidden: false,
+  Token: null
 };
 
 export default Portfolio;

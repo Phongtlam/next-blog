@@ -19,7 +19,8 @@ class MarkdownForm extends React.Component {
       _id: PropTypes.string
     }),
     loadMarkdownFormData: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    Token: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -36,7 +37,8 @@ class MarkdownForm extends React.Component {
       action: '',
       _id: ''
     },
-    loadMarkdownFormData: () => {}
+    loadMarkdownFormData: () => {},
+    Token: null
   };
 
   constructor(props) {
@@ -121,7 +123,8 @@ class MarkdownForm extends React.Component {
         coverImgUrl,
         order
       },
-      this.props.markdownFormData.type
+      this.props.markdownFormData.type,
+      this.props.Token
     )
       .then(res => {
         if (res.portfolio) {
@@ -149,7 +152,8 @@ class MarkdownForm extends React.Component {
         coverImgUrl,
         order
       },
-      this.props.markdownFormData.type
+      this.props.markdownFormData.type,
+      this.props.Token
     )
       .then(res => {
         if (res.portfolio) {

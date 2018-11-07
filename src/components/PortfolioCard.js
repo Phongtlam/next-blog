@@ -6,14 +6,15 @@ import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { deleteFile } from '../utils/fetch';
 
-const _onDelete = project => deleteFile(project, 'portfolio');
+const _onDelete = (project, token) => deleteFile(project, 'portfolio', token);
 
 const PortfolioCard = ({
   cardData,
   loadModalData,
   loadMarkdownFormData,
   loadHtmlParser,
-  cardData: { coverImgUrl, title, markdownTexts }
+  cardData: { coverImgUrl, title, markdownTexts },
+  Token
 }) => (
   <div className="App-PortfolioCard">
     <div
@@ -37,31 +38,35 @@ const PortfolioCard = ({
       />
     </div>
     <div className="content">
-      <ButtonIcon
-        className="action-button"
-        callback={() => {
-          loadMarkdownFormData({
-            isOpen: true,
-            action: 'edit',
-            type: 'portfolio',
-            ...cardData
-          });
-        }}
-        iconName="fas fa-edit"
-        buttonType="borderless"
-      />
-      <ButtonIcon
-        className="action-button"
-        callback={() => {
-          loadModalData({
-            callback: () => _onDelete(cardData),
-            message: `Delete ${cardData.title} ?`,
-            type: 'danger'
-          });
-        }}
-        iconName="fas fa-trash-alt"
-        buttonType="borderless-danger"
-      />
+      {Token && (
+        <React.Fragment>
+          <ButtonIcon
+            className="action-button"
+            callback={() => {
+              loadMarkdownFormData({
+                isOpen: true,
+                action: 'edit',
+                type: 'portfolio',
+                ...cardData
+              });
+            }}
+            iconName="fas fa-edit"
+            buttonType="borderless"
+          />
+          <ButtonIcon
+            className="action-button"
+            callback={() => {
+              loadModalData({
+                callback: () => _onDelete(cardData, Token),
+                message: `Delete ${cardData.title} ?`,
+                type: 'danger'
+              });
+            }}
+            iconName="fas fa-trash-alt"
+            buttonType="borderless-danger"
+          />
+        </React.Fragment>
+      )}
       <h3>{title}</h3>
       <HtmlParser htmlParserData={markdownTexts.split('<!--more-->')[0]} />
     </div>
@@ -72,14 +77,16 @@ PortfolioCard.propTypes = {
   cardData: PropTypes.shape(fileDataShape),
   loadModalData: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
-  loadHtmlParser: PropTypes.func
+  loadHtmlParser: PropTypes.func,
+  Token: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 PortfolioCard.defaultProps = {
   cardData: {},
   loadModalData: () => {},
   loadMarkdownFormData: () => {},
-  loadHtmlParser: () => {}
+  loadHtmlParser: () => {},
+  Token: null
 };
 
 export default PortfolioCard;
