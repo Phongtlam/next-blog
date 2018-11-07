@@ -6,7 +6,26 @@
     height: 50%;
   }
 
-  &.App-home {
+  blockquote {
+    padding: $xs-spacing $m-spacing;
+    border-left: solid 5px $blue;
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      &::before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 600;
+        content: '\f054';
+        margin: 0 5px 0 -15px;
+        color: $blue;
+      }
+    }
+  }
+
+  &.App-portfolio {
     padding: $l-spacing $m-spacing;
   }
 }
