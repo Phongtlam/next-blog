@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const { Admin } = require('../../database');
-const auth = require('../config/auth');
+const { auth } = require('../middleware');
 
 const router = express.Router();
 

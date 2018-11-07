@@ -47,7 +47,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
         isMenuOpen: false,
-        Token: ''
+        Token: null
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
@@ -147,7 +147,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         markdownFormData,
         blogData,
         modalData,
-        htmlParserData
+        htmlParserData,
+        Token
       } = this.state;
 
       let dataProps = {
@@ -155,7 +156,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         loadModalData: this._loadModalData,
         loadMarkdownFormData: this._loadMarkdownFormData,
         loadHtmlParser: this._loadHtmlParser,
-        appData: {}
+        appData: {},
+        Token
       };
       switch (type) {
         case 'portfolio':

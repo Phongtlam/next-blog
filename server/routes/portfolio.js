@@ -1,9 +1,10 @@
 const express = require('express');
 const mongoSchema = require('../../database');
+const { auth } = require('../middleware');
 
 const router = express.Router();
 
-router.post('/publish', (req, res) => {
+router.post('/publish', auth.required, (req, res) => {
   if (req.body === null) {
     return res.status(400).send(
       JSON.stringify({
@@ -34,7 +35,7 @@ router.post('/publish', (req, res) => {
     });
 });
 
-router.put('/edit', (req, res) => {
+router.put('/edit', auth.required, (req, res) => {
   mongoSchema.Portfolio.findById(req.body._id, (error, portfolio) => {
     if (error) {
       res.status(400).send({
@@ -60,7 +61,7 @@ router.put('/edit', (req, res) => {
   });
 });
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete', auth.required, (req, res) => {
   mongoSchema.Portfolio.findById(req.body._id)
     .deleteOne()
     .exec()
