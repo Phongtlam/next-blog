@@ -119,11 +119,12 @@ class LandingPage extends React.Component {
           </h1>
           <NavigationHeader />
         </div>
-        {LANDING_PAGE_ROW.map(row => (
+        {LANDING_PAGE_ROW.map((row, index) => (
           <div
             key={row.href}
             className={classnames('tilt content', {
-              transition: this.state[row.href]
+              transition: this.state[row.href],
+              [`animate-div-${index}`]: !this.props.className
             })}
           >
             <button
@@ -144,7 +145,11 @@ class LandingPage extends React.Component {
             />
           </div>
         ))}
-        <div className="tilt last-item">
+        <div
+          className={classnames('tilt last-item', {
+            'animate-div-4': !this.props.className
+          })}
+        >
           <ExternalLinks
             className={classnames('external-links', {
               hidden: !this.props.className
