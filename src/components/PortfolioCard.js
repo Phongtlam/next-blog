@@ -5,8 +5,10 @@ import ButtonIcon from './ButtonIcon';
 import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { deleteFile } from '../utils/fetch';
+import { PORTFOLIO_TYPE } from '../enums/markdown-form';
 
-const _onDelete = (project, token) => deleteFile(project, 'portfolio', token);
+const _onDelete = (project, token) =>
+  deleteFile(project, PORTFOLIO_TYPE, token);
 
 const PortfolioCard = ({
   cardData,
@@ -46,7 +48,7 @@ const PortfolioCard = ({
               loadMarkdownFormData({
                 isOpen: true,
                 action: 'edit',
-                type: 'portfolio',
+                type: PORTFOLIO_TYPE,
                 ...cardData
               });
             }}

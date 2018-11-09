@@ -1,10 +1,10 @@
 import React from 'react';
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import ButtonIcon from './ButtonIcon';
 
 const BlogCard = props => {
-  const { isoDate, title, guid, categories, loadHtmlParser } = props;
+  const { isoDate, title, guid, categories, index } = props;
   return (
     <div className="App-BlogCard">
       <header className="header">
@@ -27,11 +27,20 @@ const BlogCard = props => {
         type="button"
         className="clickable-title"
         onClick={() => {
-          // loadHtmlParser(props['content:encoded']);
-          Router.push({
-            pathname: `/Blog/${title.split(' ').join('-')}`,
-            query: { guid: guid.split('https://')[1] }
-          });
+          // const guidArray = guid.split('/');
+          // const id = guidArray[guidArray.length - 1];
+          // Router.push(
+          //   {
+          //     pathname: '/Blog/Page',
+          //     query: {
+          //       ...props.router.query,
+          //       id,
+          //       index
+          //     }
+          //   },
+          //   `/Blog/${id}?index=${index}`
+          // );
+          Router.push(`/Blog/Page?index=${index}`);
         }}
       >
         <h2>{title}</h2>
@@ -52,8 +61,10 @@ BlogCard.propTypes = {
   title: PropTypes.string,
   guid: PropTypes.string,
   categories: PropTypes.arrayOf(PropTypes.string),
-  // eslint-disable-next-line no-useless-computed-key
-  ['content:encoded']: PropTypes.string
+  router: PropTypes.shape({
+    query: PropTypes.object
+  }).isRequired,
+  index: PropTypes.number
 };
 
 BlogCard.defaultProps = {
@@ -61,8 +72,7 @@ BlogCard.defaultProps = {
   title: '',
   guid: '',
   categories: [],
-  // eslint-disable-next-line no-useless-computed-key
-  ['content:encoded']: ''
+  index: null
 };
 
-export default BlogCard;
+export default withRouter(BlogCard);

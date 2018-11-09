@@ -6,6 +6,11 @@
     border-left: solid 5px $blue;
   }
 
+  figure {
+    text-align: center;
+    margin: $s-spacing 0;
+  }
+
   ul {
     list-style-type: none;
 

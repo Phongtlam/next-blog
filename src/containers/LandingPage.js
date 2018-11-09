@@ -85,10 +85,11 @@ class LandingPage extends React.Component {
       },
       () => {
         setTimeout(() => {
-          // Router.push(`/${href}`);
           Router.push({
             pathname: `/${href}`,
-            query: this.props.router.query
+            query: this.props.router.query.Token
+              ? { Token: this.props.router.query.Token }
+              : null
           });
         }, this.props.className ? 500 : 2000);
       }

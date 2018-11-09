@@ -4,6 +4,7 @@
 @import "./App.scss";
 @import "./Blog.scss";
 @import "./BlogCard.scss";
+@import "./BlogPage.scss";
 @import "./ButtonIcon.scss";
 @import "./ExternalLinks.scss";
 @import "./GetInTouch.scss";
@@ -27,6 +28,7 @@ body {
 	font-size: 14px;
 	background-color: #f4f4f4;
 	overflow: hidden;
+	color: $black;
 }
 
 textarea:focus, input:focus {
@@ -35,10 +37,6 @@ textarea:focus, input:focus {
 
 a {
 	text-decoration: none
-}
-
-p {
-	color: $grey;
 }
 
 input, textarea {

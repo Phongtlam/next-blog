@@ -17,7 +17,6 @@ app.prepare().then(() => {
   server.use(bodyParser.json());
   server.use(bodyParser.text({ type: 'text/html' }));
   server.use(passport.initialize());
-  // server.use(passport.session());
 
   server.use((req, res, nextMid) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -37,9 +36,15 @@ app.prepare().then(() => {
     handle(req, res);
   });
 
-  server.use('/blog', routes.blog);
+  // server.get('/Blog/:id', (req, res) => {
+  //   console.log('what is params', req.params)
+  //   const params = { id: req.params.id, index: req.params.index };
+  //   return app.render(req, res, '/Blog/Page', params);
+  // });
 
-  server.use('/portfolio', routes.portfolio);
+  server.use('/blog-data', routes.blog);
+
+  server.use('/portfolio-data', routes.portfolio);
 
   server.use('/auth', routes.auth);
 

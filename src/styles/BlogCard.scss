@@ -6,11 +6,9 @@ $light-purple: #5D4157;
   padding: $s-spacing;
   margin-bottom: $m-spacing;
   background-color: $white;
-  // box-shadow: 0 0 5px #ccc;
   box-shadow: 0 0 0 1px rgba(0,0,0,.1);
 
   &:hover {
-    // box-shadow: 0 0 5px #999;
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
   }
 
@@ -49,7 +47,10 @@ $light-purple: #5D4157;
   .category {
     padding: $xs-spacing;
     margin-right: $s-spacing;
-    color: $black;
-    background: rgba(0,0,0,.05);
+    // color: $black;
+    // background: rgba(0,0,0,.05);
+    background: $light-purple;
+    color: $white;
+    border-radius: $s-radius;
   }
 }

@@ -1,7 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import HtmlParser from '../components/HtmlParser';
 import BlogCard from '../components/BlogCard';
 
 const Blog = ({ appData }) => (
@@ -17,11 +15,8 @@ const Blog = ({ appData }) => (
       </a>
     </h1>
     {appData.items &&
-      appData.items.map(item => (
-        <BlogCard
-          key={item.isoDate}
-          {...item}
-        />
+      appData.items.map((item, index) => (
+        <BlogCard key={item.isoDate} index={index} {...item} />
       ))}
   </div>
 );
@@ -29,13 +24,13 @@ const Blog = ({ appData }) => (
 Blog.propTypes = {
   appData: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.object)
-  }),
+  })
 };
 
 Blog.defaultProps = {
   appData: {
     items: []
-  },
+  }
 };
 
 export default Blog;

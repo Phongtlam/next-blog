@@ -1,11 +1,10 @@
-/* global sessionStorage */
-
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
 
 import SideBar from '../containers/SideBar';
 import { fetchAll } from '../utils/fetch';
+import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/markdown-form';
 
 import '../styles/index.scss';
 
@@ -28,7 +27,7 @@ const INITIAL_MODAL_DATA = {
 
 const INITIAL_MARKDOWN_FORM_DATA = {
   isOpen: false,
-  type: 'portfolio',
+  type: PORTFOLIO_TYPE,
   markdownTexts: '',
   title: '',
   order: 0,
@@ -74,15 +73,15 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     _loadInitialData() {
       if (componentType === 'portfolio') {
-        fetchAll('portfolio').then(response => {
+        fetchAll(PORTFOLIO_TYPE).then(response => {
           this.setState({
             portfolioData: response.sort((a, b) => b.order - a.order)
           });
         });
       } else if (componentType === 'blog') {
         // need to refactor, don't call if blog is available in sessionStorage
-        fetchAll('blog').then(response => {
-          sessionStorage.setItem('blog', response);
+        fetchAll(BLOG_TYPE).then(response => {
+          // sessionStorage.setItem('blog', response);
           this.setState({
             blogData: response
           });
@@ -130,7 +129,7 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _setAppData(type, htmlsData, editMode = false) {
-      const htmlType = type === 'portfolio' ? 'portfolioData' : 'blogData';
+      const htmlType = type === PORTFOLIO_TYPE ? 'portfolioData' : 'blogData';
       if (editMode) {
         const indexToReplace = this.state[htmlType].findIndex(
           el => el._id === htmlsData._id

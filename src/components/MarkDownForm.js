@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { publishFile, editFile } from '../utils/fetch';
 import ButtonIcon from './ButtonIcon';
+import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/markdown-form';
 
 class MarkdownForm extends React.Component {
   static propTypes = {
     setAppData: PropTypes.func,
     markdownFormData: PropTypes.shape({
       isOpen: PropTypes.bool,
-      type: PropTypes.oneOf(['portfolio', 'post']),
+      type: PropTypes.oneOf([PORTFOLIO_TYPE, BLOG_TYPE]),
       action: PropTypes.string,
       markdownTexts: PropTypes.string,
       order: PropTypes.number,
@@ -28,7 +29,7 @@ class MarkdownForm extends React.Component {
     className: null,
     markdownFormData: {
       isOpen: false,
-      type: 'portfolio',
+      type: PORTFOLIO_TYPE,
       markdownTexts: '',
       title: '',
       order: 0,

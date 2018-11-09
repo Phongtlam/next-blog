@@ -1,0 +1,16 @@
+@import "./util_variable.scss";
+
+.App-BlogPage {
+  .back-button {
+    position: absolute;
+    top: 0;
+  }
+
+  .blog-content {
+    padding: $l-spacing $m-spacing;
+
+    .blog-title {
+      text-align: center;
+    }
+  }
+}

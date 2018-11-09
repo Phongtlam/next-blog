@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ButtonIcon from '../components/ButtonIcon';
 import PortfolioCard from '../components/PortfolioCard';
 import { fileDataShape } from '../utils/propTypesShapes';
+import { PORTFOLIO_TYPE } from '../enums/markdown-form';
 
 const Portfolio = props => {
   const {
@@ -30,7 +31,7 @@ const Portfolio = props => {
             callback={() => {
               loadMarkdownFormData({
                 isOpen: true,
-                type: 'portfolio',
+                type: PORTFOLIO_TYPE,
                 order: appData.length + 1,
                 _id: '-1'
               });
