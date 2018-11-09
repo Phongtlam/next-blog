@@ -1,6 +1,8 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
+  @include static-container();
+
   blockquote {
     padding: $xs-spacing $m-spacing;
     border-left: solid 5px $blue;
