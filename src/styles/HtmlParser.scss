@@ -1,11 +1,6 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
-  img {
-    width: 50%;
-    height: 50%;
-  }
-
   blockquote {
     padding: $xs-spacing $m-spacing;
     border-left: solid 5px $blue;
@@ -27,5 +22,10 @@
 
   &.App-portfolio {
     padding: $l-spacing $m-spacing;
+
+    img {
+      width: 50%;
+      height: 50%;
+    }
   }
 }

@@ -3,6 +3,7 @@
 @import "./About.scss";
 @import "./App.scss";
 @import "./Blog.scss";
+@import "./BlogCard.scss";
 @import "./ButtonIcon.scss";
 @import "./ExternalLinks.scss";
 @import "./GetInTouch.scss";
@@ -54,4 +55,6 @@ textarea {
 button, a {
 	cursor: pointer;
 	outline: 0;
+	border: none;
+	background: none;
 }

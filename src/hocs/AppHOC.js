@@ -1,3 +1,5 @@
+/* global sessionStorage */
+
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
@@ -42,7 +44,7 @@ const AppHOC = (WrappedComponent, componentType) =>
       super(props);
       this.state = {
         portfolioData: [],
-        blogData: [],
+        blogData: {},
         modalData: INITIAL_MODAL_DATA,
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
@@ -71,15 +73,20 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _loadInitialData() {
-      if (componentType === 'portfolio' || componentType === 'blog') {
-        Promise.all([fetchAll('portfolio'), fetchAll('blog')]).then(
-          responseArray => {
-            this.setState({
-              portfolioData: responseArray[0].sort((a, b) => b.order - a.order),
-              blogData: responseArray[1]
-            });
-          }
-        );
+      if (componentType === 'portfolio') {
+        fetchAll('portfolio').then(response => {
+          this.setState({
+            portfolioData: response.sort((a, b) => b.order - a.order)
+          });
+        });
+      } else if (componentType === 'blog') {
+        // need to refactor, don't call if blog is available in sessionStorage
+        fetchAll('blog').then(response => {
+          sessionStorage.setItem('blog', response);
+          this.setState({
+            blogData: response
+          });
+        });
       }
     }
 

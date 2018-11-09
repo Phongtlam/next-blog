@@ -1,0 +1,55 @@
+@import "./util_variable.scss";
+
+$light-purple: #5D4157;
+
+.App-BlogCard {
+  padding: $s-spacing;
+  margin-bottom: $m-spacing;
+  background-color: $white;
+  // box-shadow: 0 0 5px #ccc;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+
+  &:hover {
+    // box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .to-blog-button {
+      border-color: $light-purple;
+
+      .icon, .text {
+        color: $light-purple;
+      }
+
+      &:hover {
+        background-color: $light-purple;
+        .icon, .text {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .date-display {
+    .date {
+      color: $grey;
+    }
+  }
+
+  .clickable-title {
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .category {
+    padding: $xs-spacing;
+    margin-right: $s-spacing;
+    color: $black;
+    background: rgba(0,0,0,.05);
+  }
+}

@@ -1,33 +1,41 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import HtmlParser from '../components/HtmlParser';
+import BlogCard from '../components/BlogCard';
 
-class Blog extends React.Component {
-  static propTypes = {
-    blogData: PropTypes.arrayOf(PropTypes.object),
-    setAppData: PropTypes.func
-  };
+const Blog = ({ appData }) => (
+  <div className="App-Blog">
+    <h1>
+      My Blog on&nbsp;
+      <a
+        href="https://medium.com/@phongtlam"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Medium
+      </a>
+    </h1>
+    {appData.items &&
+      appData.items.map(item => (
+        <BlogCard
+          key={item.isoDate}
+          {...item}
+        />
+      ))}
+  </div>
+);
 
-  static defaultProps = {
-    blogData: [],
-    setAppData: PropTypes.func
-  };
+Blog.propTypes = {
+  appData: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.object)
+  }),
+};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      openMarkDownForm: false
-    };
-    this._onToggleMarkDownForm = this._onToggleMarkDownForm.bind(this);
-  }
-
-  _onToggleMarkDownForm(isOpen) {
-    this.setState({ openMarkDownForm: isOpen });
-  }
-
-  render() {
-    return <div className="App-Blog">Hello</div>;
-  }
-}
+Blog.defaultProps = {
+  appData: {
+    items: []
+  },
+};
 
 export default Blog;

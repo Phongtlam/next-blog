@@ -104,6 +104,10 @@
     .root-nav {
       display: none;
       font-weight: bold;
+      
+      &:hover {
+        color: $grey;
+      }
     }
 
     &.first-item {

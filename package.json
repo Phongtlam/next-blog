@@ -19,6 +19,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-particles-js": "^2.3.0",
+    "rss-parser": "^3.5.3",
     "showdown": "^1.8.7"
   },
   "devDependencies": {
