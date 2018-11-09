@@ -27,25 +27,13 @@ const BlogCard = props => {
         type="button"
         className="clickable-title"
         onClick={() => {
-          // const guidArray = guid.split('/');
-          // const id = guidArray[guidArray.length - 1];
-          // Router.push(
-          //   {
-          //     pathname: '/Blog/Page',
-          //     query: {
-          //       ...props.router.query,
-          //       id,
-          //       index
-          //     }
-          //   },
-          //   `/Blog/${id}?index=${index}`
-          // );
           Router.push(`/Blog/Page?index=${index}`);
         }}
       >
         <h2>{title}</h2>
       </button>
       <footer>
+        <i className="tag fas fa-tag" />
         {categories.map(cat => (
           <span className="category" key={cat}>
             {cat}

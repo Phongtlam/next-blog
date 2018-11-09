@@ -44,13 +44,18 @@ $light-purple: #5D4157;
     }
   }
 
-  .category {
-    padding: $xs-spacing;
-    margin-right: $s-spacing;
-    // color: $black;
-    // background: rgba(0,0,0,.05);
-    background: $light-purple;
-    color: $white;
-    border-radius: $s-radius;
+  footer {
+    .tag {
+      padding-right: $s-spacing;
+    }
+
+    .category {
+      display: inline-block;
+      padding: $xs-spacing;
+      margin: 0 $s-spacing $xs-spacing 0;
+      color: $black;
+      background: rgba(0,0,0,.05);
+      border-radius: $s-radius;
+    }
   }
 }

@@ -57,9 +57,7 @@ app.prepare().then(() => {
     // eslint-disable-next-line no-console
     console.log(
       `>Environment: ${process.env.NODE_ENV}\n>Server ready on ${
-        process.env.NODE_ENV === 'development'
-          ? 'http://localhost'
-          : 'live server'
+        dev ? 'http://localhost' : 'live server'
       }:${PORT}`
     );
   });
