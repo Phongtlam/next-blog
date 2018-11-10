@@ -4,7 +4,7 @@ import BlogCard from '../components/BlogCard';
 
 const Blog = ({ appData }) => (
   <div className="App-Blog">
-    <h1>
+    <h1 className="hide-content-l">
       My Blog on&nbsp;
       <a
         href="https://medium.com/@phongtlam"
