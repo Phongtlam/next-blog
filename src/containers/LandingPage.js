@@ -7,6 +7,7 @@ import '../styles/LandingPage.scss';
 import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
+import ButtonIcon from '../components/buttons/ButtonIcon';
 
 const LANDING_PAGE_ROW = [
   {
@@ -31,6 +32,29 @@ const LANDING_PAGE_ROW = [
     href: 'Getintouch',
     linkDisplay: 'Contact',
     imageSrc: '../../static/contact-img.jpeg',
+    imageAlt: 'Contact'
+  }
+];
+
+const MINIFIED_MENU = [
+  {
+    href: 'About',
+    iconName: 'fas fa-info-circle',
+    imageAlt: 'About'
+  },
+  {
+    href: 'Portfolio',
+    iconName: 'fas fa-file',
+    imageAlt: 'Portfolio'
+  },
+  {
+    href: 'Blog',
+    iconName: 'fas fa-pen-square',
+    imageAlt: 'Blog'
+  },
+  {
+    href: 'Getintouch',
+    iconName: 'fas fa-address-card',
     imageAlt: 'Contact'
   }
 ];
@@ -67,7 +91,7 @@ class LandingPage extends React.Component {
     this.setState({ [route]: true });
   }
 
-  _onNavigation(href) {
+  _onNavigation(href, isInstant) {
     this.setState(
       prevState => {
         const state = Object.keys(prevState).reduce((newState, key) => {
@@ -86,6 +110,12 @@ class LandingPage extends React.Component {
         return state;
       },
       () => {
+        let timer;
+        if (isInstant) {
+          timer = 0;
+        } else {
+          timer = this.props.className ? 500 : 2000;
+        }
         setTimeout(() => {
           Router.push({
             pathname: `/${href}`,
@@ -93,7 +123,7 @@ class LandingPage extends React.Component {
               ? { Token: this.props.router.query.Token }
               : null
           });
-        }, this.props.className ? 500 : 2000);
+        }, timer);
       }
     );
   }
@@ -173,6 +203,21 @@ class LandingPage extends React.Component {
                 alt={row.imageAlt}
               />
             </div>
+          ))}
+        </div>
+        <div
+          className={classnames('navigation-block', {
+            hidden: this.state.isNavOpen
+          })}
+        >
+          {MINIFIED_MENU.map(row => (
+            <ButtonIcon
+              key={row.href}
+              className="tilt minified-menu-item"
+              callback={() => this._onNavigation(row.href, true)}
+              iconName={row.iconName}
+              buttonType="borderless"
+            />
           ))}
         </div>
         <div

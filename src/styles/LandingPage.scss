@@ -118,7 +118,19 @@
             transition: opacity 0.5s ease;
           }
         }
-      }    
+      }
+
+      &.minified-menu-item {
+        border-radius: 0;
+        height: 100%;
+        margin-bottom: 7px;
+
+        &:hover {
+          .icon {
+            color: $blue;
+          }
+        }
+      }
     }
   }
 

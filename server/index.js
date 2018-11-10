@@ -1,6 +1,7 @@
 const express = require('express');
 const next = require('next');
-const { bodyParser, passport } = require('./middleware');
+const path = require('path');
+const { bodyParser, passport, favicon } = require('./middleware');
 const routes = require('./routes');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -16,6 +17,7 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.use(bodyParser.text({ type: 'text/html' }));
+  server.use(favicon(path.join(__dirname, '..', 'static', 'favicon.png')));
   server.use(passport.initialize());
 
   server.use((req, res, nextMid) => {
