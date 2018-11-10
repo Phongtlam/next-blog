@@ -182,15 +182,13 @@
       }
     }
 
-    &.first-item {
-      height: auto;
-    }
-
     &.last-item {
       height: 100vh;
     }
 
     &.side-nav {
+      height: auto;
+
       .App-NavigationHeader {
         display: block;
         color: $jetblack;
