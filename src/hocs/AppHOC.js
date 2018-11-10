@@ -74,21 +74,30 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _loadInitialData() {
-      const sessionStorageKey = componentType === 'portfolio' ? PORTFOLIO_TYPE : BLOG_TYPE;
-      const dataType = componentType === 'portfolio' ? 'portfolioData' : 'blogData';
-      const sessionStorageData = sessionStorage.getItem(sessionStorageKey);
+      if (componentType === 'portfolio' || componentType === 'blog') {
+        const sessionStorageKey =
+          componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+        const dataType =
+          componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+        const sessionStorageData = sessionStorage.getItem(sessionStorageKey);
 
-      if (!sessionStorageData) {
-        fetchAll(sessionStorageKey).then(response => {
-          sessionStorage.setItem(sessionStorageKey, JSON.stringify(response));
-          this.setState({
-            [dataType]: componentType === 'portfolio' ? response.sort((a, b) => b.order - a.order) : response
+        if (!sessionStorageData) {
+          fetchAll(
+            sessionStorageKey === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
+          ).then(response => {
+            sessionStorage.setItem(sessionStorageKey, JSON.stringify(response));
+            this.setState({
+              [dataType]:
+                componentType === 'portfolio'
+                  ? response.sort((a, b) => b.order - a.order)
+                  : response
+            });
           });
-        });
-      } else {
-        this.setState({
-          [dataType]: JSON.parse(sessionStorageData)
-        });
+        } else {
+          this.setState({
+            [dataType]: JSON.parse(sessionStorageData)
+          });
+        }
       }
     }
 
