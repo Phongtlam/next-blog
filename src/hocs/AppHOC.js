@@ -1,3 +1,5 @@
+/* global sessionStorage */
+
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
@@ -54,10 +56,10 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
       this._loadHtmlParser = this._loadHtmlParser.bind(this);
-      this._loadInitialData();
     }
 
     componentDidMount() {
+      this._loadInitialData();
       // eslint-disable-next-line no-undef
       const currentLoc = window.location.href;
       if (currentLoc.split('?').length > 1) {
@@ -73,19 +75,33 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     _loadInitialData() {
       if (componentType === 'portfolio') {
-        fetchAll(PORTFOLIO_TYPE).then(response => {
-          this.setState({
-            portfolioData: response.sort((a, b) => b.order - a.order)
+        const portfolioData = sessionStorage.getItem('portfolio-data');
+        if (!portfolioData) {
+          fetchAll(PORTFOLIO_TYPE).then(response => {
+            sessionStorage.setItem('portfolio-data', JSON.stringify(response));
+            this.setState({
+              portfolioData: response.sort((a, b) => b.order - a.order)
+            });
           });
-        });
+        } else {
+          this.setState({
+            portfolioData: JSON.parse(portfolioData)
+          });
+        }
       } else if (componentType === 'blog') {
-        // need to refactor, don't call if blog is available in sessionStorage
-        fetchAll(BLOG_TYPE).then(response => {
-          // sessionStorage.setItem('blog', response);
-          this.setState({
-            blogData: response
+        const blogData = sessionStorage.getItem('blog-data');
+        if (!blogData) {
+          fetchAll(BLOG_TYPE).then(response => {
+            sessionStorage.setItem('blog-data', JSON.stringify(response));
+            this.setState({
+              blogData: response
+            });
           });
-        });
+        } else {
+          this.setState({
+            blogData: JSON.parse(blogData)
+          });
+        }
       }
     }
 
