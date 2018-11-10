@@ -5,12 +5,12 @@ import classnames from 'classnames';
 const MenuButton = props => (
   <div
     className={classnames('App-MenuButton', props.className, {
-      active: props.isMenuButtonActive
+      active: props.isActive
     })}
-    onKeyDown={props.onMenuButtonClick}
+    onKeyDown={() => props.onClick()}
     role="button"
     tabIndex={0}
-    onClick={props.onMenuButtonClick}
+    onClick={() => props.onClick()}
   >
     <div className="top bar" />
     <div className="middle bar" />
@@ -20,14 +20,14 @@ const MenuButton = props => (
 
 MenuButton.propTypes = {
   className: PropTypes.string,
-  isMenuButtonActive: PropTypes.bool,
-  onMenuButtonClick: PropTypes.func
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 MenuButton.defaultProps = {
   className: '',
-  isMenuButtonActive: false,
-  onMenuButtonClick: () => {}
+  isActive: false,
+  onClick: () => {}
 };
 
 export default MenuButton;

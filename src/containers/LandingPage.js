@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
-// import ParticlesWrapper from '../components/Particles';
 
 import '../styles/LandingPage.scss';
 import NavigationHeader from '../components/NavigationHeader';
@@ -56,10 +55,11 @@ class LandingPage extends React.Component {
       Blog: false,
       Getintouch: false,
       disabled: false,
-      isMenuButtonActive: false
+      isNavOpen: true
     };
 
     this._onNavigation = this._onNavigation.bind(this);
+    this.isNewRoute = true;
   }
 
   componentDidMount() {
@@ -79,7 +79,7 @@ class LandingPage extends React.Component {
             newState[key] = true;
           } else {
             // eslint-disable-next-line no-param-reassign
-            newState[key] = false;
+            newState[key] = prevState[key];
           }
           return newState;
         }, {});
@@ -100,65 +100,79 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <div className={classnames('App-LandingPage', this.props.className)}>
+      <div
+        className={classnames('App-LandingPage', this.props.className, {
+          'slide-out': !this.state.isNavOpen,
+          'slide-in': this.state.isNavOpen && !this.isNewRoute
+        })}
+      >
         <div
           className={classnames('tilt first-item', {
             'side-nav': this.props.className
           })}
         >
-          <header>
-            <h1>
-              <button
-                className="root-nav"
-                type="button"
-                onClick={() =>
-                  Router.push({
-                    pathname: '/',
-                    query: this.props.router.query
-                  })
-                }
-              >
-                Phong Lam
-              </button>
-            </h1>
-            <MenuButton
-              className="menu-button-desktop"
-              isMenuButtonActive={this.state.isMenuButtonActive}
-              onMenuButtonClick={() => {
-                this.setState(prevState => ({
-                  isMenuButtonActive: !prevState.isMenuButtonActive
-                }));
-              }}
-            />
-          </header>
-          <NavigationHeader />
-        </div>
-        {LANDING_PAGE_ROW.map((row, index) => (
-          <div
-            key={row.href}
-            className={classnames('tilt content', {
-              transition: this.state[row.href],
-              [`animate-div-${index}`]: !this.props.className
-            })}
-          >
+          <MenuButton
+            className="menu-button-desktop"
+            isActive={this.state.isNavOpen}
+            onClick={() => {
+              this.isNewRoute = false;
+              this.setState(prevState => ({
+                isNavOpen: !prevState.isNavOpen
+              }));
+            }}
+          />
+          <h1>
             <button
+              className={classnames('root-nav', {
+                hidden: !this.state.isNavOpen
+              })}
               type="button"
-              disabled={
-                this.state.disabled ||
-                this.props.router.pathname === `/${row.href}`
+              onClick={() =>
+                Router.push({
+                  pathname: '/',
+                  query: this.props.router.query
+                })
               }
-              className={`tilt-title ${row.linkDisplay}`}
-              onClick={() => this._onNavigation(row.href)}
             >
-              {row.linkDisplay}
+              Phong Lam
             </button>
-            <img
-              className={`tilt-img ${row.linkDisplay}`}
-              src={row.imageSrc}
-              alt={row.imageAlt}
-            />
-          </div>
-        ))}
+          </h1>
+          <NavigationHeader
+            className={classnames('header-text', { hidden: !this.state.isNavOpen })}
+          />
+        </div>
+        <div
+          className={classnames('navigation-block', {
+            hidden: !this.state.isNavOpen
+          })}
+        >
+          {LANDING_PAGE_ROW.map((row, index) => (
+            <div
+              key={row.href}
+              className={classnames('tilt content', {
+                transition: this.state[row.href],
+                [`animate-div-${index}`]: !this.props.className
+              })}
+            >
+              <button
+                type="button"
+                disabled={
+                  this.state.disabled ||
+                  this.props.router.pathname === `/${row.href}`
+                }
+                className={`tilt-title ${row.linkDisplay}`}
+                onClick={() => this._onNavigation(row.href)}
+              >
+                {row.linkDisplay}
+              </button>
+              <img
+                className={`tilt-img ${row.linkDisplay}`}
+                src={row.imageSrc}
+                alt={row.imageAlt}
+              />
+            </div>
+          ))}
+        </div>
         <div
           className={classnames('tilt last-item', {
             'animate-div-4': !this.props.className
@@ -170,7 +184,6 @@ class LandingPage extends React.Component {
             })}
           />
         </div>
-        {/* <ParticlesWrapper /> */}
       </div>
     );
   }

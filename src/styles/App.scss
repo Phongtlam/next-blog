@@ -37,8 +37,24 @@ $sidebar-width-container: 20%;
   }
 
   .menu-button {
+    display: flex;
     right: 0;
     position: absolute;
+    border: 1px solid $blue;
+    background-color: $blue;
+    padding: $s-spacing;
     @include appzindex("large");
+
+    .menu-button-hamburger {
+      .bar {
+        background-color: $white;
+      }
+    }
+
+    .menu-button-text {
+      font-size: 20px;
+      color: $white;
+      margin-left: $s-spacing;
+    }
   }
 }

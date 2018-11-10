@@ -15,6 +15,7 @@ import MarkdownForm from '../components/MarkdownForm';
 import HtmlParser from '../components/HtmlParser';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import LandingPage from '../../pages';
+import MenuButton from '../components/buttons/MenuButton';
 
 const INITIAL_MODAL_DATA = {
   isOpen: false,
@@ -244,18 +245,22 @@ const AppHOC = (WrappedComponent, componentType) =>
             />
             <LandingPage className="App-landing-page-navigation" />
             <div className="App-main-content-container">
-              <ButtonIcon
+              <button
                 className="menu-button hide-content-l"
-                iconName="fas fa-bars"
-                buttonType={this.state.isMenuOpen ? 'normal' : 'primary'}
-                callback={() => {
+                type="button"
+                onClick={() => {
                   this.setState(prevState => ({
                     isMenuOpen: !prevState.isMenuOpen
                   }));
                 }}
               >
-                Menu
-              </ButtonIcon>
+                <MenuButton
+                  className="menu-button-hamburger"
+                  isActive={this.state.isMenuOpen}
+                  onClick={() => {}}
+                />
+                <span className="menu-button-text">Menu</span>
+              </button>
               {this._injectComponentProps(componentType)}
             </div>
           </div>

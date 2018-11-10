@@ -9,6 +9,24 @@
   }
 }
 
+@keyframes slideOut {
+  from {
+    flex: 1;
+  }
+  to {
+    flex: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    flex: 0;
+  }
+  to {
+    flex: 1;
+  }
+}
+
 @keyframes animateVisibility {
   from {
     opacity: 0;
@@ -23,13 +41,16 @@
 .App-LandingPage {
   height: 100vh;
 
-  header {
-    display: flex;
-    justify-content: space-between;
+  .menu-button-desktop {
+    cursor: pointer;
+    margin: $m-spacing;
+    float: right;
 
-    .menu-button-desktop {
-      align-self: center;
-      margin-right: $m-spacing;
+    &:hover {
+      .bar {
+        background-color: $white;
+        transition: $transition;
+      }
     }
   }
 
@@ -39,6 +60,20 @@
     }
 
     flex: 1;
+
+    &.slide-out {
+      animation: ease 1s 1 slideOut forwards;
+    }
+
+    &.slide-in {
+      animation: ease 1s 1 slideIn forwards;
+
+      .header-text, .root-nav {
+        visibility: hidden;
+        opacity: 0;
+        animation: animateVisibility 1s ease 1s forwards;
+      }
+    }
   
     .tilt {
       height: 5vh;
@@ -114,9 +149,11 @@
     .root-nav {
       display: none;
       font-weight: bold;
+      height: 50px;
+      transition: $transition;
       
       &:hover {
-        color: $grey;
+        color: $white;
       }
     }
 
