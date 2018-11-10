@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import ButtonIcon from '../components/ButtonIcon';
+import ButtonIcon from '../components/buttons/ButtonIcon';
 import PortfolioCard from '../components/PortfolioCard';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { PORTFOLIO_TYPE } from '../enums/api-routes';

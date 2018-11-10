@@ -13,7 +13,7 @@ import '../styles/index.scss';
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
 import HtmlParser from '../components/HtmlParser';
-import ButtonIcon from '../components/ButtonIcon';
+import ButtonIcon from '../components/buttons/ButtonIcon';
 import LandingPage from '../../pages';
 
 const INITIAL_MODAL_DATA = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router, { withRouter } from 'next/router';
-import ButtonIcon from '../components/ButtonIcon';
+import ButtonIcon from '../components/buttons/ButtonIcon';
 import { createNewAdmin, loginAsAdmin } from '../utils/fetch';
 import {
   adminQueryKey,

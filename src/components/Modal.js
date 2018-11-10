@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ButtonIcon from './ButtonIcon';
+import ButtonIcon from './buttons/ButtonIcon';
 
 const Modal = ({
   className,

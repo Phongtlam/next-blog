@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ButtonIcon from './ButtonIcon';
+import ButtonIcon from './buttons/ButtonIcon';
 import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { deleteFile } from '../utils/fetch';

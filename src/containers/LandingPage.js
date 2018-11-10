@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import '../styles/LandingPage.scss';
 import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
+import MenuButton from '../components/buttons/MenuButton';
 
 const LANDING_PAGE_ROW = [
   {
@@ -54,7 +55,8 @@ class LandingPage extends React.Component {
       Portfolio: false,
       Blog: false,
       Getintouch: false,
-      disabled: false
+      disabled: false,
+      isMenuButtonActive: false
     };
 
     this._onNavigation = this._onNavigation.bind(this);
@@ -104,20 +106,31 @@ class LandingPage extends React.Component {
             'side-nav': this.props.className
           })}
         >
-          <h1>
-            <button
-              className="root-nav"
-              type="button"
-              onClick={() =>
-                Router.push({
-                  pathname: '/',
-                  query: this.props.router.query
-                })
-              }
-            >
-              Phong Lam
-            </button>
-          </h1>
+          <header>
+            <h1>
+              <button
+                className="root-nav"
+                type="button"
+                onClick={() =>
+                  Router.push({
+                    pathname: '/',
+                    query: this.props.router.query
+                  })
+                }
+              >
+                Phong Lam
+              </button>
+            </h1>
+            <MenuButton
+              className="menu-button-desktop"
+              isMenuButtonActive={this.state.isMenuButtonActive}
+              onMenuButtonClick={() => {
+                this.setState(prevState => ({
+                  isMenuButtonActive: !prevState.isMenuButtonActive
+                }));
+              }}
+            />
+          </header>
           <NavigationHeader />
         </div>
         {LANDING_PAGE_ROW.map((row, index) => (

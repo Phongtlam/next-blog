@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import HtmlParser from './HtmlParser';
-import ButtonIcon from './ButtonIcon';
+import ButtonIcon from './buttons/ButtonIcon';
 
 const BlogPage = props => (
   <div className="App-BlogPage">

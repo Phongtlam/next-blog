@@ -1,7 +1,7 @@
 import React from 'react';
 import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import ButtonIcon from './ButtonIcon';
+import ButtonIcon from './buttons/ButtonIcon';
 
 const BlogCard = props => {
   const { isoDate, title, guid, categories, index } = props;
