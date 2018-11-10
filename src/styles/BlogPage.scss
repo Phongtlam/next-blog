@@ -11,5 +11,11 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-top: $l-spacing;
+
+    h2 {
+      text-align: center;
+      padding: $xs-spacing;
+    }
   }
 }

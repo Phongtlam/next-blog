@@ -1,16 +1,20 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
-  @include static-container();
-
+  padding: $l-spacing $m-spacing;
+  
   blockquote {
     padding: $xs-spacing $m-spacing;
     border-left: solid 5px $blue;
   }
 
   figure {
-    text-align: center;
     margin: $s-spacing 0;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   ul {
@@ -28,8 +32,6 @@
   }
 
   &.App-portfolio {
-    padding: $l-spacing $m-spacing;
-
     img {
       width: 50%;
       height: 50%;
