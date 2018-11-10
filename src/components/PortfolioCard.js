@@ -5,7 +5,7 @@ import ButtonIcon from './ButtonIcon';
 import HtmlParser from './HtmlParser';
 import { fileDataShape } from '../utils/propTypesShapes';
 import { deleteFile } from '../utils/fetch';
-import { PORTFOLIO_TYPE } from '../enums/markdown-form';
+import { PORTFOLIO_TYPE } from '../enums/api-routes';
 
 const _onDelete = (project, token) =>
   deleteFile(project, PORTFOLIO_TYPE, token);

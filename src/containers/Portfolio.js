@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ButtonIcon from '../components/ButtonIcon';
 import PortfolioCard from '../components/PortfolioCard';
 import { fileDataShape } from '../utils/propTypesShapes';
-import { PORTFOLIO_TYPE } from '../enums/markdown-form';
+import { PORTFOLIO_TYPE } from '../enums/api-routes';
 
 const Portfolio = props => {
   const {

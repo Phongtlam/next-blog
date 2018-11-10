@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import SideBar from '../containers/SideBar';
 import { fetchAll } from '../utils/fetch';
-import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/markdown-form';
+import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/api-routes';
 
 import '../styles/index.scss';
 
@@ -74,34 +74,21 @@ const AppHOC = (WrappedComponent, componentType) =>
     }
 
     _loadInitialData() {
-      if (componentType === 'portfolio') {
-        const portfolioData = sessionStorage.getItem('portfolio-data');
-        if (!portfolioData) {
-          fetchAll(PORTFOLIO_TYPE).then(response => {
-            sessionStorage.setItem('portfolio-data', JSON.stringify(response));
-            this.setState({
-              portfolioData: response.sort((a, b) => b.order - a.order)
-            });
-          });
-        } else {
+      const sessionStorageKey = componentType === 'portfolio' ? PORTFOLIO_TYPE : BLOG_TYPE;
+      const dataType = componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+      const sessionStorageData = sessionStorage.getItem(sessionStorageKey);
+
+      if (!sessionStorageData) {
+        fetchAll(sessionStorageKey).then(response => {
+          sessionStorage.setItem(sessionStorageKey, JSON.stringify(response));
           this.setState({
-            portfolioData: JSON.parse(portfolioData)
+            [dataType]: componentType === 'portfolio' ? response.sort((a, b) => b.order - a.order) : response
           });
-        }
-      } else if (componentType === 'blog') {
-        const blogData = sessionStorage.getItem('blog-data');
-        if (!blogData) {
-          fetchAll(BLOG_TYPE).then(response => {
-            sessionStorage.setItem('blog-data', JSON.stringify(response));
-            this.setState({
-              blogData: response
-            });
-          });
-        } else {
-          this.setState({
-            blogData: JSON.parse(blogData)
-          });
-        }
+        });
+      } else {
+        this.setState({
+          [dataType]: JSON.parse(sessionStorageData)
+        });
       }
     }
 

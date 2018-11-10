@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { publishFile, editFile } from '../utils/fetch';
 import ButtonIcon from './ButtonIcon';
-import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/markdown-form';
+import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/api-routes';
 
 class MarkdownForm extends React.Component {
   static propTypes = {
