@@ -138,7 +138,9 @@ class LandingPage extends React.Component {
             </button>
           </h1>
           <NavigationHeader
-            className={classnames('header-text', { hidden: !this.state.isNavOpen })}
+            className={classnames('header-text', {
+              hidden: !this.state.isNavOpen
+            })}
           />
         </div>
         <div
