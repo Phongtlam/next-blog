@@ -23,3 +23,5 @@ yarn-error.log*
 #ignore urls
 
 .next
+
+/app-secrets
