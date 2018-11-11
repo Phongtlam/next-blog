@@ -27,7 +27,7 @@ ButtonIcon.propTypes = {
   className: PropTypes.string,
   iconName: PropTypes.string.isRequired,
   iconSize: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   buttonType: PropTypes.oneOf([
     'normal',
     'primary',
