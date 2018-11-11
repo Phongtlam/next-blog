@@ -13,9 +13,8 @@
     align-items: center;
     margin-top: $l-spacing;
 
-    h2 {
-      text-align: center;
-      padding: $xs-spacing;
+    .blog-title {
+      padding: 0 $m-spacing;
     }
   }
 }

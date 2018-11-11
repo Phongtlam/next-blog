@@ -14,7 +14,9 @@ const BlogCard = props => {
             className="to-blog-button"
             callback={() => {}}
           >
-            <span className="hide-content-max-s">Direct Link to Article on Medium</span>
+            <span className="hide-content-max-s">
+              Direct Link to Article on Medium
+            </span>
             <span className="hide-content-s">Direct Link</span>
           </ButtonIcon>
         </a>

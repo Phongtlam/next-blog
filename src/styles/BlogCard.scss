@@ -37,6 +37,10 @@
   }
 
   .clickable-title {
+    h2 {
+      text-align: initial;
+    }
+
     &:hover {
       color: $blue;
     }

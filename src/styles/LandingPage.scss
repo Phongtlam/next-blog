@@ -49,6 +49,7 @@
 
 .App-LandingPage {
   height: 100vh;
+  overflow: hidden;
 
   .menu-button-desktop {
     cursor: pointer;
@@ -64,6 +65,8 @@
   }
 
   &.App-landing-page-navigation {
+    overflow: initial;
+
     @include breakpoint($breakpoint-l, "max") {
       display: none;
     }
