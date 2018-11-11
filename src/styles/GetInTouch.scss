@@ -1,7 +1,15 @@
 @import "./util_variable.scss";
 
 .App-GetInTouch {
-  @include static-container();
+  padding: $l-spacing $m-spacing;
+
+  @include breakpoint($breakpoint-m) {
+    padding-top: 0;
+  }
+
+  &-controls {
+    width: 100%;
+  }
 
   &-header {
     display: flex;
@@ -11,10 +19,7 @@
 
   &-form {
     display: flex;
-  
-    &-controls {
-      width: 100%;
-    }
+    width: 95%;
   
     .App-ButtonIcon {
       display: block;
@@ -24,15 +29,9 @@
     .form-group {
       margin-bottom: $m-spacing;
   
-      .label {
-        display: flex;
-        justify-content: space-between;
-      }
-  
       .form-control-input {
         resize: none;
-        width: 600px;
-        margin-left: $m-spacing;
+        width: 100%;
   
         &.textarea {
           height: 200px;

@@ -16,6 +16,10 @@ const EXTERNAL_ROUTES = [
     icon: 'fab fa-linkedin-in'
   },
   {
+    url: 'https://medium.com/@phongtlam',
+    icon: 'fab fa-medium-m'
+  },
+  {
     url: 'https://angel.co/phongtlam',
     icon: 'fab fa-angellist'
   },
