@@ -46,7 +46,7 @@ const SideBar = props => (
           route.linkTo !== '/' && (
             <div
               className={classnames('route', {
-                active: props.router.route === route.linkTo
+                active: props.router.route.split('/')[1] === route.linkTo.split('/')[1]
               })}
               key={route.linkTo}
             >
