@@ -2,4 +2,8 @@
 
 .App-Blog {
   padding: 0 $m-spacing;
+
+  @include breakpoint($breakpoint-m, "max") {
+    padding-top: $l-spacing;
+  }
 }
