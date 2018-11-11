@@ -4,19 +4,11 @@ import { withRouter } from 'next/router';
 import HtmlParser from './HtmlParser';
 import ButtonIcon from './buttons/ButtonIcon';
 
-const BlogPage = props => (
-  <div className="App-BlogPage">
-    <ButtonIcon
-      className="back-button"
-      buttonType="primary"
-      callback={() => {
-        props.router.back();
-      }}
-      iconName="fas fa-chevron-left"
-    >
-      Back
-    </ButtonIcon>
-    {props.appData && props.appData.items ? (
+const BlogPage = props => {
+  let displayContent;
+
+  if (props['_data-type'] === 'blog') {
+    displayContent = props.appData && props.appData.items ? (
       <div className="blog-content">
         <h2 className="blog-title">
           {props.appData.items[props.router.query.index].title}
@@ -27,20 +19,45 @@ const BlogPage = props => (
           }
         />
       </div>
-    ) : null}
-  </div>
-);
+    ) : null;
+  } else {
+    displayContent = props.appData && props.appData[props.router.query.index] ? (
+      <HtmlParser
+        htmlParserData={
+          props.appData[props.router.query.index].markdownTexts
+        }
+      />
+    ) : null;
+  }
+
+  return (
+    <div className="App-BlogPage">
+      <ButtonIcon
+        className="back-button"
+        buttonType="primary"
+        callback={() => {
+          props.router.back();
+        }}
+        iconName="fas fa-chevron-left"
+      >
+        Back
+      </ButtonIcon>
+      {displayContent}
+    </div>
+  );
+};
 
 BlogPage.propTypes = {
-  appData: PropTypes.shape({
+  appData: PropTypes.oneOfType([PropTypes.shape({
     items: PropTypes.array
-  }),
+  }), PropTypes.array]),
   router: PropTypes.shape({
     query: PropTypes.shape({
-      index: PropTypes.number
+      index: PropTypes.string
     }),
     back: PropTypes.func
-  })
+  }),
+  '_data-type': PropTypes.oneOf(['blog', 'portfolio'])
 };
 
 BlogPage.defaultProps = {
@@ -52,7 +69,8 @@ BlogPage.defaultProps = {
       index: null
     },
     back: () => {}
-  }
+  },
+  '_data-type': 'portfolio'
 };
 
 export default withRouter(BlogPage);

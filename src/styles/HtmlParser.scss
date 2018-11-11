@@ -1,7 +1,7 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
-  padding: 0 $m-spacing;
+  padding: $l-spacing $m-spacing;
   
   blockquote {
     padding: $xs-spacing $m-spacing;
@@ -32,8 +32,6 @@
   }
 
   &.App-portfolio {
-    padding-top: $l-spacing;
-
     img {
       max-width: 100%;
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 
 import ButtonIcon from './buttons/ButtonIcon';
 import HtmlParser from './HtmlParser';
@@ -14,19 +15,19 @@ const PortfolioCard = ({
   cardData,
   loadModalData,
   loadMarkdownFormData,
-  loadHtmlParser,
   cardData: { coverImgUrl, title, markdownTexts },
-  Token
+  Token,
+  index
 }) => (
   <div className="App-PortfolioCard">
     <div
       className="App-PortfolioCard-image-container"
       role="button"
       onClick={() => {
-        loadHtmlParser(markdownTexts);
+        Router.push(`/Portfolio/Page?index=${index}`);
       }}
       onKeyDown={() => {
-        loadHtmlParser(markdownTexts);
+        Router.push(`/Portfolio/Page?index=${index}`);
       }}
       tabIndex={0}
     >
@@ -79,16 +80,16 @@ PortfolioCard.propTypes = {
   cardData: PropTypes.shape(fileDataShape),
   loadModalData: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
-  loadHtmlParser: PropTypes.func,
-  Token: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  Token: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  index: PropTypes.number
 };
 
 PortfolioCard.defaultProps = {
   cardData: {},
   loadModalData: () => {},
   loadMarkdownFormData: () => {},
-  loadHtmlParser: () => {},
-  Token: null
+  Token: null,
+  index: null
 };
 
 export default PortfolioCard;

@@ -12,7 +12,6 @@ import '../styles/index.scss';
 
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
-import HtmlParser from '../components/HtmlParser';
 import LandingPage from '../../pages';
 import MenuButton from '../components/buttons/MenuButton';
 
@@ -55,7 +54,6 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
-      this._loadHtmlParser = this._loadHtmlParser.bind(this);
     }
 
     componentDidMount() {
@@ -176,8 +174,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         setAppData: this._setAppData,
         loadModalData: this._loadModalData,
         loadMarkdownFormData: this._loadMarkdownFormData,
-        loadHtmlParser: this._loadHtmlParser,
         appData: {},
+        '_data-type': type,
         Token
       };
       switch (type) {
@@ -204,21 +202,11 @@ const AppHOC = (WrappedComponent, componentType) =>
                 markdownFormData={markdownFormData}
                 Token={Token}
               />
-              <HtmlParser
-                className={`App-${type}`}
-                htmlParserData={htmlParserData}
-              />
             </React.Fragment>
           )}
           <WrappedComponent {...dataProps} className="App-content-container" />
         </React.Fragment>
       );
-    }
-
-    _loadHtmlParser(markdownText) {
-      this.setState({
-        htmlParserData: markdownText
-      });
     }
 
     render() {

@@ -13,7 +13,6 @@ const Portfolio = props => {
     className,
     loadMarkdownFormData,
     loadModalData,
-    loadHtmlParser,
     isCreateBtnHidden = false,
     isBackBtnHidden = false,
     Token
@@ -40,32 +39,20 @@ const Portfolio = props => {
             Create
           </ButtonIcon>
         )}
-        <ButtonIcon
-          className={classnames({
-            hidden: isBackBtnHidden
-          })}
-          buttonType="primary"
-          callback={() => {
-            loadHtmlParser('');
-          }}
-          iconName="fas fa-chevron-left"
-        >
-          Back
-        </ButtonIcon>
       </div>
       <div
         className={classnames('App-Portfolio-content', {
           hidden: !isBackBtnHidden
         })}
       >
-        {appData.map(datum => (
+        {appData.map((datum, index) => (
           <PortfolioCard
             key={datum._id}
             cardData={datum}
             loadMarkdownFormData={loadMarkdownFormData}
             loadModalData={loadModalData}
-            loadHtmlParser={loadHtmlParser}
             Token={Token}
+            index={index}
           />
         ))}
       </div>
@@ -75,7 +62,6 @@ const Portfolio = props => {
 
 Portfolio.propTypes = {
   appData: PropTypes.arrayOf(PropTypes.shape(fileDataShape)),
-  loadHtmlParser: PropTypes.func,
   loadMarkdownFormData: PropTypes.func,
   className: PropTypes.string,
   loadModalData: PropTypes.func,
@@ -86,7 +72,6 @@ Portfolio.propTypes = {
 
 Portfolio.defaultProps = {
   appData: [],
-  loadHtmlParser: () => {},
   className: null,
   loadModalData: () => {},
   loadMarkdownFormData: () => {},
