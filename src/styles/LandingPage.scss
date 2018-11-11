@@ -65,7 +65,6 @@
   }
 
   &.App-landing-page-navigation {
-    overflow: initial;
 
     @include breakpoint($breakpoint-l, "max") {
       display: none;
@@ -75,6 +74,7 @@
 
     &.slide-out {
       animation: ease 1s 1 slideOut forwards;
+      min-width: 65px;
     }
 
     &.slide-in {
