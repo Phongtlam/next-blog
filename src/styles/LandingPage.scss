@@ -224,6 +224,10 @@
       text-transform: uppercase;
       background: none !important;
       border: none;
+
+      @include breakpoint($breakpoint-l, "max") {
+        font-size: 17vw;
+      }
     }
 
     &:hover {
