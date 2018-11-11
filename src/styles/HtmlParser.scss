@@ -2,6 +2,10 @@
 
 .App-HtmlParser {
   padding: $l-spacing $m-spacing;
+
+  img {
+    max-width: 100%;
+  }
   
   blockquote {
     padding: $xs-spacing $m-spacing;
@@ -28,12 +32,6 @@
         margin: 0 5px 0 -15px;
         color: $blue;
       }
-    }
-  }
-
-  &.App-portfolio {
-    img {
-      max-width: 100%;
     }
   }
 }
