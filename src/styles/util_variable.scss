@@ -102,3 +102,27 @@ $breakpoint-xl: 1441px;
     display: none !important;
   }
 }
+
+.hide-content-max-s {
+  @include breakpoint($breakpoint-s, "max") {
+    display: none !important;
+  }
+}
+
+.hide-content-max-m {
+  @include breakpoint($breakpoint-m, "max") {
+    display: none !important;
+  }
+}
+
+.hide-content-max-l {
+  @include breakpoint($breakpoint-l, "max") {
+    display: none !important;
+  }
+}
+
+.hide-content-max-xl {
+  @include breakpoint($breakpoint-xl, "max") {
+    display: none !important;
+  }
+}
