@@ -1,7 +1,8 @@
 @import "./util_variable.scss";
 
 .App-HtmlParser {
-  padding: $l-spacing $m-spacing;
+  padding: $m-spacing;
+  padding-top: $xl-spacing;
 
   img {
     max-width: 100%;
