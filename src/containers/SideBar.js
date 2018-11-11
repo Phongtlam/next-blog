@@ -60,7 +60,7 @@ const SideBar = props => (
       )}
     </div>
     <div className="external-links">
-      <ExternalLinks location="sidebar" />
+      <ExternalLinks location="sidebar" className="sidebar" />
     </div>
     <p>©2018 Phong Lam</p>
   </div>

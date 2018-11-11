@@ -2,11 +2,12 @@
 
 .App-SideBar {
   padding: $m-spacing;
-  background-color: $jetblack;
+  background-color: $lightpurple;
+  color: $grey;
 
   h1 {
     cursor: pointer;
-    color: $blue;
+    color: $white;
   }
 
   .external-links {
@@ -18,7 +19,7 @@
     margin-left: $m-spacing;
 
     .route {
-      color: $black;
+      color: $grey;
       margin-bottom: $s-spacing;
       
       &::before {
@@ -29,17 +30,13 @@
       }
 
       .route-button {
-        color: $black;
+        color: $grey;
         background: none !important;
         border: none;
       }
 
-      &:hover, .route-button:hover {
-        color: $lightblue;
-      }
-
       &.active, &.active .route-button, &.active .route-button:hover {
-        color: $blue;
+        color: $white;
 
         &.route-button {
           font-weight: bold;

@@ -17,7 +17,7 @@ const BlogCard = props => {
             <span className="hide-content-max-s">
               Direct Link to Article on Medium
             </span>
-            <span className="hide-content-s">Direct Link</span>
+            <span className="hide-content-s">Link</span>
           </ButtonIcon>
         </a>
         <div className="date-display">

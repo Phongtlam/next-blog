@@ -15,14 +15,14 @@
     justify-content: space-between;
 
     .to-blog-button {
-      border-color: $light-purple;
+      border-color: $lightpurple;
 
       .icon, .text {
-        color: $light-purple;
+        color: $lightpurple;
       }
 
       &:hover {
-        background-color: $light-purple;
+        background-color: $lightpurple;
         .icon, .text {
           color: $white;
         }

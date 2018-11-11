@@ -246,7 +246,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                   isActive={this.state.isMenuOpen}
                   onClick={() => {}}
                 />
-                <span className="menu-button-text">Menu</span>
+                <span className="menu-button-text">{this.state.isMenuOpen ? 'Close' : 'Menu'}</span>
               </button>
               {this._injectComponentProps(componentType)}
             </div>
