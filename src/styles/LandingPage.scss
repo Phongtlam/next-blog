@@ -197,31 +197,25 @@
     }
 
     &.content {
-      &:hover {
-        height: 50vh;
-      }
-
-      &.transition {
-        height: 200vh;
-
-        .tilt-title {
-          top: 10%;
-          transition: all 2s ease;
-          color: $white;
-          cursor: default;
+      @include breakpoint($breakpoint-l) {
+        &:hover {
+          height: 50vh;
         }
-
-        .tilt-img {
-          left: 0;
-          opacity: 1;
-          transition: opacity 2s ease;
-        }
-
-        @include breakpoint($breakpoint-l, "max") {
-          height: 20vh;
-
+  
+        &.transition {
+          height: 200vh;
+  
           .tilt-title {
-            top: 50%;
+            top: 10%;
+            transition: all 2s ease;
+            color: $white;
+            cursor: default;
+          }
+  
+          .tilt-img {
+            left: 0;
+            opacity: 1;
+            transition: opacity 2s ease;
           }
         }
       }

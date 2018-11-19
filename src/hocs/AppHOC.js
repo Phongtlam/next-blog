@@ -1,5 +1,3 @@
-/* global sessionStorage */
-
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
@@ -73,29 +71,16 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     _loadInitialData() {
       if (componentType === 'portfolio' || componentType === 'blog') {
-        const sessionStorageKey =
-          componentType === 'portfolio' ? 'portfolioData' : 'blogData';
         const dataType =
           componentType === 'portfolio' ? 'portfolioData' : 'blogData';
-        const sessionStorageData = sessionStorage.getItem(sessionStorageKey);
 
-        if (!sessionStorageData) {
-          fetchAll(
-            sessionStorageKey === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
-          ).then(response => {
-            sessionStorage.setItem(sessionStorageKey, JSON.stringify(response));
-            this.setState({
-              [dataType]:
-                componentType === 'portfolio'
-                  ? response.sort((a, b) => b.order - a.order)
-                  : response
-            });
-          });
-        } else {
+        fetchAll(
+          dataType === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
+        ).then(response => {
           this.setState({
-            [dataType]: JSON.parse(sessionStorageData)
+            [dataType]: response[dataType]
           });
-        }
+        });
       }
     }
 
@@ -106,15 +91,10 @@ const AppHOC = (WrappedComponent, componentType) =>
           isOpen: true,
           resolver: () =>
             Promise.resolve(callback()).then(res => {
-              this.setState(prevState => ({
+              this.setState({
                 modalData: INITIAL_MODAL_DATA,
-                portfolioData: res.portfolio
-                  ? prevState.portfolioData.filter(el => el._id !== res._id)
-                  : prevState.portfolioData,
-                blogData: res.blog
-                  ? prevState.blogData.filter(el => el._id !== res._id)
-                  : prevState.blogData
-              }));
+                portfolioData: res.portfolioData
+              });
             }),
           rejecter: () => {
             if (cancelCallback) {

@@ -4,6 +4,19 @@ const { auth } = require('../middleware');
 
 const router = express.Router();
 
+const findAllPortfolio = res => {
+  mongoSchema.Portfolio.find({}, (error, portfolio) => {
+    if (error) {
+      return res.status(400).json({
+        error
+      });
+    }
+    return res.status(200).json({
+      portfolioData: portfolio.sort((a, b) => b.order - a.order)
+    });
+  });
+};
+
 router.post('/publish', auth.required, (req, res) => {
   if (req.body === null) {
     return res.status(400).send(
@@ -65,13 +78,8 @@ router.delete('/delete', auth.required, (req, res) => {
   mongoSchema.Portfolio.findById(req.body._id)
     .deleteOne()
     .exec()
-    .then(portfolioToDelete => {
-      res.status(200).send({
-        message: 'Successfully deleted',
-        portfolio: portfolioToDelete,
-        _id: req.body._id,
-        success: true
-      });
+    .then(() => {
+      findAllPortfolio(res);
     })
     .catch(error => {
       res.status(400).send({
@@ -82,9 +90,7 @@ router.delete('/delete', auth.required, (req, res) => {
 });
 
 router.get('/all', (req, res) => {
-  mongoSchema.Portfolio.find({}, (error, portfolio) => {
-    res.send(portfolio);
-  });
+  findAllPortfolio(res);
 });
 
 module.exports = router;

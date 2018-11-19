@@ -10,7 +10,9 @@ router.get('/all', (req, res) => {
     if (error) {
       return res.status(200).json({ error });
     }
-    return res.status(200).send(feed);
+    return res.status(200).json({
+      blogData: feed
+    });
   });
 });
 
