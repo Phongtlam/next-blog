@@ -56,6 +56,10 @@ const AppHOC = (WrappedComponent, componentType) =>
 
     componentDidMount() {
       this._loadInitialData();
+      this._getToken();
+    }
+
+    _getToken() {
       // eslint-disable-next-line no-undef
       const currentLoc = window.location.href;
       if (currentLoc.split('?').length > 1) {
@@ -175,13 +179,17 @@ const AppHOC = (WrappedComponent, componentType) =>
         <React.Fragment>
           {componentType && (
             <React.Fragment>
-              <Modal modalData={modalData} />
-              <MarkdownForm
-                loadMarkdownFormData={this._loadMarkdownFormData}
-                setAppData={this._setAppData}
-                markdownFormData={markdownFormData}
-                Token={Token}
-              />
+              {type === 'portfolio' && (
+                <React.Fragment>
+                  <Modal modalData={modalData} />
+                  <MarkdownForm
+                    loadMarkdownFormData={this._loadMarkdownFormData}
+                    setAppData={this._setAppData}
+                    markdownFormData={markdownFormData}
+                    Token={Token}
+                  />
+                </React.Fragment>
+              )}
             </React.Fragment>
           )}
           <WrappedComponent {...dataProps} className="App-content-container" />
