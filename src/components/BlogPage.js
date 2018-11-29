@@ -8,26 +8,26 @@ const BlogPage = props => {
   let displayContent;
 
   if (props['_data-type'] === 'blog') {
-    displayContent = props.appData && props.appData.items ? (
-      <div className="blog-content">
-        <h2 className="blog-title">
-          {props.appData.items[props.router.query.index].title}
-        </h2>
-        <HtmlParser
-          htmlParserData={
-            props.appData.items[props.router.query.index]['content:encoded']
-          }
-        />
-      </div>
-    ) : null;
+    displayContent =
+      props.appData && props.appData.items ? (
+        <div className="blog-content">
+          <h2 className="blog-title">
+            {props.appData.items[props.router.query.index].title}
+          </h2>
+          <HtmlParser
+            htmlParserData={
+              props.appData.items[props.router.query.index]['content:encoded']
+            }
+          />
+        </div>
+      ) : null;
   } else {
-    displayContent = props.appData && props.appData[props.router.query.index] ? (
-      <HtmlParser
-        htmlParserData={
-          props.appData[props.router.query.index].markdownTexts
-        }
-      />
-    ) : null;
+    displayContent =
+      props.appData && props.appData[props.router.query.index] ? (
+        <HtmlParser
+          htmlParserData={props.appData[props.router.query.index].markdownTexts}
+        />
+      ) : null;
   }
 
   return (
@@ -48,9 +48,12 @@ const BlogPage = props => {
 };
 
 BlogPage.propTypes = {
-  appData: PropTypes.oneOfType([PropTypes.shape({
-    items: PropTypes.array
-  }), PropTypes.array]),
+  appData: PropTypes.oneOfType([
+    PropTypes.shape({
+      items: PropTypes.array
+    }),
+    PropTypes.array
+  ]),
   router: PropTypes.shape({
     query: PropTypes.shape({
       index: PropTypes.string

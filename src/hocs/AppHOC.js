@@ -54,23 +54,41 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
     }
 
+    // static async getInitialProps() {
+    //   if (componentType === 'portfolio' || componentType === 'blog') {
+    //     const dataType =
+    //       componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+
+    //     const response = await fetchAll(
+    //       dataType === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
+    //     );
+    //     return {
+    //       [dataType]: response[dataType]
+    //     };
+    //   }
+
+    //   return {};
+    // }
+
+    static getDerivedStateFromProps(props) {
+      if (props.blogData) {
+        return {
+          blogData: props.blogData
+        };
+      }
+
+      if (props.portfolioData) {
+        return {
+          portfolioData: props.portfolioData
+        };
+      }
+
+      return null;
+    }
+
     componentDidMount() {
       this._loadInitialData();
       this._getToken();
-    }
-
-    _getToken() {
-      // eslint-disable-next-line no-undef
-      const currentLoc = window.location.href;
-      if (currentLoc.split('?').length > 1) {
-        const queryString = currentLoc
-          .split('?')[1]
-          .split('&')[0]
-          .split('=');
-        this.setState({
-          Token: queryString[1]
-        });
-      }
     }
 
     _loadInitialData() {
@@ -84,6 +102,20 @@ const AppHOC = (WrappedComponent, componentType) =>
           this.setState({
             [dataType]: response[dataType]
           });
+        });
+      }
+    }
+
+    _getToken() {
+      // eslint-disable-next-line no-undef
+      const currentLoc = window.location.href;
+      if (currentLoc.split('?').length > 1) {
+        const queryString = currentLoc
+          .split('?')[1]
+          .split('&')[0]
+          .split('=');
+        this.setState({
+          Token: queryString[1]
         });
       }
     }
@@ -234,7 +266,9 @@ const AppHOC = (WrappedComponent, componentType) =>
                   isActive={this.state.isMenuOpen}
                   onClick={() => {}}
                 />
-                <span className="menu-button-text">{this.state.isMenuOpen ? 'Close' : 'Menu'}</span>
+                <span className="menu-button-text">
+                  {this.state.isMenuOpen ? 'Close' : 'Menu'}
+                </span>
               </button>
               {this._injectComponentProps(componentType)}
             </div>

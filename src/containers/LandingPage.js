@@ -13,25 +13,29 @@ const LANDING_PAGE_ROW = [
   {
     href: 'About',
     linkDisplay: 'About',
-    imageSrc: 'https://i892.photobucket.com/albums/ac124/valkyris/assets/about-img.jpeg',
+    imageSrc:
+      'https://i892.photobucket.com/albums/ac124/valkyris/assets/about-img.jpeg',
     imageAlt: 'About'
   },
   {
     href: 'Portfolio',
     linkDisplay: 'Portfolio',
-    imageSrc: 'https://i892.photobucket.com/albums/ac124/valkyris/assets/portfolio-img.jpeg',
+    imageSrc:
+      'https://i892.photobucket.com/albums/ac124/valkyris/assets/portfolio-img.jpeg',
     imageAlt: 'Portfolio'
   },
   {
     href: 'Blog',
     linkDisplay: 'Blog',
-    imageSrc: 'https://i892.photobucket.com/albums/ac124/valkyris/assets/blog-img.jpeg',
+    imageSrc:
+      'https://i892.photobucket.com/albums/ac124/valkyris/assets/blog-img.jpeg',
     imageAlt: 'Blog'
   },
   {
     href: 'Getintouch',
     linkDisplay: 'Contact',
-    imageSrc: 'https://i892.photobucket.com/albums/ac124/valkyris/assets/contact-img.jpeg',
+    imageSrc:
+      'https://i892.photobucket.com/albums/ac124/valkyris/assets/contact-img.jpeg',
     imageAlt: 'Contact'
   }
 ];
