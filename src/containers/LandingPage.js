@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import classnames from 'classnames';
 import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { canUseDOM } from 'exenv';
 
 import '../styles/LandingPage.scss';
 import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
 import ButtonIcon from '../components/buttons/ButtonIcon';
+
+const LazyImage = lazy(() => import('../components/Image'));
 
 const LANDING_PAGE_ROWS = [
   {
@@ -201,11 +204,15 @@ class LandingPage extends React.Component {
               >
                 {row.linkDisplay}
               </button>
-              <img
-                className={`tilt-img ${row.linkDisplay}`}
-                src={row.imageSrc}
-                alt={row.imageAlt}
-              />
+              {canUseDOM && (
+                <Suspense fallback={<div>{row.imageAlt}</div>}>
+                  <LazyImage
+                    className={`tilt-img ${row.linkDisplay}`}
+                    src={row.imageSrc}
+                    alt={row.imageAlt}
+                  />
+                </Suspense>
+              )}
             </div>
           ))}
         </div>
