@@ -9,7 +9,7 @@ import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 
-const LANDING_PAGE_ROW = [
+const LANDING_PAGE_ROWS = [
   {
     href: 'About',
     linkDisplay: 'About',
@@ -182,7 +182,7 @@ class LandingPage extends React.Component {
             hidden: !this.state.isNavOpen
           })}
         >
-          {LANDING_PAGE_ROW.map((row, index) => (
+          {LANDING_PAGE_ROWS.map((row, index) => (
             <div
               key={row.href}
               className={classnames('tilt content', {
