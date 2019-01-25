@@ -9,7 +9,6 @@ import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
 import ButtonIcon from '../components/buttons/ButtonIcon';
-import ResizeObserverHOC from '../hocs/ResizeObserverHOC';
 
 const LazyImage = lazy(() => import('../components/Image'));
 
@@ -250,4 +249,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default withRouter(ResizeObserverHOC(LandingPage));
+export default withRouter(LandingPage);

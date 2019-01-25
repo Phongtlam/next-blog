@@ -4,7 +4,8 @@ $sidebar-width-container: 20%;
 
 .App {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
 
   &-sidebar-container {
     flex: 1;
@@ -39,7 +40,7 @@ $sidebar-width-container: 20%;
   .menu-button {
     display: flex;
     right: 0;
-    position: absolute;
+    position: fixed;
     border: 1px solid $lightblue;
     background-color: $lightblue;
     width: 110px;

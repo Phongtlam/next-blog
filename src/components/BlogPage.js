@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import HtmlParser from './HtmlParser';
 import ButtonIcon from './buttons/ButtonIcon';
+import { BLOG, PORTFOLIO } from '../enums/page-types';
 
 const BlogPage = props => {
   let displayContent;
 
-  if (props['_data-type'] === 'blog') {
+  if (props['_data-type'] === BLOG) {
     displayContent =
       props.appData && props.appData.items ? (
         <div className="blog-content">
@@ -60,7 +61,7 @@ BlogPage.propTypes = {
     }),
     back: PropTypes.func
   }),
-  '_data-type': PropTypes.oneOf(['blog', 'portfolio'])
+  '_data-type': PropTypes.oneOf([BLOG, PORTFOLIO])
 };
 
 BlogPage.defaultProps = {
@@ -73,7 +74,7 @@ BlogPage.defaultProps = {
     },
     back: () => {}
   },
-  '_data-type': 'portfolio'
+  '_data-type': PORTFOLIO
 };
 
 export default withRouter(BlogPage);

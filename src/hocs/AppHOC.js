@@ -1,16 +1,27 @@
+/* global document */
+
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import SideBar from '../containers/SideBar';
 import { fetchAll } from '../utils/fetch';
 import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/api-routes';
+import { BLOG, PORTFOLIO, LANDING } from '../enums/page-types';
+import {
+  SMALL,
+  MEDIUM,
+  LARGE,
+  EXTRA_LARGE,
+  breakpoints
+} from '../enums/client-dimensions';
 
 import '../styles/index.scss';
 
 import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
-import LandingPage from '../../pages';
+import LandingPage from '../containers/LandingPage';
 import MenuButton from '../components/buttons/MenuButton';
 
 const INITIAL_MODAL_DATA = {
@@ -52,12 +63,13 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
+      this._getCurrentBreakpoint = this._getCurrentBreakpoint.bind(this);
     }
 
     // static async getInitialProps() {
-    //   if (componentType === 'portfolio' || componentType === 'blog') {
+    //   if (componentType === PORTFOLIO || componentType === 'blog') {
     //     const dataType =
-    //       componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+    //       componentType === PORTFOLIO ? 'portfolioData' : 'blogData';
 
     //     const response = await fetchAll(
     //       dataType === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
@@ -89,12 +101,42 @@ const AppHOC = (WrappedComponent, componentType) =>
     componentDidMount() {
       this._loadInitialData();
       this._getToken();
+      this._createResizeObserver();
+    }
+
+    _createResizeObserver() {
+      const myObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          this.setState({
+            viewportHeight: entry.contentRect.height,
+            viewportWidth: entry.contentRect.width
+          });
+        });
+      });
+
+      const someEl = document.getElementById('App-PhongLam');
+      myObserver.observe(someEl);
+    }
+
+    _getCurrentBreakpoint() {
+      const { viewportWidth } = this.state;
+      let currentBreakpoint = SMALL;
+      if (viewportWidth >= breakpoints[EXTRA_LARGE]) {
+        currentBreakpoint = EXTRA_LARGE;
+      } else if (viewportWidth >= breakpoints[LARGE]) {
+        currentBreakpoint = LARGE;
+      } else if (viewportWidth >= breakpoints[MEDIUM]) {
+        currentBreakpoint = MEDIUM;
+      } else {
+        currentBreakpoint = SMALL;
+      }
+      return currentBreakpoint;
     }
 
     _loadInitialData() {
-      if (componentType === 'portfolio' || componentType === 'blog') {
+      if (componentType === PORTFOLIO || componentType === 'blog') {
         const dataType =
-          componentType === 'portfolio' ? 'portfolioData' : 'blogData';
+          componentType === PORTFOLIO ? 'portfolioData' : 'blogData';
 
         fetchAll(
           dataType === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
@@ -183,7 +225,9 @@ const AppHOC = (WrappedComponent, componentType) =>
         blogData,
         modalData,
         htmlParserData,
-        Token
+        Token,
+        viewportHeight,
+        viewportWidth
       } = this.state;
 
       let dataProps = {
@@ -195,14 +239,23 @@ const AppHOC = (WrappedComponent, componentType) =>
         Token
       };
       switch (type) {
-        case 'portfolio':
+        case PORTFOLIO:
           dataProps.appData = portfolioData;
           dataProps.isCreateBtnHidden =
             markdownFormData.isOpen || htmlParserData !== '';
           dataProps.isBackBtnHidden = htmlParserData === '';
           break;
-        case 'blog':
+        case BLOG:
           dataProps.appData = blogData;
+          break;
+        case LANDING:
+          dataProps = {
+            ClientDimensions: {
+              viewportHeight,
+              viewportWidth
+            },
+            getCurrentBreakpoint: this._getCurrentBreakpoint
+          };
           break;
         default:
           dataProps = {};
@@ -211,7 +264,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         <React.Fragment>
           {componentType && (
             <React.Fragment>
-              {type === 'portfolio' && (
+              {type === PORTFOLIO && (
                 <React.Fragment>
                   <Modal modalData={modalData} />
                   <MarkdownForm
@@ -224,7 +277,12 @@ const AppHOC = (WrappedComponent, componentType) =>
               )}
             </React.Fragment>
           )}
-          <WrappedComponent {...dataProps} className="App-content-container" />
+          <WrappedComponent
+            {...dataProps}
+            className={classnames({
+              'App-content-container': componentType !== LANDING
+            })}
+          />
         </React.Fragment>
       );
     }
@@ -244,32 +302,38 @@ const AppHOC = (WrappedComponent, componentType) =>
               content="width=device-width, initial-scale=1.0"
             />
           </Head>
-          <div className="App">
-            <SideBar
-              className={classnames('App-sidebar-container', {
-                active: this.state.isMenuOpen
-              })}
-            />
-            <LandingPage className="App-landing-page-navigation" />
-            <div className="App-main-content-container">
-              <button
-                className="menu-button hide-content-l"
-                type="button"
-                onClick={() => {
-                  this.setState(prevState => ({
-                    isMenuOpen: !prevState.isMenuOpen
-                  }));
-                }}
-              >
-                <MenuButton
-                  className="menu-button-hamburger"
-                  isActive={this.state.isMenuOpen}
-                  onClick={() => {}}
+          <div className="App" id="App-PhongLam">
+            {componentType !== LANDING && (
+              <React.Fragment>
+                <SideBar
+                  className={classnames('App-sidebar-container', {
+                    active: this.state.isMenuOpen
+                  })}
                 />
-                <span className="menu-button-text">
-                  {this.state.isMenuOpen ? 'Close' : 'Menu'}
-                </span>
-              </button>
+                <LandingPage className="App-landing-page-navigation" />
+              </React.Fragment>
+            )}
+            <div className="App-main-content-container">
+              {componentType !== LANDING && (
+                <button
+                  className="menu-button hide-content-l"
+                  type="button"
+                  onClick={() => {
+                    this.setState(prevState => ({
+                      isMenuOpen: !prevState.isMenuOpen
+                    }));
+                  }}
+                >
+                  <MenuButton
+                    className="menu-button-hamburger"
+                    isActive={this.state.isMenuOpen}
+                    onClick={() => {}}
+                  />
+                  <span className="menu-button-text">
+                    {this.state.isMenuOpen ? 'Close' : 'Menu'}
+                  </span>
+                </button>
+              )}
               {this._injectComponentProps(componentType)}
             </div>
           </div>

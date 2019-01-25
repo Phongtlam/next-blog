@@ -1,6 +1,8 @@
 @import "./util_variable.scss";
 
 .App-SideBar {
+  position: fixed;
+  top: 0;
   padding: 0 $m-spacing;
   background-color: $lightpurple;
   color: $grey;
