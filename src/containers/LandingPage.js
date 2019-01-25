@@ -9,6 +9,7 @@ import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
 import ButtonIcon from '../components/buttons/ButtonIcon';
+import ResizeObserverHOC from '../hocs/ResizeObserverHOC';
 
 const LazyImage = lazy(() => import('../components/Image'));
 
@@ -86,7 +87,9 @@ class LandingPage extends React.Component {
       Blog: false,
       Getintouch: false,
       disabled: false,
-      isNavOpen: true
+      isNavOpen: true,
+      viewportHeight: 0,
+      viewportWidth: 0
     };
 
     this._onNavigation = this._onNavigation.bind(this);
@@ -247,4 +250,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default withRouter(LandingPage);
+export default withRouter(ResizeObserverHOC(LandingPage));
