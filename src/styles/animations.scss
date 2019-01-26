@@ -9,19 +9,37 @@
 
 @keyframes slideOut {
   from {
-    flex: 1;
+    width: $navbar-width;
   }
   to {
-    flex: 0;
+    width: 50px;
   }
 }
 
 @keyframes slideIn {
   from {
-    flex: 0;
+    width: 50px;
   }
   to {
-    flex: 1;
+    width: $navbar-width;
+  }
+}
+
+@keyframes slideOutContent {
+  from {
+    padding-left: $navbar-width
+  }
+  to {
+    padding-left: 65px;
+  }
+}
+
+@keyframes slideInContent {
+  from {
+    padding-left: 70px;
+  }
+  to {
+    padding-left: $navbar-width;
   }
 }
 

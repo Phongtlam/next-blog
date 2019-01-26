@@ -49,8 +49,21 @@ $sidebar-width-container: 20%;
   }
 
   &-main-content-container {
-    flex: 4;
+    padding-left: $navbar-width;
     overflow: scroll;
+
+    &-expanded {
+      animation: ease-in 1s 1 slideOutContent forwards;
+    }
+
+    &-landing {
+      width: 100%;
+      padding-left: initial;
+    }
+
+    @include breakpoint($breakpoint-l, "max") {
+      padding-left: initial;
+    }
   }
 
   .menu-button {

@@ -19,12 +19,13 @@
 
   &.App-landing-page-navigation {
     // this class is added in when being used as sidebar
+    position: fixed;
+    width: $navbar-width;
+    height: 100%;
 
     @include breakpoint($breakpoint-l, "max") {
       display: none;
     }
-
-    flex: 1;
 
     &.slide-out {
       animation: ease 1s 1 slideOut forwards;

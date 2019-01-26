@@ -58,29 +58,14 @@ const AppHOC = (WrappedComponent, componentType) =>
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
         isMenuOpen: false,
-        Token: null
+        Token: null,
+        isSideMenuMinified: true
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
       this._getCurrentBreakpoint = this._getCurrentBreakpoint.bind(this);
     }
-
-    // static async getInitialProps() {
-    //   if (componentType === PORTFOLIO || componentType === 'blog') {
-    //     const dataType =
-    //       componentType === PORTFOLIO ? 'portfolioData' : 'blogData';
-
-    //     const response = await fetchAll(
-    //       dataType === 'portfolioData' ? PORTFOLIO_TYPE : BLOG_TYPE
-    //     );
-    //     return {
-    //       [dataType]: response[dataType]
-    //     };
-    //   }
-
-    //   return {};
-    // }
 
     static getDerivedStateFromProps(props) {
       if (props.blogData) {
@@ -310,13 +295,27 @@ const AppHOC = (WrappedComponent, componentType) =>
                     active: this.state.isMenuOpen
                   })}
                 />
-                <div className={classnames('App-sidebar-overlay', {
-                  'App-sidebar-overlay-active': this.state.isMenuOpen
-                })} />
-                <LandingPage className="App-landing-page-navigation" />
+                <div
+                  className={classnames('App-sidebar-overlay', {
+                    'App-sidebar-overlay-active': this.state.isMenuOpen
+                  })}
+                />
+                <LandingPage
+                  className="App-landing-page-navigation"
+                  handleMinifyMenu={() => {
+                    this.setState(prevState => ({
+                      isSideMenuMinified: !prevState.isSideMenuMinified
+                    }));
+                  }}
+                />
               </React.Fragment>
             )}
-            <div className="App-main-content-container">
+            <div
+              className={classnames('App-main-content-container', `App-main-content-container-${componentType}`, {
+                'App-main-content-container-expanded': !this.state
+                  .isSideMenuMinified
+              })}
+            >
               {componentType !== LANDING && (
                 <button
                   className="menu-button hide-content-l"

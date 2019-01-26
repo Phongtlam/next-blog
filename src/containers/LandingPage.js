@@ -154,6 +154,7 @@ class LandingPage extends React.Component {
             className="menu-button-desktop"
             isActive={this.state.isNavOpen}
             onClick={() => {
+              this.props.handleMinifyMenu();
               this.isNewRoute = false;
               this.setState(prevState => ({
                 isNavOpen: !prevState.isNavOpen

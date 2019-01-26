@@ -28,7 +28,7 @@ $breakpoint-m: 981px;
 $breakpoint-l: 1025px;
 $breakpoint-xl: 1441px;
 
-$navbar-width: 370px;
+$navbar-width: 380px;
 
 @mixin appzindex($type) {
   @if $type == "small" {
