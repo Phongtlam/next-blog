@@ -70,12 +70,16 @@ class LandingPage extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     // eslint-disable-next-line react/forbid-prop-types
-    router: PropTypes.object
+    router: PropTypes.object,
+    toggleMinifyDesktopMenu: PropTypes.func,
+    isMinifiedDesktopMenu: PropTypes.bool
   };
 
   static defaultProps = {
     className: null,
-    router: {}
+    router: {},
+    toggleMinifyDesktopMenu: () => {},
+    isMinifiedDesktopMenu: false
   };
 
   constructor(props, context) {
@@ -86,7 +90,6 @@ class LandingPage extends React.Component {
       Blog: false,
       Getintouch: false,
       disabled: false,
-      isNavOpen: true,
       viewportHeight: 0,
       viewportWidth: 0
     };
@@ -138,11 +141,12 @@ class LandingPage extends React.Component {
   }
 
   render() {
+    const { isMinifiedDesktopMenu } = this.props;
     return (
       <div
         className={classnames('App-LandingPage', this.props.className, {
-          'slide-out': !this.state.isNavOpen,
-          'slide-in': this.state.isNavOpen && !this.isNewRoute
+          'slide-out': isMinifiedDesktopMenu,
+          'slide-in': !isMinifiedDesktopMenu && !this.isNewRoute
         })}
       >
         <div
@@ -152,19 +156,16 @@ class LandingPage extends React.Component {
         >
           <MenuButton
             className="menu-button-desktop"
-            isActive={this.state.isNavOpen}
+            isActive={!isMinifiedDesktopMenu}
             onClick={() => {
-              this.props.handleMinifyMenu();
+              this.props.toggleMinifyDesktopMenu();
               this.isNewRoute = false;
-              this.setState(prevState => ({
-                isNavOpen: !prevState.isNavOpen
-              }));
             }}
           />
           <h1>
             <button
               className={classnames('root-nav', {
-                hidden: !this.state.isNavOpen
+                hidden: isMinifiedDesktopMenu
               })}
               type="button"
               onClick={() =>
@@ -179,13 +180,13 @@ class LandingPage extends React.Component {
           </h1>
           <NavigationHeader
             className={classnames('header-text', {
-              hidden: !this.state.isNavOpen
+              hidden: isMinifiedDesktopMenu
             })}
           />
         </div>
         <div
           className={classnames('navigation-block', {
-            hidden: !this.state.isNavOpen
+            hidden: isMinifiedDesktopMenu
           })}
         >
           {LANDING_PAGE_ROWS.map((row, index) => (
@@ -221,7 +222,7 @@ class LandingPage extends React.Component {
         </div>
         <div
           className={classnames('navigation-block', {
-            hidden: this.state.isNavOpen
+            hidden: !isMinifiedDesktopMenu
           })}
         >
           {MINIFIED_MENU.map(row => (

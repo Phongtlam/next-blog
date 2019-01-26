@@ -58,13 +58,15 @@ const AppHOC = (WrappedComponent, componentType) =>
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
         isMenuOpen: false,
-        Token: null,
-        isSideMenuMinified: true
+        isMinifiedDesktopMenu: false,
+        Token: null
       };
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
       this._getCurrentBreakpoint = this._getCurrentBreakpoint.bind(this);
+      this._toggleSideMenu = this._toggleSideMenu.bind(this);
+      this._toggleMinifyDesktopMenu = this._toggleMinifyDesktopMenu.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -216,6 +218,14 @@ const AppHOC = (WrappedComponent, componentType) =>
       } = this.state;
 
       let dataProps = {
+        ClientDimensions: {
+          viewportHeight,
+          viewportWidth
+        },
+        getCurrentBreakpoint: this._getCurrentBreakpoint
+      };
+
+      const portFolioAndBlogControllerAdminProps = {
         setAppData: this._setAppData,
         loadModalData: this._loadModalData,
         loadMarkdownFormData: this._loadMarkdownFormData,
@@ -223,44 +233,43 @@ const AppHOC = (WrappedComponent, componentType) =>
         '_data-type': type,
         Token
       };
+
       switch (type) {
         case PORTFOLIO:
-          dataProps.appData = portfolioData;
-          dataProps.isCreateBtnHidden =
-            markdownFormData.isOpen || htmlParserData !== '';
-          dataProps.isBackBtnHidden = htmlParserData === '';
+          dataProps = {
+            ...dataProps,
+            ...portFolioAndBlogControllerAdminProps,
+            appData: portfolioData,
+            isCreateBtnHidden: markdownFormData.isOpen || htmlParserData !== '',
+            isBackBtnHidden: htmlParserData === ''
+          };
           break;
         case BLOG:
-          dataProps.appData = blogData;
+          dataProps = {
+            ...dataProps,
+            ...portFolioAndBlogControllerAdminProps,
+            appData: blogData
+          };
           break;
         case LANDING:
-          dataProps = {
-            ClientDimensions: {
-              viewportHeight,
-              viewportWidth
-            },
-            getCurrentBreakpoint: this._getCurrentBreakpoint
-          };
           break;
         default:
           dataProps = {};
       }
+
       return (
         <React.Fragment>
-          {componentType && (
-            <React.Fragment>
-              {type === PORTFOLIO && (
-                <React.Fragment>
-                  <Modal modalData={modalData} />
-                  <MarkdownForm
-                    loadMarkdownFormData={this._loadMarkdownFormData}
-                    setAppData={this._setAppData}
-                    markdownFormData={markdownFormData}
-                    Token={Token}
-                  />
-                </React.Fragment>
-              )}
-            </React.Fragment>
+          {componentType &&
+            type === PORTFOLIO && (
+              <React.Fragment>
+                <Modal modalData={modalData} />
+                <MarkdownForm
+                  loadMarkdownFormData={this._loadMarkdownFormData}
+                  setAppData={this._setAppData}
+                  markdownFormData={markdownFormData}
+                  Token={Token}
+                />
+              </React.Fragment>
           )}
           <WrappedComponent
             {...dataProps}
@@ -272,7 +281,20 @@ const AppHOC = (WrappedComponent, componentType) =>
       );
     }
 
+    _toggleSideMenu() {
+      this.setState(prevState => ({
+        isMenuOpen: !prevState.isMenuOpen
+      }));
+    }
+
+    _toggleMinifyDesktopMenu() {
+      this.setState(prevState => ({
+        isMinifiedDesktopMenu: !prevState.isMinifiedDesktopMenu
+      }));
+    }
+
     render() {
+      const { isMinifiedDesktopMenu, isMenuOpen } = this.state;
       return (
         <React.Fragment>
           <Head>
@@ -292,49 +314,51 @@ const AppHOC = (WrappedComponent, componentType) =>
               <React.Fragment>
                 <SideBar
                   className={classnames('App-sidebar-container', {
-                    active: this.state.isMenuOpen
-                  })}
-                />
-                <div
-                  className={classnames('App-sidebar-overlay', {
-                    'App-sidebar-overlay-active': this.state.isMenuOpen
+                    active: isMenuOpen
                   })}
                 />
                 <LandingPage
                   className="App-landing-page-navigation"
-                  handleMinifyMenu={() => {
-                    this.setState(prevState => ({
-                      isSideMenuMinified: !prevState.isSideMenuMinified
-                    }));
-                  }}
+                  toggleMinifyDesktopMenu={this._toggleMinifyDesktopMenu}
+                  isMinifiedDesktopMenu={isMinifiedDesktopMenu}
                 />
               </React.Fragment>
             )}
             <div
-              className={classnames('App-main-content-container', `App-main-content-container-${componentType}`, {
-                'App-main-content-container-expanded': !this.state
-                  .isSideMenuMinified
-              })}
+              className={classnames(
+                'App-main-content-container',
+                `App-main-content-container-${componentType}`,
+                {
+                  'App-main-content-container-expanded': isMinifiedDesktopMenu
+                }
+              )}
             >
               {componentType !== LANDING && (
-                <button
-                  className="menu-button hide-content-l"
-                  type="button"
-                  onClick={() => {
-                    this.setState(prevState => ({
-                      isMenuOpen: !prevState.isMenuOpen
-                    }));
-                  }}
-                >
-                  <MenuButton
-                    className="menu-button-hamburger"
-                    isActive={this.state.isMenuOpen}
-                    onClick={() => {}}
+                <React.Fragment>
+                  <div
+                    className={classnames('App-sidebar-overlay', {
+                      'App-sidebar-overlay-active': isMenuOpen
+                    })}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={this._toggleSideMenu}
+                    onClick={this._toggleSideMenu}
                   />
-                  <span className="menu-button-text">
-                    {this.state.isMenuOpen ? 'Close' : 'Menu'}
-                  </span>
-                </button>
+                  <button
+                    className="menu-button hide-content-l"
+                    type="button"
+                    onClick={this._toggleSideMenu}
+                  >
+                    <MenuButton
+                      className="menu-button-hamburger"
+                      isActive={isMenuOpen}
+                      onClick={() => {}}
+                    />
+                    <span className="menu-button-text">
+                      {isMenuOpen ? 'Close' : 'Menu'}
+                    </span>
+                  </button>
+                </React.Fragment>
               )}
               {this._injectComponentProps(componentType)}
             </div>
