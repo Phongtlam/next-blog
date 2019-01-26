@@ -16,6 +16,7 @@ const LANDING_PAGE_ROWS = [
   {
     href: 'About',
     linkDisplay: 'About',
+    iconName: 'fas fa-info-circle',
     imageSrc:
       'https://i892.photobucket.com/albums/ac124/valkyris/assets/about-img.jpeg',
     imageAlt: 'About'
@@ -23,6 +24,7 @@ const LANDING_PAGE_ROWS = [
   {
     href: 'Portfolio',
     linkDisplay: 'Portfolio',
+    iconName: 'fas fa-file',
     imageSrc:
       'https://i892.photobucket.com/albums/ac124/valkyris/assets/portfolio-img.jpeg',
     imageAlt: 'Portfolio'
@@ -30,6 +32,7 @@ const LANDING_PAGE_ROWS = [
   {
     href: 'Blog',
     linkDisplay: 'Blog',
+    iconName: 'fas fa-pen-square',
     imageSrc:
       'https://i892.photobucket.com/albums/ac124/valkyris/assets/blog-img.jpeg',
     imageAlt: 'Blog'
@@ -37,31 +40,9 @@ const LANDING_PAGE_ROWS = [
   {
     href: 'Getintouch',
     linkDisplay: 'Contact',
+    iconName: 'fas fa-address-card',
     imageSrc:
       'https://i892.photobucket.com/albums/ac124/valkyris/assets/contact-img.jpeg',
-    imageAlt: 'Contact'
-  }
-];
-
-const MINIFIED_MENU = [
-  {
-    href: 'About',
-    iconName: 'fas fa-info-circle',
-    imageAlt: 'About'
-  },
-  {
-    href: 'Portfolio',
-    iconName: 'fas fa-file',
-    imageAlt: 'Portfolio'
-  },
-  {
-    href: 'Blog',
-    iconName: 'fas fa-pen-square',
-    imageAlt: 'Blog'
-  },
-  {
-    href: 'Getintouch',
-    iconName: 'fas fa-address-card',
     imageAlt: 'Contact'
   }
 ];
@@ -225,7 +206,7 @@ class LandingPage extends React.Component {
             hidden: !isMinifiedDesktopMenu
           })}
         >
-          {MINIFIED_MENU.map(row => (
+          {LANDING_PAGE_ROWS.map(row => (
             <ButtonIcon
               key={row.href}
               className="tilt minified-menu-item"
