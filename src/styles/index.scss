@@ -17,6 +17,7 @@
 @import "./Particles.scss";
 @import "./PortfolioCard.scss";
 @import "./SideBar.scss";
+@import "./StarRating.scss";
 
 body {
 	@include breakpoint($breakpoint-m) {
@@ -56,4 +57,8 @@ button, a {
 	outline: 0;
 	border: none;
 	background: none;
+}
+
+nav, ul {
+	list-style-type: none;
 }

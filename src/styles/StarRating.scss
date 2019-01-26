@@ -1,0 +1,8 @@
+.App-StarRating {
+  display: inline-flex;
+  padding: 0 0 0 $s-spacing;
+
+  &-star {
+    color: $lightpurple;
+  }
+}

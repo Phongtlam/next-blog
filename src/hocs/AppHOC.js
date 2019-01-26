@@ -270,7 +270,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                   Token={Token}
                 />
               </React.Fragment>
-          )}
+            )}
           <WrappedComponent
             {...dataProps}
             className={classnames({

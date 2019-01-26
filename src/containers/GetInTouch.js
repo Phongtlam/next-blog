@@ -4,11 +4,20 @@ import PropTypes from 'prop-types';
 
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import ExternalLinks from '../components/ExternalLinks';
+import StarRating from '../components/utils/StarRating';
 
 const GetInTouch = props => (
   <div className={classnames('App-GetInTouch', props.className)}>
     <div className="App-GetInTouch-header">
       <h1>Let&apos;s work together!</h1>
+      <span>
+        Technical:
+        <StarRating rating="3.5/5" />
+      </span>
+      <StarRating rating="1.5/5" />
+      <StarRating rating="5/5" />
+      <StarRating rating="2/5" />
+
       <p>
         I would love to chat about science-fiction books, music, work out
         routines or anything! I am interested in meeting over a cup of coffee to
