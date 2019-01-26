@@ -10,7 +10,9 @@
   @include breakpoint($breakpoint-m, "max") {
     &-content {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-around;
+      flex-flow: wrap;
       padding-top: $l-spacing;
     }
   }

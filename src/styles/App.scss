@@ -32,6 +32,22 @@ $sidebar-width-container: 20%;
     }
   }
 
+  &-sidebar-overlay {
+    @include appzindex("medium");
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $grey;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0.5;
+
+    &-active {
+      visibility: visible;
+    }
+  }
+
   &-main-content-container {
     flex: 4;
     overflow: scroll;

@@ -310,6 +310,9 @@ const AppHOC = (WrappedComponent, componentType) =>
                     active: this.state.isMenuOpen
                   })}
                 />
+                <div className={classnames('App-sidebar-overlay', {
+                  'App-sidebar-overlay-active': this.state.isMenuOpen
+                })} />
                 <LandingPage className="App-landing-page-navigation" />
               </React.Fragment>
             )}
