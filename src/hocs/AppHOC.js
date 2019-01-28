@@ -260,7 +260,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         case LANDING:
           break;
         default:
-          dataProps = {};
+          break;
       }
 
       return (

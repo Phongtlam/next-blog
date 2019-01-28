@@ -4,7 +4,6 @@ $sidebar-width-container: 20%;
 
 .App {
   display: flex;
-  height: 100vh;
   -webkit-overflow-scrolling: touch;
 
   &-sidebar-container {
@@ -49,6 +48,7 @@ $sidebar-width-container: 20%;
   }
 
   &-main-content-container {
+    width: 100%;
     padding-left: $navbar-width;
 
     &-expanded {
