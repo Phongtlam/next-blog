@@ -12,5 +12,56 @@
   .avatar {
     width: 300px;
     border-radius: 50%;
+    animation: ease 0.5s 1 avatarGrow forwards;
+  }
+
+  &-title {
+    text-align: center;
+  }
+
+  &-header {
+    &-avatar {
+      text-align: center;
+    }
+
+    &-content {
+      &-p1 {
+        animation: ease 2s slideInFromRight;
+      }
+      &-p2 {
+        animation: ease 2.5s slideInFromRight;
+      }
+      &-p3 {
+        animation: ease 3s slideInFromRight;
+      }
+    }
+
+    @include breakpoint($breakpoint-l) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 1100px;
+
+      &-avatar {
+        padding-right: $xl-spacing;
+      }
+    }
+  }
+
+  &-section {
+    // &1 {
+    //   width: 1100px;
+    // }
+    &2 {
+      background-color: $white;
+    }
+  }
+
+  &-list {
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      width: 270px;
+    }
   }
 }

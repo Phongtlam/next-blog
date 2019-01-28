@@ -13,6 +13,11 @@ const ROUTES = [
     routeName: 'Landing Page'
   },
   {
+    linkTo: '/About',
+    class: 'About',
+    routeName: 'About'
+  },
+  {
     linkTo: '/Portfolio',
     class: 'Portfolio',
     routeName: 'Portfolio'
@@ -21,11 +26,6 @@ const ROUTES = [
     linkTo: '/Blog',
     class: 'Blog',
     routeName: 'Blog'
-  },
-  {
-    linkTo: '/About',
-    class: 'About',
-    routeName: 'About'
   },
   {
     linkTo: '/Getintouch',

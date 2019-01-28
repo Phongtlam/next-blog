@@ -61,6 +61,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         isMinifiedDesktopMenu: false,
         Token: null
       };
+      this.ResizeObserver = null;
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
       this._loadMarkdownFormData = this._loadMarkdownFormData.bind(this);
@@ -91,8 +92,13 @@ const AppHOC = (WrappedComponent, componentType) =>
       this._createResizeObserver();
     }
 
+    componentWillUnmount() {
+      const mainAppBody = document.getElementById('App-PhongLam');
+      this.ResizeObserver.unobserve(mainAppBody);
+    }
+
     _createResizeObserver() {
-      const myObserver = new ResizeObserver(entries => {
+      this.ResizeObserver = new ResizeObserver(entries => {
         entries.forEach(entry => {
           this.setState({
             viewportHeight: entry.contentRect.height,
@@ -101,8 +107,8 @@ const AppHOC = (WrappedComponent, componentType) =>
         });
       });
 
-      const someEl = document.getElementById('App-PhongLam');
-      myObserver.observe(someEl);
+      const mainAppBody = document.getElementById('App-PhongLam');
+      this.ResizeObserver.observe(mainAppBody);
     }
 
     _getCurrentBreakpoint() {
@@ -270,6 +276,7 @@ const AppHOC = (WrappedComponent, componentType) =>
                   Token={Token}
                 />
               </React.Fragment>
+              // eslint-disable-next-line
             )}
           <WrappedComponent
             {...dataProps}
@@ -300,8 +307,8 @@ const AppHOC = (WrappedComponent, componentType) =>
           <Head>
             <link
               rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-              integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+              href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+              integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
               crossOrigin="anonymous"
             />
             <meta
@@ -327,7 +334,7 @@ const AppHOC = (WrappedComponent, componentType) =>
             <div
               className={classnames(
                 'App-main-content-container',
-                `App-main-content-container-${componentType}`,
+                `App-main-content-container-${componentType || 'basic'}`,
                 {
                   'App-main-content-container-expanded': isMinifiedDesktopMenu
                 }

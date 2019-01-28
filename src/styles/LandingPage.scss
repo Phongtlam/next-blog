@@ -110,19 +110,19 @@
     transition: $transition;
 
     &.animate-div-0 {
-      animation: ease 1s 1 slideInFromBottom, 0.5s ease 1 forwards animateVisibility;
+      animation: ease 1s 1 slideInFromBottomLanding, 0.5s ease 1 forwards animateVisibility;
     }
     &.animate-div-1 {
-      animation: ease 1.5s 1 slideInFromBottom, 1s ease 1 forwards animateVisibility;
+      animation: ease 1.5s 1 slideInFromBottomLanding, 1s ease 1 forwards animateVisibility;
     }
     &.animate-div-2 {
-      animation: ease 2s 1 slideInFromBottom, 1.5s ease 1 forwards animateVisibility;
+      animation: ease 2s 1 slideInFromBottomLanding, 1.5s ease 1 forwards animateVisibility;
     }
     &.animate-div-3 {
-      animation: ease 2.5s 1 slideInFromBottom, 2s ease 1 forwards animateVisibility;
+      animation: ease 2.5s 1 slideInFromBottomLanding, 2s ease 1 forwards animateVisibility;
     }
     &.animate-div-4 {
-      animation: ease 3s 1 slideInFromBottom, 2.5s ease 1 forwards animateVisibility;
+      animation: ease 3s 1 slideInFromBottomLanding, 2.5s ease 1 forwards animateVisibility;
     }
     
     .App-NavigationHeader {

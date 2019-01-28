@@ -1,4 +1,7 @@
-@keyframes slideInFromBottom {
+@import "./StarRating.scss";
+@import "./About.scss";
+
+@keyframes slideInFromBottomLanding {
   0% {
     transform: translateY(1000%) skewY(-12deg);
   }
@@ -60,5 +63,14 @@
   }
   to {
     max-height: 70vh;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(120%)
+  }
+  to {
+    transform: translateX(0)
   }
 }

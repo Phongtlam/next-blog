@@ -1,5 +1,5 @@
 @import "./util_variable.scss";
-@import "./animations.scss";
+@import "./animations/index.scss";
 @import "./normalize.scss";
 @import "./About.scss";
 @import "./App.scss";
@@ -21,14 +21,14 @@
 
 body {
 	@include breakpoint($breakpoint-m) {
-		font-size: 16px;
+		font-size: 18px;
 	}
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: "Roboto", Helvetica, Arial, sans-serif;
 	line-height: 1.55;
-	font-size: 14px;
+	font-size: 16px;
 	background-color: #f4f4f4;
 	color: $black;
 }
@@ -61,4 +61,8 @@ button, a {
 
 nav, ul {
 	list-style-type: none;
+}
+
+ul {
+	padding: 0;
 }

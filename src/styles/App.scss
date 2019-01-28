@@ -10,7 +10,7 @@ $sidebar-width-container: 20%;
   &-sidebar-container {
     flex: 1;
     display: none;
-    overflow: hidden;
+    overflow: scroll;
     flex-direction: column;
 
     height: 100vh;
