@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Link from 'next/link';
+// import IntersectionObserver from 'intersection-observer';
+import { canUseDOM } from 'exenv';
+
 import StarRating from '../components/utils/StarRating';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import Image from '../components/utils/Image';
@@ -82,82 +86,190 @@ const SKILLS = [
   }
 ];
 
-const About = props => {
-  const {
-    ClientDimensions: { viewportWidth }
-  } = props;
+class About extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
 
-  return (
-    <div className="App-About">
-      <div className="App-About-section1">
-        <h1 className="App-About-title">Who am I?</h1>
-        <div className="App-About-header">
-          <p className="App-About-header-avatar">
-            <img
-              className="avatar"
-              src="../../static/avatar-PL.jpg"
-              alt="avatar"
-            />
-          </p>
+    this.sectionRef = {};
+    this.IntersectionObserver = null;
+  }
 
-          <div className="App-About-header-content">
-            <p className="App-About-header-content-p1">
-              I am a versatile, highly motivated and efficient full-stack
-              software engineer living in San Francisco. With experience in both
-              sales and engineering, I have the keen eye for creating beautiful
-              UI and highly user-friendly products.
+  componentDidMount() {
+    if (canUseDOM) {
+      this._createIntersectionObserver();
+    }
+  }
+
+  _createIntersectionObserver() {
+    this.IntersectionObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          console.log('what is entry', entry);
+          this.setState({
+            [entry.target.id]: entry.isIntersecting
+          });
+        });
+      },
+      {
+        rootMargin: '0px 0px -25% 0px'
+      }
+    );
+
+    const refsKeys = Object.keys(this.sectionRef);
+    refsKeys.forEach(ref => {
+      this.IntersectionObserver.observe(this.sectionRef[ref]);
+    });
+  }
+
+  render() {
+    return (
+      <div className="App-About">
+        <div
+          className={classnames('App-About-section App-About-section1', {
+            animate: this.state.section1
+          })}
+          id="section1"
+          ref={el => {
+            this.sectionRef.section1 = el;
+          }}
+        >
+          <h1 className="App-About-title">Who am I?</h1>
+          <div className="App-About-header">
+            <p className="App-About-header-avatar">
+              <img
+                className="avatar"
+                src="../../static/About/avatar-PL.jpg"
+                alt="avatar"
+              />
             </p>
-            <p className="App-About-header-content-p2">
-              I believe that we all live in the age where anything is possible
-              through technology. I want to connect with others who share
-              similar mindset to chat over a cup of coffee, to discuss about the
-              joy of learning and development, or even just to share a great new
-              book.
-            </p>
-            <p className="App-About-header-content-p3">
-              Feel free to shoot me a message &nbsp;
-              <Link href="/Getintouch">
-                <ButtonIcon iconName="far fa-envelope" callback={() => {}}>
-                  here
-                </ButtonIcon>
-              </Link>
-            </p>
+
+            <div className="App-About-header-content">
+              <p className="App-About-header-content-p1">
+                I am a versatile, highly motivated and efficient full-stack
+                software engineer living in San Francisco. With experience in
+                both sales and engineering, I have the keen eye for creating
+                beautiful UI and highly user-friendly products.
+              </p>
+              <p className="App-About-header-content-p2">
+                I believe that we all live in the age where anything is possible
+                through technology. I want to connect with others who share a
+                similar mindset to chat over a cup of coffee, to discuss about
+                the joy of learning and development, or even just to share a
+                great new book.
+              </p>
+              <p className="App-About-header-content-p3">
+                Feel free to shoot me a message &nbsp;
+                <Link href="/Getintouch">
+                  <ButtonIcon iconName="far fa-envelope" callback={() => {}}>
+                    here
+                  </ButtonIcon>
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="App-About-section2">
-        <div className="App-About-section2-content">
-          <h2 className="App-About-section2-content-header">The beginning</h2>
-          <Image
-            width={750}
-            height={450}
-            src="../../static/hack-reactor.jpg"
-            alt="hackreactor"
-          />
-          <Image
-            width={501}
-            height={501}
-            src="../../static/cs50.png"
-            alt="cs50"
-          />
-          <h3>We all came from different paths of life</h3>
-          <h2>We told our stories</h2>
+        <div
+          className={classnames('App-About-section App-About-section2', {
+            animate: this.state.section2
+          })}
+          id="section2"
+          ref={el => {
+            this.sectionRef.section3 = el;
+          }}
+        >
+          <div className="App-About-section2-content">
+            <h2 className="App-About-section2-content-header">The beginning</h2>
+            <Image
+              width={300}
+              height={300}
+              src="../../static/About/cs50.png"
+              alt="cs50"
+            />
+          </div>
+          <h3 className="App-About-section2-content-h3">
+            My first introduction
+          </h3>
+          <h3 className="App-About-section2-content-h3">
+            to Computer Science and Programming
+          </h3>
         </div>
-      </div>
 
-      <ul className="App-About-list">
-        {SKILLS.map(skill => (
-          <li className="App-About-list-item" key={skill.name}>
-            {/* eslint-disable-next-line */}
-            <span>{skill.name}:</span>
-            <StarRating rating={skill.rating} />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+        <div
+          className={classnames('App-About-section App-About-section3', {
+            animate: this.state.section3
+          })}
+          id="section3"
+          ref={el => {
+            this.sectionRef.section2 = el;
+          }}
+        >
+          <div className="App-About-section3-content">
+            <h2>Hack Reactor</h2>
+            <Image
+              className="App-About-section3-content-image"
+              width={750}
+              height={450}
+              src="../../static/About/hack-reactor.jpg"
+              alt="hackreactor"
+            />
+            <h3 className="App-About-section3-content-h3">
+              From different paths of life
+            </h3>
+            <h2 className="App-About-section3-content-h2">
+              We told our stories
+            </h2>
+            <h3>
+              Here is&nbsp;
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://medium.com/@phongtlam/chasing-the-silicon-valley-dream-my-1-year-journey-through-a-coding-bootcamp-54456833d019"
+              >
+                mine
+              </a>
+            </h3>
+          </div>
+        </div>
+
+        <div
+          className={classnames('App-About-section App-About-section4', {
+            animate: this.state.section4
+          })}
+          id="section4"
+          ref={el => {
+            this.sectionRef.section4 = el;
+          }}
+        >
+          <div className="App-About-section4-content">
+            {/* <Image
+              className="App-About-section4-content-image"
+              width={300}
+              height={120}
+              src="../../static/About/ibm-cloud-logo.png"
+              alt="ibm-logo"
+            /> */}
+            <i className="fa-3x fab fa-js" />
+            <i className="fa-3x fab fa-react" />
+            <i className="fa-3x fab fa-node" />
+            <i className="fa-3x fas fa-laptop" />
+          </div>
+        </div>
+
+        <ul className="App-About-list">
+          {SKILLS.map(skill => (
+            <li className="App-About-list-item" key={skill.name}>
+              {/* eslint-disable-next-line */}
+              <span>{skill.name}:</span>
+              <StarRating rating={skill.rating} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 About.propTypes = {
   ClientDimensions: PropTypes.shape({

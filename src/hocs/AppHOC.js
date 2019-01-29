@@ -1,8 +1,7 @@
-/* global document */
-
 import React from 'react';
 import Head from 'next/head';
 import classnames from 'classnames';
+import { canUseDOM } from 'exenv';
 import ResizeObserver from 'resize-observer-polyfill';
 
 import SideBar from '../containers/SideBar';
@@ -23,6 +22,11 @@ import Modal from '../components/Modal';
 import MarkdownForm from '../components/MarkdownForm';
 import LandingPage from '../containers/LandingPage';
 import MenuButton from '../components/buttons/MenuButton';
+
+if (canUseDOM) {
+  // eslint-disable-next-line global-require
+  require('intersection-observer');
+}
 
 const INITIAL_MODAL_DATA = {
   isOpen: false,
@@ -61,6 +65,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         isMinifiedDesktopMenu: false,
         Token: null
       };
+      this.AppRef = React.createRef();
       this.ResizeObserver = null;
       this._setAppData = this._setAppData.bind(this);
       this._loadModalData = this._loadModalData.bind(this);
@@ -89,12 +94,13 @@ const AppHOC = (WrappedComponent, componentType) =>
     componentDidMount() {
       this._loadInitialData();
       this._getToken();
-      this._createResizeObserver();
+      if (canUseDOM) {
+        this._createResizeObserver();
+      }
     }
 
     componentWillUnmount() {
-      const mainAppBody = document.getElementById('App-PhongLam');
-      this.ResizeObserver.unobserve(mainAppBody);
+      this.ResizeObserver.unobserve(this.AppRef.current);
     }
 
     _createResizeObserver() {
@@ -107,8 +113,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         });
       });
 
-      const mainAppBody = document.getElementById('App-PhongLam');
-      this.ResizeObserver.observe(mainAppBody);
+      this.ResizeObserver.observe(this.AppRef.current);
     }
 
     _getCurrentBreakpoint() {
@@ -340,32 +345,31 @@ const AppHOC = (WrappedComponent, componentType) =>
                 }
               )}
             >
+              <div
+                className={classnames('App-sidebar-overlay', {
+                  'App-sidebar-overlay-active': isMenuOpen
+                })}
+                ref={this.AppRef}
+                role="button"
+                tabIndex={0}
+                onKeyDown={this._toggleSideMenu}
+                onClick={this._toggleSideMenu}
+              />
               {componentType !== LANDING && (
-                <React.Fragment>
-                  <div
-                    className={classnames('App-sidebar-overlay', {
-                      'App-sidebar-overlay-active': isMenuOpen
-                    })}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={this._toggleSideMenu}
-                    onClick={this._toggleSideMenu}
+                <button
+                  className="menu-button hide-content-l"
+                  type="button"
+                  onClick={this._toggleSideMenu}
+                >
+                  <MenuButton
+                    className="menu-button-hamburger"
+                    isActive={isMenuOpen}
+                    onClick={() => {}}
                   />
-                  <button
-                    className="menu-button hide-content-l"
-                    type="button"
-                    onClick={this._toggleSideMenu}
-                  >
-                    <MenuButton
-                      className="menu-button-hamburger"
-                      isActive={isMenuOpen}
-                      onClick={() => {}}
-                    />
-                    <span className="menu-button-text">
-                      {isMenuOpen ? 'Close' : 'Menu'}
-                    </span>
-                  </button>
-                </React.Fragment>
+                  <span className="menu-button-text">
+                    {isMenuOpen ? 'Close' : 'Menu'}
+                  </span>
+                </button>
               )}
               {this._injectComponentProps(componentType)}
             </div>

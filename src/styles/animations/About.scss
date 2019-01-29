@@ -6,3 +6,24 @@
     transform: scale(1);
   }
 }
+
+@keyframes h2TextGrow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromBottomAbout {
+  from {
+    transform: translateY(30%)
+  }
+  to {
+    transform: translateY(0)
+  }
+}

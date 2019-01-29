@@ -49,21 +49,109 @@
   }
 
   &-section {
-    &2 {
+    padding-bottom: $xl-spacing;
+
+    &.animate {
+      .App-About-section {
+        &2 {
+          &-content {
+            visibility: visible;
+            animation: ease 2s slideInFromBottomAbout;
+
+            &-h3 {
+              animation: ease 5s animateVisibility;
+            }
+          }
+        }
+
+        &3 {
+          &-content {
+            &-h3 {
+              animation: ease 5s slideInFromBottomAbout;
+            }
+
+            &-h2 {
+              animation: ease 7s h2TextGrow;
+            }
+
+            &-image {
+              visibility: visible;
+              animation: ease 3s slideInFromRight;
+            }
+          }
+        }
+
+        &4 {
+          &-content {
+            visibility: visible;
+            animation: ease 1s slideInFromBottomAbout;
+            // &-image {
+            //   visibility: visible;
+            //   animation: ease 2s slideInFromBottomAbout;
+            // }
+          }
+        }
+      }
+    }
+
+    &2, &3, &4 {
       display: flex;
       justify-content: center;
       width: 100%;
+      align-items: center;
+    }
+
+    &2 {
       background-color: $white;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
 
-      padding-bottom: $xl-spacing;
+      &-content {
+        visibility: hidden;
+        width: 300px;
+      }
 
+      h3 {
+        margin: 0;
+      }
+    }
+
+    &3 {
       &-content {
         width: 750px;
         text-align: center;
+
+        &-h2 {
+          transform: scale(0);
+        }
+
+        &-image {
+          visibility: hidden;
+          padding-top: $l-spacing;
+        }
       }
 
       &-img {
         width: 100%;
+      }
+    }
+
+    &4 {
+      background-color: $white;
+      padding: $l-spacing 0;
+      
+      &-content {
+        visibility: hidden;
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+
+        &-image {
+          visibility: hidden;
+          width: 300px;
+        }
       }
     }
   }

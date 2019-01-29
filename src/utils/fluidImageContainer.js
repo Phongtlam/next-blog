@@ -1,4 +1,4 @@
-// need to set content width to 100%
+// need to set outer container width
 
 export const fluidImageContainer = (width, height = width) => {
   const percentage = (height / width) * 100;

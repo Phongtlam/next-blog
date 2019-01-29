@@ -7,11 +7,13 @@ import {
 } from '../../utils/fluidImageContainer';
 
 const Image = ({ width, height = width, className, src, alt }) => (
-  <div
-    className={classnames('App-Image-container', { [className]: className })}
-    style={fluidImageContainer(width, height)}
-  >
-    <img style={fluidImageContent()} src={src} alt={alt} />
+  <div className={classnames('App-Image', className)}>
+    <div
+      className="App-Image-container"
+      style={fluidImageContainer(width, height)}
+    >
+      <img style={fluidImageContent()} src={src} alt={alt} />
+    </div>
   </div>
 );
 
