@@ -28,8 +28,21 @@
   }
 }
 
-// @keyframes slideInRightAbout {
-//   100% {
-//     transform: 
-//   }
-// }
+@keyframes slideOutLeftCarouselAbout {
+  from {
+    transform: translateX(0)
+  }
+  to {
+    transform: translateX(-100%)
+  }
+}
+
+@keyframes slideOutRightCarouselAbout {
+  from {
+    transform: translateX(0)
+  }
+  to {
+    transform: translateX(100%)
+  }
+}
+

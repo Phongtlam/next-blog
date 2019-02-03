@@ -130,7 +130,9 @@ class About extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      carouselDisplayItemIndex: 0
+      carouselDisplayItemCurrentIndex: 0,
+      carouselDisplayItemLastIndex: -1,
+      carouselForward: true
     };
 
     this.sectionRef = {};
@@ -178,27 +180,34 @@ class About extends React.PureComponent {
   }
 
   _onCarouselNavigate(forward = true) {
-    const { carouselDisplayItemIndex } = this.state;
+    const { carouselDisplayItemCurrentIndex } = this.state;
 
     let nextIndex;
     if (forward) {
       nextIndex =
-        CAROUSEL_ITEMS.length - 1 === carouselDisplayItemIndex
+        CAROUSEL_ITEMS.length - 1 === carouselDisplayItemCurrentIndex
           ? 0
-          : carouselDisplayItemIndex + 1;
+          : carouselDisplayItemCurrentIndex + 1;
     } else {
       nextIndex =
-        carouselDisplayItemIndex === 0
+        carouselDisplayItemCurrentIndex === 0
           ? CAROUSEL_ITEMS.length - 1
-          : carouselDisplayItemIndex - 1;
+          : carouselDisplayItemCurrentIndex - 1;
     }
-    this.setState({
-      carouselDisplayItemIndex: nextIndex
-    });
+
+    this.setState(prevState => ({
+      carouselDisplayItemCurrentIndex: nextIndex,
+      carouselDisplayItemLastIndex: prevState.carouselDisplayItemCurrentIndex,
+      carouselForward: forward
+    }));
   }
 
   render() {
-    const { carouselDisplayItemIndex } = this.state;
+    const {
+      carouselDisplayItemCurrentIndex,
+      carouselDisplayItemLastIndex,
+      carouselForward
+    } = this.state;
 
     return (
       <div className="App-About">
@@ -408,7 +417,9 @@ class About extends React.PureComponent {
                   className={classnames(
                     'App-About-section6-content-carousel-item',
                     {
-                      current: carouselDisplayItemIndex === index
+                      current: carouselDisplayItemCurrentIndex === index,
+                      last: carouselDisplayItemLastIndex === index,
+                      reverse: !carouselForward
                     }
                   )}
                 >

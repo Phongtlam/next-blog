@@ -18,6 +18,7 @@
 @import "./PortfolioCard.scss";
 @import "./SideBar.scss";
 @import "./StarRating.scss";
+@import "./LandingPage.scss";
 
 body {
 	@include breakpoint($breakpoint-m) {
