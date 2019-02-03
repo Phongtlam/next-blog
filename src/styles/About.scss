@@ -7,6 +7,12 @@
 
   height: 100%;
 
+  &-disclaimer {
+    position: absolute;
+    border-top: 1px solid $black;
+    text-align: center;
+  }
+
   &-summary {
     @include appzindex("max");
 
