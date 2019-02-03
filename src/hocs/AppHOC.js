@@ -9,6 +9,7 @@ import { fetchAll } from '../utils/fetch';
 import { PORTFOLIO_TYPE, BLOG_TYPE } from '../enums/api-routes';
 import { BLOG, PORTFOLIO, LANDING } from '../enums/page-types';
 import {
+  EXTRA_SMALL,
   SMALL,
   MEDIUM,
   LARGE,
@@ -125,8 +126,10 @@ const AppHOC = (WrappedComponent, componentType) =>
         currentBreakpoint = LARGE;
       } else if (viewportWidth >= breakpoints[MEDIUM]) {
         currentBreakpoint = MEDIUM;
-      } else {
+      } else if (viewportWidth >= breakpoints[SMALL]) {
         currentBreakpoint = SMALL;
+      } else {
+        currentBreakpoint = EXTRA_SMALL;
       }
       return currentBreakpoint;
     }

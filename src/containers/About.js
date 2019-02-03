@@ -1,3 +1,5 @@
+/* global IntersectionObserver */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -86,13 +88,56 @@ const SKILLS = [
   }
 ];
 
+const HISTORY_BUTTONS = [
+  {
+    name: 'cs50',
+    ref: 'section2',
+    imgSrc: '../../static/About/cs50.png'
+  },
+  {
+    name: 'hack-reactor',
+    ref: 'section3',
+    imgSrc: '../../static/About/hack-reactor-logo.png'
+  },
+  {
+    name: 'menlo-technologies',
+    ref: 'section5',
+    imgSrc: '../../static/About/menlo-technologies.png'
+  },
+  {
+    name: 'ibm',
+    ref: 'section6',
+    imgSrc: '../../static/About/ibm-logo.png'
+  }
+];
+
+const CAROUSEL_ITEMS = [
+  {
+    name: 'ibm-badge',
+    imgSrc: '../../static/About/ibm-badge.jpg'
+  },
+  {
+    name: 'ibm-internal-profile',
+    imgSrc: '../../static/About/ibm-internal.png'
+  },
+  {
+    name: 'ibm-article',
+    imgSrc: '../../static/About/ibm-article.jpg'
+  }
+];
+
 class About extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      carouselDisplayItemIndex: 0
+    };
 
     this.sectionRef = {};
     this.IntersectionObserver = null;
+
+    this._goToSection = this._goToSection.bind(this);
+    this._onCarouselNavigate = this._onCarouselNavigate.bind(this);
   }
 
   componentDidMount() {
@@ -101,11 +146,17 @@ class About extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    const refsKeys = Object.keys(this.sectionRef);
+    refsKeys.forEach(ref => {
+      this.IntersectionObserver.unobserve(this.sectionRef[ref]);
+    });
+  }
+
   _createIntersectionObserver() {
     this.IntersectionObserver = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          console.log('what is entry', entry);
           this.setState({
             [entry.target.id]: entry.isIntersecting
           });
@@ -122,7 +173,33 @@ class About extends React.PureComponent {
     });
   }
 
+  _goToSection(ref) {
+    this.sectionRef[ref].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  _onCarouselNavigate(forward = true) {
+    const { carouselDisplayItemIndex } = this.state;
+
+    let nextIndex;
+    if (forward) {
+      nextIndex =
+        CAROUSEL_ITEMS.length - 1 === carouselDisplayItemIndex
+          ? 0
+          : carouselDisplayItemIndex + 1;
+    } else {
+      nextIndex =
+        carouselDisplayItemIndex === 0
+          ? CAROUSEL_ITEMS.length - 1
+          : carouselDisplayItemIndex - 1;
+    }
+    this.setState({
+      carouselDisplayItemIndex: nextIndex
+    });
+  }
+
   render() {
+    const { carouselDisplayItemIndex } = this.state;
+
     return (
       <div className="App-About">
         <div
@@ -176,7 +253,7 @@ class About extends React.PureComponent {
           })}
           id="section2"
           ref={el => {
-            this.sectionRef.section3 = el;
+            this.sectionRef.section2 = el;
           }}
         >
           <div className="App-About-section2-content">
@@ -202,7 +279,7 @@ class About extends React.PureComponent {
           })}
           id="section3"
           ref={el => {
-            this.sectionRef.section2 = el;
+            this.sectionRef.section3 = el;
           }}
         >
           <div className="App-About-section3-content">
@@ -243,23 +320,141 @@ class About extends React.PureComponent {
           }}
         >
           <div className="App-About-section4-content">
-            {/* <Image
-              className="App-About-section4-content-image"
-              width={300}
-              height={120}
-              src="../../static/About/ibm-cloud-logo.png"
-              alt="ibm-logo"
-            /> */}
             <i className="fa-3x fab fa-js" />
             <i className="fa-3x fab fa-react" />
             <i className="fa-3x fab fa-node" />
-            <i className="fa-3x fas fa-laptop" />
+            <i className="fa-3x fas fa-database" />
           </div>
         </div>
 
-        <ul className="App-About-list">
+        <div
+          className={classnames('App-About-section App-About-section5', {
+            animate: this.state.section5
+          })}
+          id="section5"
+          ref={el => {
+            this.sectionRef.section5 = el;
+          }}
+        >
+          <div className="App-About-section5-content">
+            <h2 className="App-About-section5-content-title">
+              Menlo Technologies
+            </h2>
+            <div className="App-About-section5-content-1">
+              <Image
+                className="App-About-section5-content-image"
+                width={300}
+                height={150}
+                src="../../static/About/project-management.png"
+                alt="project-management"
+              />
+              <ul className="App-About-section5-content-taskList">
+                <li>
+                  <i className="icon fas fa-caret-right" />
+                  <span className="taskList item1">
+                    Project Management Software
+                  </span>
+                </li>
+                <li>
+                  <i className="icon fas fa-caret-right" />
+                  <span className="taskList item2">
+                    Rebuild the entire front-end stack
+                  </span>
+                </li>
+                <li>
+                  <i className="icon fas fa-caret-right" />
+                  <span className="taskList item3">
+                    Testing, Deployment and Integration
+                  </span>
+                </li>
+                <li>
+                  <i className="icon fas fa-caret-right" />
+                  <span className="taskList item4">
+                    Full ownership of the project
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={classnames('App-About-section App-About-section6', {
+            animate: this.state.section6
+          })}
+          id="section6"
+          ref={el => {
+            this.sectionRef.section6 = el;
+          }}
+        >
+          <Image
+            className="App-About-section6-content-image"
+            width={300}
+            height={120}
+            src="../../static/About/ibm-cloud-logo.png"
+            alt="ibm-logo"
+          />
+
+          <div className="App-About-section6-content-carousel-container">
+            <ButtonIcon
+              iconName="far fa-caret-square-left"
+              buttonType="borderless"
+              iconSize="3x"
+              callback={() => this._onCarouselNavigate(false)}
+            />
+            <ul className="App-About-section6-content-carousel flex-container">
+              {CAROUSEL_ITEMS.map((el, index) => (
+                <li
+                  className={classnames(
+                    'App-About-section6-content-carousel-item',
+                    {
+                      current: carouselDisplayItemIndex === index
+                    }
+                  )}
+                >
+                  <Image
+                    className="App-About-section6-content-carousel-item-image"
+                    width={500}
+                    height={500}
+                    src={el.imgSrc}
+                    alt={el.name}
+                  />
+                </li>
+              ))}
+            </ul>
+            <ButtonIcon
+              iconName="far fa-caret-square-right"
+              buttonType="borderless"
+              iconSize="3x"
+              callback={this._onCarouselNavigate}
+            />
+          </div>
+        </div>
+
+        <ul className="App-About-summary">
+          {HISTORY_BUTTONS.map(el => (
+            <li className="App-About-summary-item">
+              <button
+                className="App-About-summary-item-overlay"
+                onClick={() => this._goToSection(el.ref)}
+                type="button"
+              />
+              <Image
+                className={`App-About-summary-item-button App-About-summary-item-button-${
+                  el.name
+                }`}
+                width={300}
+                height={300}
+                src={el.imgSrc}
+                alt={el.name}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <ul className="App-About-stuff">
           {SKILLS.map(skill => (
-            <li className="App-About-list-item" key={skill.name}>
+            <li className="App-About-stuff-item" key={skill.name}>
               {/* eslint-disable-next-line */}
               <span>{skill.name}:</span>
               <StarRating rating={skill.rating} />
