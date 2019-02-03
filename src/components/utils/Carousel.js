@@ -15,12 +15,15 @@ class Carousel extends React.PureComponent {
     this._onCarouselNavigate = this._onCarouselNavigate.bind(this);
   }
 
-  _onCarouselNavigate(forward = true) {
+  _onCarouselNavigate(forward = true, index) {
     const { carouselDisplayItemCurrentIndex } = this.state;
     const { items } = this.props;
 
     let nextIndex;
-    if (forward) {
+
+    if (index !== undefined) {
+      nextIndex = index;
+    } else if (forward) {
       nextIndex =
         items.length - 1 === carouselDisplayItemCurrentIndex
           ? 0
@@ -31,6 +34,7 @@ class Carousel extends React.PureComponent {
           ? items.length - 1
           : carouselDisplayItemCurrentIndex - 1;
     }
+
 
     this.setState(prevState => ({
       carouselDisplayItemCurrentIndex: nextIndex,
@@ -64,19 +68,24 @@ class Carousel extends React.PureComponent {
     } = this.props;
 
     return (
-      <div className={classnames('App-Carousel flex-container', className)}>
-        <ButtonIcon
-          iconName={leftIconName}
-          buttonType={leftButtonType}
-          iconSize={leftIconSize}
-          callback={() => {
-            onLeftClick();
-            this._onCarouselNavigate(false);
-          }}
-        />
-        <ul className="App-Carousel-list flex-container">
-          {
-            items.map((item, index) => (
+      <div
+        className={classnames(
+          'App-Carousel-container flex-container',
+          className
+        )}
+      >
+        <div className="App-Carousel flex-container">
+          <ButtonIcon
+            iconName={leftIconName}
+            buttonType={leftButtonType}
+            iconSize={leftIconSize}
+            callback={() => {
+              onLeftClick();
+              this._onCarouselNavigate(false);
+            }}
+          />
+          <ul className="App-Carousel-list flex-container">
+            {items.map((item, index) => (
               <li
                 className={classnames('App-Carousel-list-item', {
                   current: carouselDisplayItemCurrentIndex === index,
@@ -86,18 +95,39 @@ class Carousel extends React.PureComponent {
               >
                 {item}
               </li>
-            ))
-          }
+            ))}
+          </ul>
+          <ButtonIcon
+            iconName={rightIconName}
+            buttonType={rightButtonType}
+            iconSize={rightIconSize}
+            callback={() => {
+              onRightClick();
+              this._onCarouselNavigate();
+            }}
+          />
+        </div>
+        <ul className="App-Carousel-pagination flex-container">
+          {items.map((_, index) => (
+            <li className="App-Carousel-pagination-item">
+              <button
+                type="button"
+                onClick={() => {
+                  if (carouselDisplayItemCurrentIndex !== index) {
+                    this._onCarouselNavigate(index > carouselDisplayItemCurrentIndex, index);
+                  }
+                }}
+              >
+                <i
+                  className={classnames({
+                    'fas fa-circle': carouselDisplayItemCurrentIndex === index,
+                    'far fa-circle': carouselDisplayItemCurrentIndex !== index
+                  })}
+                />
+              </button>
+            </li>
+          ))}
         </ul>
-        <ButtonIcon
-          iconName={rightIconName}
-          buttonType={rightButtonType}
-          iconSize={rightIconSize}
-          callback={() => {
-            onRightClick();
-            this._onCarouselNavigate();
-          }}
-        />
       </div>
     );
   }

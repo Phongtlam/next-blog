@@ -120,14 +120,36 @@ const HISTORY_BUTTONS = [
 
 const CAROUSEL_ITEMS = [
   {
+    label: 'Aspera',
+    alt: 'aspera-logo',
+    imgSrc: '../../static/About/aspera-logo.jpg',
+    dimension: {
+      width: 750,
+      height: 500
+    }
+  },
+  {
     label: 'Proud Moment of My Engineering Career',
     alt: 'ibm-badge',
     imgSrc: '../../static/About/ibm-badge.jpg'
   },
   {
+    label: 'IBM Blue Page',
+    alt: 'ibm-blue-page',
+    imgSrc: '../../static/About/ibm-internal.png',
+    dimension: {
+      width: 1520,
+      height: 472
+    }
+  },
+  {
     label: 'IBM Featured Article about Me',
     alt: 'ibm-article',
-    imgSrc: '../../static/About/ibm-article.jpg'
+    imgSrc: '../../static/About/ibm-article.jpg',
+    dimension: {
+      width: 1024,
+      height: 863
+    }
   },
   {
     label: 'Me on IBM apprenticeship',
@@ -401,15 +423,12 @@ class About extends React.PureComponent {
             items={CAROUSEL_ITEMS.map(el => (
               <React.Fragment>
                 <Image
-                  className="App-About-section6-content-carousel-item-image"
-                  width={500}
-                  height={500}
+                  width={el.dimension && el.dimension.width ? el.dimension.width : 500}
+                  height={el.dimension && el.dimension.height ? el.dimension.height : 500}
                   src={el.imgSrc}
                   alt={el.alt}
                 />
-                <h4 className="App-About-section6-content-carousel-item-label">
-                  {el.label}
-                </h4>
+                <h4 className="App-About-section6-content-label">{el.label}</h4>
               </React.Fragment>
             ))}
           />

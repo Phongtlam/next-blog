@@ -1,8 +1,20 @@
 .App-Carousel {
+  &-container {
+    flex-direction: column;
+  }
+
+  &-pagination {
+    justify-content: space-between;
+    background-color: $light-grey;
+    border-radius: $m-spacing;
+    border: 1px solid $black;
+    width: 300px;
+  }
 
   &-list {
     width: 750px;
-    height: 750px;
+    height: 700px;
+    margin: 0;
 
     &-item {
       position: absolute;
@@ -12,8 +24,10 @@
       &.current {
         @include appzindex("small");
   
+        background: $white;
         visibility: initial;
         width: 600px;
+        height: 600px;
         animation: slideInRightCarousel 0.5s;
   
         &.reverse {
