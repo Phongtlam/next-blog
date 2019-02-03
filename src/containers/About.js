@@ -37,12 +37,12 @@ const SKILLS = [
   },
   {
     name: 'NextJS',
-    rating: '4.5/5'
+    rating: '4/5'
   },
   {
     name: 'Angular 5/6',
     icon: 'fab fa-angular',
-    rating: '3.5/5'
+    rating: '3/5'
   },
   {
     name: 'NodeJS',
@@ -52,10 +52,6 @@ const SKILLS = [
   {
     name: 'CSS3',
     icon: 'fab fa-css3-alt',
-    rating: '4/5'
-  },
-  {
-    name: 'Sass',
     rating: '4/5'
   },
   {
@@ -71,7 +67,7 @@ const SKILLS = [
     rating: '2.5/5'
   },
   {
-    name: 'Git/Mercurial/SVN',
+    name: 'Git/SVN',
     rating: '3.5/5'
   },
   {
@@ -89,6 +85,11 @@ const SKILLS = [
 ];
 
 const HISTORY_BUTTONS = [
+  {
+    name: 'Me',
+    ref: 'section1',
+    imgSrc: '../../static/About/avatar-PL.jpg'
+  },
   {
     name: 'cs50',
     ref: 'section2',
@@ -108,21 +109,29 @@ const HISTORY_BUTTONS = [
     name: 'ibm',
     ref: 'section6',
     imgSrc: '../../static/About/ibm-logo.png'
+  },
+  {
+    name: 'walmart-labs',
+    ref: 'section7',
+    imgSrc: '../../static/About/walmart-labs-small-logo.png'
   }
 ];
 
 const CAROUSEL_ITEMS = [
   {
-    name: 'ibm-badge',
+    label: 'Proud Moment of My Engineering Career',
+    alt: 'ibm-badge',
     imgSrc: '../../static/About/ibm-badge.jpg'
   },
   {
-    name: 'ibm-internal-profile',
-    imgSrc: '../../static/About/ibm-internal.png'
+    label: 'IBM Featured Article about Me',
+    alt: 'ibm-article',
+    imgSrc: '../../static/About/ibm-article.jpg'
   },
   {
-    name: 'ibm-article',
-    imgSrc: '../../static/About/ibm-article.jpg'
+    label: 'Me on IBM apprenticeship',
+    alt: 'ibm-apprentice',
+    imgSrc: '../../static/About/ibm-apprentice.png'
   }
 ];
 
@@ -254,6 +263,16 @@ class About extends React.PureComponent {
               </p>
             </div>
           </div>
+
+          <ul className="App-About-stuff">
+            {SKILLS.map(skill => (
+              <li className="App-About-stuff-item" key={skill.name}>
+                {/* eslint-disable-next-line */}
+                <span>{skill.name}:</span>
+                <StarRating rating={skill.rating} />
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div
@@ -292,7 +311,13 @@ class About extends React.PureComponent {
           }}
         >
           <div className="App-About-section3-content">
-            <h2>Hack Reactor</h2>
+            <Image
+              className="App-About-section3-content-logo"
+              width={1643}
+              height={231}
+              src="../../static/About/hack-reactor-horizontal-logo.png"
+              alt="hackreactor"
+            />
             <Image
               className="App-About-section3-content-image"
               width={750}
@@ -329,6 +354,7 @@ class About extends React.PureComponent {
           }}
         >
           <div className="App-About-section4-content">
+            <i className="fa-3x fas fa-code" />
             <i className="fa-3x fab fa-js" />
             <i className="fa-3x fab fa-react" />
             <i className="fa-3x fab fa-node" />
@@ -428,8 +454,18 @@ class About extends React.PureComponent {
                     width={500}
                     height={500}
                     src={el.imgSrc}
-                    alt={el.name}
+                    alt={el.alt}
                   />
+                  <h4
+                    className={classnames(
+                      'App-About-section6-content-carousel-item-label',
+                      {
+                        hidden: carouselDisplayItemLastIndex === index
+                      }
+                    )}
+                  >
+                    {el.label}
+                  </h4>
                 </li>
               ))}
             </ul>
@@ -440,38 +476,66 @@ class About extends React.PureComponent {
               callback={this._onCarouselNavigate}
             />
           </div>
+
+          <ul className="App-About-section6-content-description">
+            <li>
+              <i className="icon fas fa-caret-right" />
+              &nbsp;Joining IBM under the Hybrid Cloud Division
+            </li>
+            <li>
+              <i className="icon fas fa-caret-right" />
+              &nbsp;Directly contributed in rebuilding Aspera on Cloud from
+              Greenfield to Production
+            </li>
+            <li>
+              <i className="icon fas fa-caret-right" />
+              &nbsp;Build a full featured D3 visualization component library for
+              Aspera Analytics
+            </li>
+          </ul>
         </div>
 
-        <ul className="App-About-summary">
-          {HISTORY_BUTTONS.map(el => (
-            <li className="App-About-summary-item">
-              <button
-                className="App-About-summary-item-overlay"
-                onClick={() => this._goToSection(el.ref)}
-                type="button"
-              />
-              <Image
-                className={`App-About-summary-item-button App-About-summary-item-button-${
-                  el.name
-                }`}
-                width={300}
-                height={300}
-                src={el.imgSrc}
-                alt={el.name}
-              />
-            </li>
-          ))}
-        </ul>
+        <div
+          className={classnames('App-About-section App-About-section7', {
+            animate: this.state.section7
+          })}
+          id="section7"
+          ref={el => {
+            this.sectionRef.section7 = el;
+          }}
+        >
+          <Image
+            className="App-About-section7-image"
+            width={1280}
+            height={247}
+            src="../../static/About/walmart-labs.png"
+            alt="walmart-labs-logo"
+          />
+        </div>
 
-        <ul className="App-About-stuff">
-          {SKILLS.map(skill => (
-            <li className="App-About-stuff-item" key={skill.name}>
-              {/* eslint-disable-next-line */}
-              <span>{skill.name}:</span>
-              <StarRating rating={skill.rating} />
-            </li>
-          ))}
-        </ul>
+        <div>
+          <h2>My Journey thus far...</h2>
+          <ul className="App-About-summary">
+            {HISTORY_BUTTONS.map(el => (
+              <li className="App-About-summary-item">
+                <button
+                  className="App-About-summary-item-overlay"
+                  onClick={() => this._goToSection(el.ref)}
+                  type="button"
+                />
+                <Image
+                  className={`App-About-summary-item-button App-About-summary-item-button-${
+                    el.name
+                  }`}
+                  width={300}
+                  height={300}
+                  src={el.imgSrc}
+                  alt={el.name}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }

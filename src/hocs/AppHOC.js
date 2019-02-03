@@ -52,7 +52,11 @@ const INITIAL_MARKDOWN_FORM_DATA = {
   _id: null
 };
 
-const AppHOC = (WrappedComponent, componentType) =>
+const AppHOC = (
+  WrappedComponent,
+  componentType,
+  { isMinifiedDesktopMenuAtStart } = { isMinifiedDesktopMenuAtStart: false }
+) =>
   class extends React.Component {
     constructor(props) {
       super(props);
@@ -63,7 +67,7 @@ const AppHOC = (WrappedComponent, componentType) =>
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
         isMenuOpen: false,
-        isMinifiedDesktopMenu: false,
+        isMinifiedDesktopMenu: isMinifiedDesktopMenuAtStart,
         Token: null
       };
       this.AppRef = React.createRef();

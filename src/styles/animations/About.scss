@@ -33,7 +33,7 @@
     transform: translateX(0)
   }
   to {
-    transform: translateX(-100%)
+    transform: translateX(-50%)
   }
 }
 
@@ -42,7 +42,25 @@
     transform: translateX(0)
   }
   to {
-    transform: translateX(100%)
+    transform: translateX(50%)
+  }
+}
+
+@keyframes slideInLeftCarouselAbout {
+  from {
+    transform: translateX(-10%)
+  }
+  to {
+    transform: translateX(0)
+  }
+}
+
+@keyframes slideInRightCarouselAbout {
+  from {
+    transform: translateX(10%)
+  }
+  to {
+    transform: translateX(0)
   }
 }
 
