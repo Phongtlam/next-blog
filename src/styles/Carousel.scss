@@ -1,0 +1,36 @@
+.App-Carousel {
+
+  &-list {
+    width: 750px;
+    height: 750px;
+
+    &-item {
+      position: absolute;
+      visibility: hidden;
+      width: 0;
+  
+      &.current {
+        @include appzindex("small");
+  
+        visibility: initial;
+        width: 600px;
+        animation: slideInRightCarousel 0.5s;
+  
+        &.reverse {
+          animation: slideInLeftCarousel 0.5s;
+        }
+      }
+  
+      &.last {
+        visibility: initial;
+        width: 0;
+        transition: width 1s;
+        animation: slideOutLeftCarousel 0.5s;
+  
+        &.reverse {
+          animation: slideOutRightCarousel 0.5s;
+        }
+      }
+    }
+  }
+}

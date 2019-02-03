@@ -7,18 +7,19 @@
 @import "./BlogCard.scss";
 @import "./BlogPage.scss";
 @import "./ButtonIcon.scss";
+@import "./Carousel.scss";
 @import "./ExternalLinks.scss";
 @import "./GetInTouch.scss";
-@import "./Portfolio.scss";
 @import "./HtmlParser.scss";
+@import "./LandingPage.scss";
 @import "./MarkdownForm.scss";
 @import "./MenuButton.scss";
 @import "./Modal.scss";
 @import "./Particles.scss";
+@import "./Portfolio.scss";
 @import "./PortfolioCard.scss";
 @import "./SideBar.scss";
 @import "./StarRating.scss";
-@import "./LandingPage.scss";
 
 body {
 	@include breakpoint($breakpoint-m) {

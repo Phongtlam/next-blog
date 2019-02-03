@@ -1,0 +1,35 @@
+@keyframes slideOutLeftCarousel {
+  from {
+    transform: translateX(0)
+  }
+  to {
+    transform: translateX(-50%)
+  }
+}
+
+@keyframes slideOutRightCarousel {
+  from {
+    transform: translateX(0)
+  }
+  to {
+    transform: translateX(50%)
+  }
+}
+
+@keyframes slideInLeftCarousel {
+  from {
+    transform: translateX(-5%)
+  }
+  to {
+    transform: translateX(0)
+  }
+}
+
+@keyframes slideInRightCarousel {
+  from {
+    transform: translateX(5%)
+  }
+  to {
+    transform: translateX(0)
+  }
+}

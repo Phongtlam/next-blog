@@ -282,44 +282,6 @@
           color: $blue;
           text-align: left;
         }
-
-        &-carousel {
-          width: 750px;
-          height: 700px;
-
-          &-container {
-            display: flex;
-          }
-
-          &-item {
-            position: absolute;
-            visibility: hidden;
-            width: 0;
-
-            &.current {
-              @include appzindex("small");
-
-              visibility: initial;
-              width: 600px;
-              animation: slideInRightCarouselAbout 0.5s;
-
-              &.reverse {
-                animation: slideInLeftCarouselAbout 0.5s;
-              }
-            }
-
-            &.last {
-              visibility: initial;
-              width: 0;
-              transition: width 1s;
-              animation: slideOutLeftCarouselAbout 0.5s;
-
-              &.reverse {
-                animation: slideOutRightCarouselAbout 0.5s;
-              }
-            }
-          }
-        }
       }
     }
 

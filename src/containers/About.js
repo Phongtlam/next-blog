@@ -10,6 +10,7 @@ import { canUseDOM } from 'exenv';
 import StarRating from '../components/utils/StarRating';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import Image from '../components/utils/Image';
+import Carousel from '../components/utils/Carousel';
 import {
   fluidImageContainer,
   fluidImageContent
@@ -138,17 +139,12 @@ const CAROUSEL_ITEMS = [
 class About extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      carouselDisplayItemCurrentIndex: 0,
-      carouselDisplayItemLastIndex: -1,
-      carouselForward: true
-    };
+    this.state = {};
 
     this.sectionRef = {};
     this.IntersectionObserver = null;
 
     this._goToSection = this._goToSection.bind(this);
-    this._onCarouselNavigate = this._onCarouselNavigate.bind(this);
   }
 
   componentDidMount() {
@@ -188,36 +184,7 @@ class About extends React.PureComponent {
     this.sectionRef[ref].scrollIntoView({ behavior: 'smooth' });
   }
 
-  _onCarouselNavigate(forward = true) {
-    const { carouselDisplayItemCurrentIndex } = this.state;
-
-    let nextIndex;
-    if (forward) {
-      nextIndex =
-        CAROUSEL_ITEMS.length - 1 === carouselDisplayItemCurrentIndex
-          ? 0
-          : carouselDisplayItemCurrentIndex + 1;
-    } else {
-      nextIndex =
-        carouselDisplayItemCurrentIndex === 0
-          ? CAROUSEL_ITEMS.length - 1
-          : carouselDisplayItemCurrentIndex - 1;
-    }
-
-    this.setState(prevState => ({
-      carouselDisplayItemCurrentIndex: nextIndex,
-      carouselDisplayItemLastIndex: prevState.carouselDisplayItemCurrentIndex,
-      carouselForward: forward
-    }));
-  }
-
   render() {
-    const {
-      carouselDisplayItemCurrentIndex,
-      carouselDisplayItemLastIndex,
-      carouselForward
-    } = this.state;
-
     return (
       <div className="App-About">
         <div
@@ -430,52 +397,22 @@ class About extends React.PureComponent {
             alt="ibm-logo"
           />
 
-          <div className="App-About-section6-content-carousel-container">
-            <ButtonIcon
-              iconName="far fa-caret-square-left"
-              buttonType="borderless"
-              iconSize="3x"
-              callback={() => this._onCarouselNavigate(false)}
-            />
-            <ul className="App-About-section6-content-carousel flex-container">
-              {CAROUSEL_ITEMS.map((el, index) => (
-                <li
-                  className={classnames(
-                    'App-About-section6-content-carousel-item',
-                    {
-                      current: carouselDisplayItemCurrentIndex === index,
-                      last: carouselDisplayItemLastIndex === index,
-                      reverse: !carouselForward
-                    }
-                  )}
-                >
-                  <Image
-                    className="App-About-section6-content-carousel-item-image"
-                    width={500}
-                    height={500}
-                    src={el.imgSrc}
-                    alt={el.alt}
-                  />
-                  <h4
-                    className={classnames(
-                      'App-About-section6-content-carousel-item-label',
-                      {
-                        hidden: carouselDisplayItemLastIndex === index
-                      }
-                    )}
-                  >
-                    {el.label}
-                  </h4>
-                </li>
-              ))}
-            </ul>
-            <ButtonIcon
-              iconName="far fa-caret-square-right"
-              buttonType="borderless"
-              iconSize="3x"
-              callback={this._onCarouselNavigate}
-            />
-          </div>
+          <Carousel
+            items={CAROUSEL_ITEMS.map(el => (
+              <React.Fragment>
+                <Image
+                  className="App-About-section6-content-carousel-item-image"
+                  width={500}
+                  height={500}
+                  src={el.imgSrc}
+                  alt={el.alt}
+                />
+                <h4 className="App-About-section6-content-carousel-item-label">
+                  {el.label}
+                </h4>
+              </React.Fragment>
+            ))}
+          />
 
           <ul className="App-About-section6-content-description">
             <li>
