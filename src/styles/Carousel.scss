@@ -1,6 +1,12 @@
 .App-Carousel {
+  width: 100%;
+
   &-container {
     flex-direction: column;
+
+    .black-button {
+      color: $black;
+    }
   }
 
   &-pagination {
@@ -28,21 +34,49 @@
         visibility: initial;
         width: 600px;
         height: 600px;
-        animation: slideInRightCarousel 0.5s;
-  
+        animation: slideInLeftCarousel 0.5s;
+
         &.reverse {
-          animation: slideInLeftCarousel 0.5s;
+          animation: slideInRightCarousel 0.5s;
         }
+        
       }
   
       &.last {
         visibility: initial;
         width: 0;
-        transition: width 1s;
-        animation: slideOutLeftCarousel 0.5s;
-  
-        &.reverse {
+        height: 0;
+        
+        @include breakpoint($breakpoint-s) {
+          transition: width 1s, height 1s;
           animation: slideOutRightCarousel 0.5s;
+          
+          &.reverse {
+            animation: slideOutLeftCarousel 0.5s;
+          }
+        }
+        
+        @include breakpoint($breakpoint-s, "max") {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.isMobile {
+  width: 100%;
+
+  .App-Carousel {
+
+    &-list {
+      width: 100%;
+      height: 410px;
+
+      &-item {
+        &.current {
+          width: 300px;
+          height: 300px;
         }
       }
     }

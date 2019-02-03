@@ -11,11 +11,6 @@ import StarRating from '../components/utils/StarRating';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import Image from '../components/utils/Image';
 import Carousel from '../components/utils/Carousel';
-import {
-  fluidImageContainer,
-  fluidImageContent
-} from '../utils/fluidImageContainer';
-import { LARGE, breakpoints } from '../enums/client-dimensions';
 
 const SKILLS = [
   {
@@ -30,7 +25,7 @@ const SKILLS = [
   {
     name: 'React/Redux',
     icon: 'fab fa-react',
-    rating: '5/5'
+    rating: '4/5'
   },
   {
     name: 'React Native',
@@ -207,6 +202,8 @@ class About extends React.PureComponent {
   }
 
   render() {
+    const { getCurrentBreakpoint } = this.props;
+
     return (
       <div className="App-About">
         <div
@@ -243,6 +240,11 @@ class About extends React.PureComponent {
                 great new book.
               </p>
               <p className="App-About-header-content-p3">
+                This page is my live resume, chronicling my journey in software
+                development as I learn and apply the newest, most up-to-date
+                technologies to create an interactive timeline of my career.
+              </p>
+              <p className="App-About-header-content-p4">
                 Feel free to shoot me a message &nbsp;
                 <Link href="/Getintouch">
                   <ButtonIcon iconName="far fa-envelope" callback={() => {}}>
@@ -253,7 +255,7 @@ class About extends React.PureComponent {
             </div>
           </div>
 
-          <ul className="App-About-stuff">
+          <ul className="App-About-stuff flex-container">
             {SKILLS.map(skill => (
               <li className="App-About-stuff-item" key={skill.name}>
                 {/* eslint-disable-next-line */}
@@ -420,11 +422,20 @@ class About extends React.PureComponent {
           />
 
           <Carousel
+            getCurrentBreakpoint={getCurrentBreakpoint}
             items={CAROUSEL_ITEMS.map(el => (
               <React.Fragment>
                 <Image
-                  width={el.dimension && el.dimension.width ? el.dimension.width : 500}
-                  height={el.dimension && el.dimension.height ? el.dimension.height : 500}
+                  width={
+                    el.dimension && el.dimension.width
+                      ? el.dimension.width
+                      : 500
+                  }
+                  height={
+                    el.dimension && el.dimension.height
+                      ? el.dimension.height
+                      : 500
+                  }
                   src={el.imgSrc}
                   alt={el.alt}
                 />
@@ -471,9 +482,9 @@ class About extends React.PureComponent {
 
         <div>
           <h2>My Journey thus far...</h2>
-          <ul className="App-About-summary">
+          <ul className="App-About-summary hide-content-max-l">
             {HISTORY_BUTTONS.map(el => (
-              <li className="App-About-summary-item">
+              <li key={el.ref} className="App-About-summary-item">
                 <button
                   className="App-About-summary-item-overlay"
                   onClick={() => this._goToSection(el.ref)}
@@ -501,14 +512,16 @@ About.propTypes = {
   ClientDimensions: PropTypes.shape({
     viewportWidth: PropTypes.number,
     viewportHeight: PropTypes.number
-  })
+  }),
+  getCurrentBreakpoint: PropTypes.func
 };
 
 About.defaultProps = {
   ClientDimensions: {
     viewportWidth: 0,
     viewportHeight: 0
-  }
+  },
+  getCurrentBreakpoint: () => {}
 };
 
 export default About;

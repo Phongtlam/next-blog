@@ -74,6 +74,9 @@
       &-p3 {
         animation: ease 3s slideInFromRight;
       }
+      &-p4 {
+        animation: ease 3.5s slideInFromRight;
+      }
     }
 
     @include breakpoint($breakpoint-l) {
@@ -281,6 +284,7 @@
         &-description {
           color: $blue;
           text-align: left;
+          margin-left: $s-spacing;
         }
 
         &-label {
@@ -299,10 +303,16 @@
   }
 
   &-stuff {
+    background: $white;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    padding: $s-spacing;
+
     &-item {
       display: flex;
       justify-content: space-between;
-      width: 270px;
+      width: 250px;
     }
   }
 }

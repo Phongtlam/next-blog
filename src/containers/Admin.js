@@ -10,8 +10,6 @@ import {
   adminQueryValueCreate
 } from '../../app-secrets/admin-helpers';
 
-import '../styles/Admin.scss';
-
 class Admin extends React.Component {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
