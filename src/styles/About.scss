@@ -67,6 +67,7 @@
 
   .avatar {
     width: 300px;
+    height: 300px;
     border-radius: 50%;
     animation: ease 0.5s 1 avatarGrow forwards;
   }
@@ -85,17 +86,12 @@
         animation: blink 1s step-end infinite;
       }
 
-      &-p1 {
-        animation: ease 2s slideInFromRight;
-      }
-      &-p2 {
-        animation: ease 2.5s slideInFromRight;
-      }
-      &-p3 {
-        animation: ease 3s slideInFromRight;
-      }
-      &-p4 {
-        animation: ease 3.5s slideInFromRight;
+      &-typings {
+        min-height: 230px;
+
+        &.isMobile {
+          min-height: 450px;
+        }
       }
     }
 

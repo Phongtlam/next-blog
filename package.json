@@ -36,7 +36,7 @@
   },
   "scripts": {
     "dev": "next",
-    "server-dev": "NODE_ENV=development node server/index.js",
+    "hot": "NODE_ENV=development node server/index.js",
     "build": "next build",
     "now-build": "next build",
     "start": "NODE_ENV=production node server/index.js",

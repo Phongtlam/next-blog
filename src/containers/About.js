@@ -11,6 +11,7 @@ import StarRating from '../components/utils/StarRating';
 import ButtonIcon from '../components/buttons/ButtonIcon';
 import Image from '../components/utils/Image';
 import Carousel from '../components/utils/Carousel';
+import { EXTRA_SMALL } from '../enums/client-dimensions';
 
 const SKILLS = [
   {
@@ -141,16 +142,18 @@ const CAROUSEL_ITEMS = [
   }
 ];
 
-const paragraph =
-  'I am a versatile, highly motivated and efficient full-stack software engineer living in San Francisco. With experience in both sales and engineering, I have the keen eye for creating beautiful UI and highly user-friendly products.\n' +
-  'I believe that we all live in the age where anything is possible through technology. I want to connect with others who share a similar mindset to chat over a cup of coffee, to discuss about the joy of learning and development, or even just to share a great new book.\n' +
-  'This page is my live resume, chronicling my journey in software development as I learn and apply the newest, most up-to-date technologies to create an interactive timeline of my career.';
+const paragraph1 =
+  'I am a versatile, highly motivated and efficient full-stack software engineer living in San Francisco. With experience in both sales and engineering, I have the keen eye for creating beautiful UI and highly user-friendly products.';
+const paragraph2 = 'I believe that we all live in the age where anything is possible through technology. I want to connect with others who share a similar mindset to chat over a cup of coffee, to discuss about the joy of learning and development, or even just to share a great new book.';
+const paragraph3 = 'This page is my live resume, chronicling my journey in software development as I learn and apply the newest, most up-to-date technologies to create an interactive timeline of my career.';
 
 class About extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      headerParagraph: ''
+      headerparagraph1: '',
+      headerparagraph2: '',
+      headerparagraph3: ''
     };
 
     this.sectionRef = {};
@@ -159,10 +162,12 @@ class About extends React.PureComponent {
     this._goToSection = this._goToSection.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (canUseDOM) {
       this._createIntersectionObserver();
-      this._typing(paragraph);
+      await this._typing(paragraph1, 'headerparagraph1');
+      await this._typing(paragraph2, 'headerparagraph2');
+      await this._typing(paragraph3, 'headerparagraph3');
     }
   }
 
@@ -197,23 +202,23 @@ class About extends React.PureComponent {
     this.sectionRef[ref].scrollIntoView({ behavior: 'smooth' });
   }
 
-  async _typing(texts) {
+  async _typing(paragraph, loc) {
     const randomTyping = (min, max) =>
-      new Promise(res =>
-        setTimeout(res, Math.floor(Math.random() * (max - min + 1)) + min)
-      );
+      new Promise(res => {
+        setTimeout(res, Math.floor(Math.random() * (max - min + 1)) + min);
+      });
     let currText = '';
-    for (let i = 0; i < texts.length; i += 1) {
-      await randomTyping(10, 50);
-      currText += texts.charAt(i);
+    for (let i = 0; i < paragraph.length; i += 1) {
+      await randomTyping(0, 50); // eslint-disable-line no-await-in-loop
+      currText += paragraph.charAt(i);
       this.setState({
-        headerParagraph: currText
+        [loc]: currText
       });
     }
   }
 
   render() {
-    const { headerParagraph } = this.state;
+    const { headerparagraph1, headerparagraph2, headerparagraph3 } = this.state;
     const { getCurrentBreakpoint } = this.props;
 
     return (
@@ -239,7 +244,13 @@ class About extends React.PureComponent {
 
             <div className="App-About-header-content">
               <i className="App-About-header-content-cursor fa-3x fas fa-terminal" />
-              <p>{headerParagraph}</p>
+              <div className={classnames('App-About-header-content-typings', {
+                isMobile: getCurrentBreakpoint() === EXTRA_SMALL
+              })}>
+                <p>{headerparagraph1}</p>
+                <p>{headerparagraph2}</p>
+                <p>{headerparagraph3}</p>
+              </div>
               <p className="App-About-header-content-p4">
                 Feel free to shoot me a message &nbsp;
                 <Link href="/Getintouch">
