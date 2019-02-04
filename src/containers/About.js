@@ -150,7 +150,7 @@ class About extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      headerParagraph: '',
+      headerParagraph: ''
     };
 
     this.sectionRef = {};
@@ -198,11 +198,13 @@ class About extends React.PureComponent {
   }
 
   async _typing(texts) {
-    const randomTyping = (min, max) => new Promise(res => setTimeout(res, Math.floor(Math.random() * (max - min + 1)) + min));
+    const randomTyping = (min, max) =>
+      new Promise(res =>
+        setTimeout(res, Math.floor(Math.random() * (max - min + 1)) + min)
+      );
     let currText = '';
     for (let i = 0; i < texts.length; i += 1) {
-      console.log('texts.cha', texts.charAt(i))
-      await randomTyping(10, 20);
+      await randomTyping(10, 50);
       currText += texts.charAt(i);
       this.setState({
         headerParagraph: currText
