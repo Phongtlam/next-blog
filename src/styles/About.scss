@@ -8,25 +8,34 @@
   height: 100%;
 
   &-disclaimer {
-    position: absolute;
     border-top: 1px solid $black;
     text-align: center;
   }
 
   &-summary {
     @include appzindex("max");
-
-    justify-content: space-around;
-    background: $white;
+    
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 
+    height: auto;
     width: 100%;
-    height: 120px;
+
+    background: $white;
+    box-shadow: $grey-shadow;
+
+    padding: 20px 0;
 
     &-item {
       display: inline-flex;
       justify-content: center;
       align-items: center;
+
+      @include breakpoint($breakpoint-s, "max") {
+        flex: 1;
+        margin: $m-spacing;
+      }
   
       &-overlay {
         @include appzindex("small");
@@ -39,6 +48,7 @@
         background: $grey;
         border-radius: 50%;
       }
+
       &-button {
         width: $xxl-spacing;
         cursor: pointer;
@@ -71,6 +81,10 @@
     }
 
     &-content {
+      &-cursor {
+        animation: blink 1s step-end infinite;
+      }
+
       &-p1 {
         animation: ease 2s slideInFromRight;
       }
@@ -308,10 +322,10 @@
     }
   }
 
-  &-stuff {
+  &-ratings {
     background: $white;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     padding: $s-spacing;
 
@@ -319,6 +333,8 @@
       display: flex;
       justify-content: space-between;
       width: 250px;
+
+      margin-right: $xl-spacing;
     }
   }
 }

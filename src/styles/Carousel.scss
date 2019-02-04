@@ -13,8 +13,12 @@
     justify-content: space-between;
     background-color: $light-grey;
     border-radius: $m-spacing;
-    border: 1px solid $black;
-    width: 300px;
+    min-width: 300px;
+    box-shadow: $grey-shadow;
+
+    .fas, .far {
+      color: $blue;
+    }
   }
 
   &-list {

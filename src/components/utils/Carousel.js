@@ -143,7 +143,6 @@ class Carousel extends React.PureComponent {
 
     return (
       <div
-        ref={this.CarouselRef}
         className={classnames(
           'App-Carousel-container flex-container',
           className,
@@ -163,7 +162,7 @@ class Carousel extends React.PureComponent {
               this._onCarouselNavigate(false);
             }}
           />
-          <ul className="App-Carousel-list flex-container">
+          <ul ref={this.CarouselRef} className="App-Carousel-list flex-container">
             {items.map((item, index) => (
               <li
                 key={index} // eslint-disable-line react/no-array-index-key
@@ -204,6 +203,10 @@ class Carousel extends React.PureComponent {
               className="App-Carousel-pagination-item"
             >
               <button
+                className={classnames({
+                  'fas fa-circle': carouselDisplayItemCurrentIndex === index,
+                  'far fa-circle': carouselDisplayItemCurrentIndex !== index
+                })}
                 type="button"
                 onClick={() => {
                   if (carouselDisplayItemCurrentIndex !== index) {
@@ -213,14 +216,7 @@ class Carousel extends React.PureComponent {
                     );
                   }
                 }}
-              >
-                <i
-                  className={classnames({
-                    'fas fa-circle': carouselDisplayItemCurrentIndex === index,
-                    'far fa-circle': carouselDisplayItemCurrentIndex !== index
-                  })}
-                />
-              </button>
+              />
             </li>
           ))}
           <ButtonIcon

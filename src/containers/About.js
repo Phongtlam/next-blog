@@ -55,18 +55,6 @@ const SKILLS = [
     rating: '4/5'
   },
   {
-    name: 'jQuery',
-    rating: '3/5'
-  },
-  {
-    name: 'RoR',
-    rating: '2.5/5'
-  },
-  {
-    name: 'Git/SVN',
-    rating: '3.5/5'
-  },
-  {
     name: 'MongoDB',
     rating: '3.5/5'
   },
@@ -226,6 +214,7 @@ class About extends React.PureComponent {
             </p>
 
             <div className="App-About-header-content">
+              <i className="App-About-header-content-cursor fa-3x fas fa-terminal" />
               <p className="App-About-header-content-p1">
                 I am a versatile, highly motivated and efficient full-stack
                 software engineer living in San Francisco. With experience in
@@ -255,11 +244,12 @@ class About extends React.PureComponent {
             </div>
           </div>
 
-          <ul className="App-About-stuff flex-container">
+          <ul className="App-About-ratings flex-container">
             {SKILLS.map(skill => (
-              <li className="App-About-stuff-item" key={skill.name}>
+              <li className="App-About-ratings-item" key={skill.name}>
                 {/* eslint-disable-next-line */}
                 <span>{skill.name}:</span>
+                {/* <i className={`fa-2x ${skill.icon}`} /> */}
                 <StarRating rating={skill.rating} />
               </li>
             ))}
@@ -482,7 +472,7 @@ class About extends React.PureComponent {
 
         <div>
           <h2>My Journey thus far...</h2>
-          <ul className="App-About-summary hide-content-max-l">
+          <ul className="App-About-summary">
             {HISTORY_BUTTONS.map(el => (
               <li key={el.ref} className="App-About-summary-item">
                 <button
