@@ -141,10 +141,17 @@ const CAROUSEL_ITEMS = [
   }
 ];
 
+const paragraph =
+  'I am a versatile, highly motivated and efficient full-stack software engineer living in San Francisco. With experience in both sales and engineering, I have the keen eye for creating beautiful UI and highly user-friendly products.\n' +
+  'I believe that we all live in the age where anything is possible through technology. I want to connect with others who share a similar mindset to chat over a cup of coffee, to discuss about the joy of learning and development, or even just to share a great new book.\n' +
+  'This page is my live resume, chronicling my journey in software development as I learn and apply the newest, most up-to-date technologies to create an interactive timeline of my career.';
+
 class About extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      headerParagraph: '',
+    };
 
     this.sectionRef = {};
     this.IntersectionObserver = null;
@@ -155,6 +162,7 @@ class About extends React.PureComponent {
   componentDidMount() {
     if (canUseDOM) {
       this._createIntersectionObserver();
+      this._typing(paragraph);
     }
   }
 
@@ -189,7 +197,21 @@ class About extends React.PureComponent {
     this.sectionRef[ref].scrollIntoView({ behavior: 'smooth' });
   }
 
+  async _typing(texts) {
+    const randomTyping = (min, max) => new Promise(res => setTimeout(res, Math.floor(Math.random() * (max - min + 1)) + min));
+    let currText = '';
+    for (let i = 0; i < texts.length; i += 1) {
+      console.log('texts.cha', texts.charAt(i))
+      await randomTyping(10, 20);
+      currText += texts.charAt(i);
+      this.setState({
+        headerParagraph: currText
+      });
+    }
+  }
+
   render() {
+    const { headerParagraph } = this.state;
     const { getCurrentBreakpoint } = this.props;
 
     return (
@@ -215,24 +237,7 @@ class About extends React.PureComponent {
 
             <div className="App-About-header-content">
               <i className="App-About-header-content-cursor fa-3x fas fa-terminal" />
-              <p className="App-About-header-content-p1">
-                I am a versatile, highly motivated and efficient full-stack
-                software engineer living in San Francisco. With experience in
-                both sales and engineering, I have the keen eye for creating
-                beautiful UI and highly user-friendly products.
-              </p>
-              <p className="App-About-header-content-p2">
-                I believe that we all live in the age where anything is possible
-                through technology. I want to connect with others who share a
-                similar mindset to chat over a cup of coffee, to discuss about
-                the joy of learning and development, or even just to share a
-                great new book.
-              </p>
-              <p className="App-About-header-content-p3">
-                This page is my live resume, chronicling my journey in software
-                development as I learn and apply the newest, most up-to-date
-                technologies to create an interactive timeline of my career.
-              </p>
+              <p>{headerParagraph}</p>
               <p className="App-About-header-content-p4">
                 Feel free to shoot me a message &nbsp;
                 <Link href="/Getintouch">

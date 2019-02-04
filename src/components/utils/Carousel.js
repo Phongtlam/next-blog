@@ -162,7 +162,10 @@ class Carousel extends React.PureComponent {
               this._onCarouselNavigate(false);
             }}
           />
-          <ul ref={this.CarouselRef} className="App-Carousel-list flex-container">
+          <ul
+            ref={this.CarouselRef}
+            className="App-Carousel-list flex-container"
+          >
             {items.map((item, index) => (
               <li
                 key={index} // eslint-disable-line react/no-array-index-key
