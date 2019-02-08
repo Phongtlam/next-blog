@@ -144,8 +144,10 @@ const CAROUSEL_ITEMS = [
 
 const paragraph1 =
   'I am a versatile, highly motivated and efficient full-stack software engineer living in San Francisco. With experience in both sales and engineering, I have the keen eye for creating beautiful UI and highly user-friendly products.';
-const paragraph2 = 'I believe that we all live in the age where anything is possible through technology. I want to connect with others who share a similar mindset to chat over a cup of coffee, to discuss about the joy of learning and development, or even just to share a great new book.';
-const paragraph3 = 'This page is my live resume, chronicling my journey in software development as I learn and apply the newest, most up-to-date technologies to create an interactive timeline of my career.';
+const paragraph2 =
+  'I believe that we all live in the age where anything is possible through technology. I want to connect with others who share a similar mindset to chat over a cup of coffee, to discuss about the joy of learning and development, or even just to share a great new book.';
+const paragraph3 =
+  'This page is my live resume, chronicling my journey in software development as I learn and apply the newest, most up-to-date technologies to create an interactive timeline of my career.';
 
 class About extends React.PureComponent {
   constructor(props) {
@@ -244,9 +246,11 @@ class About extends React.PureComponent {
 
             <div className="App-About-header-content">
               <i className="App-About-header-content-cursor fa-3x fas fa-terminal" />
-              <div className={classnames('App-About-header-content-typings', {
-                isMobile: getCurrentBreakpoint() === EXTRA_SMALL
-              })}>
+              <div
+                className={classnames('App-About-header-content-typings', {
+                  isMobile: getCurrentBreakpoint() === EXTRA_SMALL
+                })}
+              >
                 <p>{headerparagraph1}</p>
                 <p>{headerparagraph2}</p>
                 <p>{headerparagraph3}</p>
