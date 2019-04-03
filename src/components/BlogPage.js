@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { withRouter } from 'next/router';
 import HtmlParser from './HtmlParser';
 import ButtonIcon from './buttons/ButtonIcon';
@@ -34,7 +35,9 @@ const BlogPage = props => {
   return (
     <div className="App-BlogPage">
       <ButtonIcon
-        className="back-button"
+        className={classnames('back-button', {
+          hidden: props.isSideMenuOpen
+        })}
         buttonType="primary"
         callback={() => {
           props.router.back();
@@ -61,6 +64,7 @@ BlogPage.propTypes = {
     }),
     back: PropTypes.func
   }),
+  isSideMenuOpen: PropTypes.bool,
   '_data-type': PropTypes.oneOf([BLOG, PORTFOLIO])
 };
 
@@ -68,6 +72,7 @@ BlogPage.defaultProps = {
   appData: {
     items: []
   },
+  isSideMenuOpen: false,
   router: {
     query: {
       index: null

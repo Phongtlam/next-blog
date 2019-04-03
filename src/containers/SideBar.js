@@ -35,7 +35,7 @@ const ROUTES = [
 ];
 
 const SideBar = props => (
-  <div className={`${props.className} App-SideBar`}>
+  <nav className={`${props.className} App-SideBar`}>
     <Link href="/">
       <h1>Phong Lam</h1>
     </Link>
@@ -65,7 +65,7 @@ const SideBar = props => (
       <ExternalLinks location="sidebar" className="sidebar" />
     </div>
     <p>©2018 Phong Lam</p>
-  </div>
+  </nav>
 );
 
 SideBar.propTypes = {

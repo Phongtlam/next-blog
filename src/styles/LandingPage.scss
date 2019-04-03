@@ -15,6 +15,56 @@
     }
   }
 
+  &-mobile {
+    &-image {
+      position: absolute;
+      width: 100vw;
+      margin: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+  
+    }
+
+    &-button {
+      position: absolute;
+      height: $xxl-spacing;
+      width: 140px;
+      padding: 20px;
+
+      margin: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      font-size: $l-spacing;
+      border-radius: $s-spacing;
+      background-color: $lightblue;
+      color: $white;
+
+      &.button-0 {
+        z-index: 3;
+        animation: computerButton0 1s ease 2s forwards;
+      }
+
+      &.button-1 {
+        z-index: 2;
+        animation: computerButton1 1s ease 3s forwards;
+      }
+
+      &.button-2 {
+        z-index: 1;
+        animation: computerButton2 1s ease 4s forwards;
+      }
+
+      &.button-3 {
+        animation: computerButton3 1s ease 5s forwards;
+      }
+    }
+  }
+
   &.App-landing-page-navigation {
     // this class is added in when being used as sidebar
     position: fixed;

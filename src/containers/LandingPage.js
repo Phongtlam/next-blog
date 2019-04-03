@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import Router, { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -8,8 +8,7 @@ import NavigationHeader from '../components/NavigationHeader';
 import ExternalLinks from '../components/ExternalLinks';
 import MenuButton from '../components/buttons/MenuButton';
 import ButtonIcon from '../components/buttons/ButtonIcon';
-
-const LazyImage = lazy(() => import('../components/Image'));
+import { EXTRA_SMALL } from '../enums/client-dimensions';
 
 const LANDING_PAGE_ROWS = [
   {
@@ -52,14 +51,18 @@ class LandingPage extends React.Component {
     // eslint-disable-next-line react/forbid-prop-types
     router: PropTypes.object,
     toggleMinifyDesktopMenu: PropTypes.func,
-    isMinifiedDesktopMenu: PropTypes.bool
+    isMinifiedDesktopMenu: PropTypes.bool,
+    isSideNav: PropTypes.bool,
+    getCurrentBreakpoint: PropTypes.func
   };
 
   static defaultProps = {
     className: null,
     router: {},
     toggleMinifyDesktopMenu: () => {},
-    isMinifiedDesktopMenu: false
+    isMinifiedDesktopMenu: false,
+    isSideNav: false,
+    getCurrentBreakpoint: () => {}
   };
 
   constructor(props, context) {
@@ -69,9 +72,7 @@ class LandingPage extends React.Component {
       Portfolio: false,
       Blog: false,
       Getintouch: false,
-      disabled: false,
-      viewportHeight: 0,
-      viewportWidth: 0
+      disabled: false
     };
 
     this._onNavigation = this._onNavigation.bind(this);
@@ -106,7 +107,7 @@ class LandingPage extends React.Component {
         if (isInstant) {
           timer = 0;
         } else {
-          timer = this.props.className ? 500 : 2000;
+          timer = this.props.isSideNav ? 500 : 2000;
         }
         setTimeout(() => {
           Router.push({
@@ -120,113 +121,146 @@ class LandingPage extends React.Component {
     );
   }
 
+  _generateLandingPageContent() {
+    const {
+      isMinifiedDesktopMenu,
+      isSideNav,
+      getCurrentBreakpoint
+    } = this.props;
+
+    if (!getCurrentBreakpoint()) {
+      return null;
+    }
+    if (isSideNav || getCurrentBreakpoint() !== EXTRA_SMALL) {
+      return (
+        <React.Fragment>
+          <div
+            className={classnames('tilt first-item', {
+              /* if sideNav prop exists, that is the internal navBar */
+              'side-nav': isSideNav
+            })}
+          >
+            <MenuButton
+              className="menu-button-desktop"
+              isActive={!isMinifiedDesktopMenu}
+              onClick={() => {
+                this.props.toggleMinifyDesktopMenu();
+                this.isNewRoute = false;
+              }}
+            />
+            <h1>
+              <button
+                className={classnames('root-nav', {
+                  hidden: isMinifiedDesktopMenu
+                })}
+                type="button"
+                onClick={() =>
+                  Router.push({
+                    pathname: '/',
+                    query: this.props.router.query
+                  })
+                }
+              >
+                Phong Lam
+              </button>
+            </h1>
+            <NavigationHeader
+              className={classnames('header-text', {
+                hidden: isMinifiedDesktopMenu
+              })}
+            />
+          </div>
+          <div
+            className={classnames('navigation-block', {
+              hidden: isMinifiedDesktopMenu
+            })}
+          >
+            {LANDING_PAGE_ROWS.map((row, index) => (
+              <div
+                key={row.href}
+                className={classnames('tilt content', {
+                  transition: this.state[row.href],
+                  [`animate-div-${index}`]: !this.props.className
+                })}
+              >
+                <button
+                  type="button"
+                  disabled={
+                    this.state.disabled ||
+                    this.props.router.pathname === `/${row.href}`
+                  }
+                  className={`tilt-title ${row.linkDisplay}`}
+                  onClick={() => this._onNavigation(row.href)}
+                >
+                  {row.linkDisplay}
+                </button>
+                {canUseDOM && (
+                  <img
+                    className={`tilt-img ${row.linkDisplay}`}
+                    src={row.imageSrc}
+                    alt={row.imageAlt}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div
+            className={classnames('navigation-block', {
+              hidden: !isMinifiedDesktopMenu
+            })}
+          >
+            {LANDING_PAGE_ROWS.map(row => (
+              <ButtonIcon
+                key={row.href}
+                className="tilt minified-menu-item"
+                callback={() => this._onNavigation(row.href, true)}
+                iconName={row.iconName}
+                buttonType="borderless"
+              />
+            ))}
+          </div>
+          <div
+            className={classnames('tilt last-item', {
+              'animate-div-4': !this.props.className
+            })}
+          >
+            <ExternalLinks
+              className={classnames('external-links', {
+                hidden: !this.props.className
+              })}
+            />
+          </div>
+        </React.Fragment>
+      );
+    }
+    return (
+      <div className="App-LandingPage-mobile">
+        <img className="App-LandingPage-mobile-image" src="../../static/LandingPage/macbook.png" alt="macbook" />
+        {LANDING_PAGE_ROWS.map((row, index) => (
+          <button
+            className={`App-LandingPage-mobile-button button-${index}`}
+            type="button"
+            key={row.href}
+            onClick={() => this._onNavigation(row.href, true)}
+          >
+            {row.linkDisplay}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   render() {
     const { isMinifiedDesktopMenu } = this.props;
     return (
-      <div
+      <nav
         className={classnames('App-LandingPage', this.props.className, {
           'slide-out': isMinifiedDesktopMenu,
           'slide-in': !isMinifiedDesktopMenu && !this.isNewRoute
         })}
       >
-        <div
-          className={classnames('tilt first-item', {
-            'side-nav': this.props.className
-          })}
-        >
-          <MenuButton
-            className="menu-button-desktop"
-            isActive={!isMinifiedDesktopMenu}
-            onClick={() => {
-              this.props.toggleMinifyDesktopMenu();
-              this.isNewRoute = false;
-            }}
-          />
-          <h1>
-            <button
-              className={classnames('root-nav', {
-                hidden: isMinifiedDesktopMenu
-              })}
-              type="button"
-              onClick={() =>
-                Router.push({
-                  pathname: '/',
-                  query: this.props.router.query
-                })
-              }
-            >
-              Phong Lam
-            </button>
-          </h1>
-          <NavigationHeader
-            className={classnames('header-text', {
-              hidden: isMinifiedDesktopMenu
-            })}
-          />
-        </div>
-        <div
-          className={classnames('navigation-block', {
-            hidden: isMinifiedDesktopMenu
-          })}
-        >
-          {LANDING_PAGE_ROWS.map((row, index) => (
-            <div
-              key={row.href}
-              className={classnames('tilt content', {
-                transition: this.state[row.href],
-                [`animate-div-${index}`]: !this.props.className
-              })}
-            >
-              <button
-                type="button"
-                disabled={
-                  this.state.disabled ||
-                  this.props.router.pathname === `/${row.href}`
-                }
-                className={`tilt-title ${row.linkDisplay}`}
-                onClick={() => this._onNavigation(row.href)}
-              >
-                {row.linkDisplay}
-              </button>
-              {canUseDOM && (
-                <Suspense fallback={<div>{row.imageAlt}</div>}>
-                  <LazyImage
-                    className={`tilt-img ${row.linkDisplay}`}
-                    src={row.imageSrc}
-                    alt={row.imageAlt}
-                  />
-                </Suspense>
-              )}
-            </div>
-          ))}
-        </div>
-        <div
-          className={classnames('navigation-block', {
-            hidden: !isMinifiedDesktopMenu
-          })}
-        >
-          {LANDING_PAGE_ROWS.map(row => (
-            <ButtonIcon
-              key={row.href}
-              className="tilt minified-menu-item"
-              callback={() => this._onNavigation(row.href, true)}
-              iconName={row.iconName}
-              buttonType="borderless"
-            />
-          ))}
-        </div>
-        <div
-          className={classnames('tilt last-item', {
-            'animate-div-4': !this.props.className
-          })}
-        >
-          <ExternalLinks
-            className={classnames('external-links', {
-              hidden: !this.props.className
-            })}
-          />
-        </div>
-      </div>
+        {this._generateLandingPageContent()}
+      </nav>
     );
   }
 }

@@ -1,5 +1,6 @@
 .App-BlogPage {
   .back-button {
+    @include appzindex("max");
     position: fixed;
     top: 0;
   }

@@ -66,9 +66,9 @@ const AppHOC = (
         modalData: INITIAL_MODAL_DATA,
         markdownFormData: INITIAL_MARKDOWN_FORM_DATA,
         htmlParserData: '',
-        isMenuOpen: false,
+        isSideMenuOpen: false,
         isMinifiedDesktopMenu: isMinifiedDesktopMenuAtStart,
-        Token: null
+        Token: null,
       };
       this.AppRef = React.createRef();
       this.ResizeObserver = null;
@@ -123,7 +123,7 @@ const AppHOC = (
 
     _getCurrentBreakpoint() {
       const { viewportWidth } = this.state;
-      let currentBreakpoint = SMALL;
+      let currentBreakpoint;
       if (viewportWidth >= breakpoints[EXTRA_LARGE]) {
         currentBreakpoint = EXTRA_LARGE;
       } else if (viewportWidth >= breakpoints[LARGE]) {
@@ -132,7 +132,7 @@ const AppHOC = (
         currentBreakpoint = MEDIUM;
       } else if (viewportWidth >= breakpoints[SMALL]) {
         currentBreakpoint = SMALL;
-      } else {
+      } else if (viewportWidth < breakpoints[SMALL]) {
         currentBreakpoint = EXTRA_SMALL;
       }
       return currentBreakpoint;
@@ -232,7 +232,8 @@ const AppHOC = (
         htmlParserData,
         Token,
         viewportHeight,
-        viewportWidth
+        viewportWidth,
+        isSideMenuOpen
       } = this.state;
 
       let dataProps = {
@@ -259,14 +260,16 @@ const AppHOC = (
             ...portFolioAndBlogControllerAdminProps,
             appData: portfolioData,
             isCreateBtnHidden: markdownFormData.isOpen || htmlParserData !== '',
-            isBackBtnHidden: htmlParserData === ''
+            isBackBtnHidden: htmlParserData === '',
+            isSideMenuOpen
           };
           break;
         case BLOG:
           dataProps = {
             ...dataProps,
             ...portFolioAndBlogControllerAdminProps,
-            appData: blogData
+            appData: blogData,
+            isSideMenuOpen
           };
           break;
         case LANDING:
@@ -302,7 +305,7 @@ const AppHOC = (
 
     _toggleSideMenu() {
       this.setState(prevState => ({
-        isMenuOpen: !prevState.isMenuOpen
+        isSideMenuOpen: !prevState.isSideMenuOpen
       }));
     }
 
@@ -313,7 +316,7 @@ const AppHOC = (
     }
 
     render() {
-      const { isMinifiedDesktopMenu, isMenuOpen } = this.state;
+      const { isMinifiedDesktopMenu, isSideMenuOpen } = this.state;
       return (
         <React.Fragment>
           <Head>
@@ -331,13 +334,15 @@ const AppHOC = (
           <div className="App" id="App-PhongLam">
             {componentType !== LANDING && (
               <React.Fragment>
+                {/* fragment blog for sideNav */}
                 <SideBar
                   className={classnames('App-sidebar-container', {
-                    active: isMenuOpen
+                    active: isSideMenuOpen
                   })}
                 />
                 <LandingPage
                   className="App-landing-page-navigation"
+                  isSideNav
                   toggleMinifyDesktopMenu={this._toggleMinifyDesktopMenu}
                   isMinifiedDesktopMenu={isMinifiedDesktopMenu}
                 />
@@ -354,7 +359,7 @@ const AppHOC = (
             >
               <div
                 className={classnames('App-sidebar-overlay', {
-                  'App-sidebar-overlay-active': isMenuOpen
+                  'App-sidebar-overlay-active': isSideMenuOpen
                 })}
                 ref={this.AppRef}
                 role="button"
@@ -370,11 +375,11 @@ const AppHOC = (
                 >
                   <MenuButton
                     className="menu-button-hamburger"
-                    isActive={isMenuOpen}
+                    isActive={isSideMenuOpen}
                     onClick={() => {}}
                   />
                   <span className="menu-button-text">
-                    {isMenuOpen ? 'Close' : 'Menu'}
+                    {isSideMenuOpen ? 'Close' : 'Menu'}
                   </span>
                 </button>
               )}

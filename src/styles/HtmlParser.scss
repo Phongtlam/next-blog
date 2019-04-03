@@ -1,7 +1,22 @@
 
 .App-HtmlParser {
-  padding: $m-spacing;
-  padding-top: $xl-spacing;
+  padding-top: $l-spacing;
+  max-width: 100vw;
+  overflow-x: scroll;
+
+  p, h1, h2, h3, h4, pre, ul, div {
+    word-break: break-word;
+    word-wrap: break-word;
+    margin: $m-spacing $m-spacing 0 $m-spacing;
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  iframe {
+    width: 100vw;
+  }
 
   img {
     max-width: 100%;
@@ -13,12 +28,10 @@
   }
 
   figure {
-    margin: $s-spacing 0;
+    max-width: 100vw;
+    padding: $xs-spacing;
+    margin: $s-spacing;
     text-align: center;
-
-    img {
-      max-width: 100%;
-    }
   }
 
   ul {

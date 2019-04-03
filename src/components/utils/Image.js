@@ -14,12 +14,12 @@ const Image = ({
   alt,
   ...otherProps
 }) => (
-  <div className={classnames('App-Image', className)} {...otherProps}>
+  <div className={classnames('App-Image', className)}>
     <div
       className="App-Image-container"
       style={fluidImageContainer(width, height)}
     >
-      <img style={fluidImageContent()} src={src} alt={alt} />
+      <img style={fluidImageContent()} src={src} alt={alt} {...otherProps} />
     </div>
   </div>
 );
